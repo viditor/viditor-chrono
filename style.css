@@ -2,8 +2,8 @@ body
 {
 margin:0px;
 color:#C0C0C0;
-overflow-x:scroll;
 font-family:Calibri;
+/*overflow-x:scroll;*/
 background-color:#2F2F2F;
 }
 
@@ -43,7 +43,7 @@ overflow:hidden;
 
 timeline
 {
-width:150%;
+width:100%;
 
 bottom:0px;
 display:block;
