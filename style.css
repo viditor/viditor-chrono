@@ -12,7 +12,7 @@ fileframe
 top:25px;
 right:25px;
 left:12.5px;
-bottom:81px;
+bottom:189px;
 position:fixed;
 margin-left:50%;
 
@@ -29,7 +29,7 @@ videoscreen
 top:25px;
 left:25px;
 right:12.5px;
-bottom:81px;
+bottom:189px;
 position:fixed;
 margin-right:50%;
 
@@ -44,17 +44,24 @@ overflow:hidden;
 timeline
 {
 width:150%;
-height:52px;
 
 bottom:0px;
 display:block;
 position:absolute;
 
-border-width:2px;
-border-style:solid;
-border-color:#C0C0C0;
-border-left-width:0px;
-border-right-width:0px;
+border-top-width:2px;
+border-top-style:solid;
+border-top-color:#C0C0C0;
+}
+
+timetrack
+{
+height:52px;
+display:block;
 
 background-color:#777;
+
+border-bottom-width:2px;
+border-bottom-style:solid;
+border-bottom-color:#C0C0C0;
 }
