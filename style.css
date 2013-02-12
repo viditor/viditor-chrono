@@ -12,7 +12,7 @@ fileframe
 top:25px;
 right:25px;
 left:12.5px;
-bottom:189px;
+bottom:213px;
 position:fixed;
 margin-left:50%;
 
@@ -29,7 +29,7 @@ videoscreen
 top:25px;
 left:25px;
 right:12.5px;
-bottom:189px;
+bottom:213px;
 position:fixed;
 margin-right:50%;
 
@@ -56,12 +56,31 @@ border-top-color:#C0C0C0;
 
 timetrack
 {
-height:52px;
+height:56px;
 display:block;
+padding-top:2px;
+padding-bottom:2px;
 
 background-color:#777;
 
 border-bottom-width:2px;
 border-bottom-style:solid;
 border-bottom-color:#C0C0C0;
+}
+
+asset
+{
+width:52px;
+height:52px;
+
+display:block;
+position:absolute;
+
+border-width:2px;
+border-radius:2px;
+border-style:solid;
+border-color:#C0C0C0;
+
+background-size:auto 100%;
+background-repeat:repeat-x;
 }
