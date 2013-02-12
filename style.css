@@ -12,7 +12,7 @@ fileframe
 top:25px;
 right:25px;
 left:12.5px;
-bottom:213px;
+bottom:269px;
 position:fixed;
 margin-left:50%;
 
@@ -29,7 +29,7 @@ videoscreen
 top:25px;
 left:25px;
 right:12.5px;
-bottom:213px;
+bottom:269px;
 position:fixed;
 margin-right:50%;
 
@@ -39,6 +39,23 @@ border-color:#C0C0C0;
 
 background-color:#777;
 overflow:hidden;
+}
+
+statusbar
+{
+left:25px;
+right:25px;
+height:25px;
+bottom:215px;
+position:fixed;
+
+font-weight:bold;
+
+border-width:2px;
+border-style:solid;
+border-color:#C0C0C0;
+
+background-color:#777;
 }
 
 timeline

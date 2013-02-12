@@ -23,3 +23,4 @@ window.addEventListener("keydown", function(event)
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
 function accessAsset(idnum) {return document.getElementById("@" + idnum);}
+function log(message) {document.getElementById("debug").innerHTML = message;}
