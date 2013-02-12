@@ -22,6 +22,9 @@ function moveAsset(direction)
 {
 	var position = parsePix(accessAsset(asset.idnum).style.left);
 	accessAsset(asset.idnum).style.left = position + (1 * direction) + "px";
+	
+	var position = parsePix(accessAsset(asset.idnum).style.left);
+	if(position < 0) {accessAsset(asset.idnum).style.left = "0px";}
 }
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
