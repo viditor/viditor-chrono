@@ -14,12 +14,15 @@ window.addEventListener("load", function(event)
 
 window.addEventListener("keydown", function(event)
 {
-	if(event.keyCode == 39)
-	{
-		var position = parsePix(accessAsset(asset.idnum).style.left);
-		accessAsset(asset.idnum).style.left = position + 1 + "px";
-	}
+	if(event.keyCode == 39) {moveAsset(1);}
+	if(event.keyCode == 37) {moveAsset(-1);}
 }, false);
+
+function moveAsset(direction)
+{
+	var position = parsePix(accessAsset(asset.idnum).style.left);
+	accessAsset(asset.idnum).style.left = position + (1 * direction) + "px";
+}
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
 function accessAsset(idnum) {return document.getElementById("@" + idnum);}
