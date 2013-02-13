@@ -3,6 +3,16 @@ var asset =
 	idnum: 1,
 	position: 25,
 	filename: "valley"
+},
+{
+	idnum: 2,
+	position: 225,
+	filename: "porch"
+},
+{
+	idnum: 3,
+	position: 425,
+	filename: "room"
 }];
 
 var cursor = 0;
