@@ -31,6 +31,7 @@ window.addEventListener("keydown", function(event)
 {
 	if(event.keyCode == 39) {moveAsset(1);}
 	if(event.keyCode == 37) {moveAsset(-1);}
+	if(event.keyCode == 32) {shiftCursor();}
 }, false);
 
 function moveAsset(direction)
@@ -40,6 +41,13 @@ function moveAsset(direction)
 	
 	var position = parsePix(accessAsset(asset[cursor].idnum).style.left);
 	if(position < 0) {accessAsset(asset[cursor].idnum).style.left = "0px";}
+}
+
+function shiftCursor()
+{
+	cursor++;
+	if(cursor >= asset.length) {cursor = 0;}
+	document.getElementById("cursor").innerHTML = cursor + 1;
 }
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
