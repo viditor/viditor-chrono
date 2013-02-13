@@ -37,10 +37,12 @@ window.addEventListener("keydown", function(event)
 function moveAsset(direction)
 {
 	var position = parsePix(accessAsset(asset[cursor].idnum).style.left);
-	accessAsset(asset[cursor].idnum).style.left = position + (1 * direction) + "px";
 	
-	var position = parsePix(accessAsset(asset[cursor].idnum).style.left);
-	if(position < 0) {accessAsset(asset[cursor].idnum).style.left = "0px";}
+	position += (1 * direction);
+	
+	if(position < 0) {position = 0;}
+	
+	accessAsset(asset[cursor].idnum).style.left = position + "px";
 }
 
 function shiftCursor()
