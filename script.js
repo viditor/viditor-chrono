@@ -1,15 +1,20 @@
 var asset =
-{
+[{
 	idnum: 1,
 	position: 25,
 	filename: "valley"
-};
+}];
+
+var cursor = 0;
 
 window.addEventListener("load", function(event)
 {
-	document.getElementById("&2").innerHTML += '<asset id="@' + asset.idnum + '"></asset>';
-	accessAsset(asset.idnum).style.backgroundImage = "url('assets/" + asset.filename + ".png')";
-	accessAsset(asset.idnum).style.left = asset.position + "px";
+	for(var num = 0; num < asset.length; num++)
+	{
+		document.getElementById("&2").innerHTML += '<asset id="@' + asset[num].idnum + '"></asset>';
+		accessAsset(asset[num].idnum).style.backgroundImage = "url('assets/" + asset[num].filename + ".png')";
+		accessAsset(asset[num].idnum).style.left = asset[num].position + "px";
+	}
 }, false);
 
 window.addEventListener("keydown", function(event)
@@ -20,11 +25,11 @@ window.addEventListener("keydown", function(event)
 
 function moveAsset(direction)
 {
-	var position = parsePix(accessAsset(asset.idnum).style.left);
-	accessAsset(asset.idnum).style.left = position + (1 * direction) + "px";
+	var position = parsePix(accessAsset(asset[cursor].idnum).style.left);
+	accessAsset(asset[cursor].idnum).style.left = position + (1 * direction) + "px";
 	
-	var position = parsePix(accessAsset(asset.idnum).style.left);
-	if(position < 0) {accessAsset(asset.idnum).style.left = "0px";}
+	var position = parsePix(accessAsset(asset[cursor].idnum).style.left);
+	if(position < 0) {accessAsset(asset[cursor].idnum).style.left = "0px";}
 }
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
