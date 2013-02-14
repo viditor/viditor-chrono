@@ -38,6 +38,8 @@ function moveAsset(direction, movement)
 {
 	var you = accessAsset(asset[cursor].idnum);
 	var yourPosition = parsePix(accessAsset(asset[cursor].idnum).style.left);
+	var oldPosition = yourPosition;
+	var oldCursor = cursor;
 	
 	var him;
 	var hisPosition;
@@ -71,14 +73,27 @@ function moveAsset(direction, movement)
 	
 	if(yourPosition < 0) {yourPosition = 0;}
 	
-	if(compare(cursor, cursorEdge, -direction)
-	&& compare(yourPosition + nondominantEdge, hisPosition, direction))
+	while(direction > 0 && cursor < asset.length - 1 && yourPosition + you.offsetWidth > parsePix(accessAsset(asset[cursor + 1].idnum).style.left)
+	   || direction < 0 && cursor > 0             && yourPosition                   < parsePix(accessAsset(asset[cursor - 1].idnum).style.left) + accessAsset(asset[cursor - 1].idnum).offsetWidth)
 	{
 		if(movement == 1)
 		{
-			yourPosition = hisPosition + dominantEdge;
-			asset.swap(cursor, cursor + direction);
-			shiftCursor(direction);
+			if(direction > 0) {dominantEdge = accessAsset(asset[cursor + 1].idnum).offsetWidth;}
+			else if(direction < 0) {dominantEdge = -you.offsetWidth;}
+			
+			if(parsePix(accessAsset(asset[cursor + direction].idnum).style.left) + dominantEdge > 0)
+			{
+				yourPosition = parsePix(accessAsset(asset[cursor + direction].idnum).style.left) + dominantEdge;
+				asset.swap(cursor, cursor + direction);
+				shiftCursor(direction);
+			}
+			else
+			{
+				yourPosition = oldPosition;
+				cursor = oldCursor;
+				document.getElementById("cursor").innerHTML = cursor + 1;
+			}
+			
 		}
 		else
 		{
