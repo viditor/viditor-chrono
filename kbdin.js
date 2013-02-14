@@ -75,8 +75,8 @@ window.addEventListener("keydown", function(event) {kbdin.onDownstroke(event.key
 window.addEventListener("keyup", function(event) {kbdin.onUpstroke(event.keyCode);}, false);
 window.setInterval(function() {kbdin.handleKeystrokes();}, 50);
 
-kbdin.downbindKeystroke(39, function() {if(shifting) {moveAsset(RIGHT, JUMP); return;} else {moveAsset(RIGHT, MOVE);}});
-kbdin.downbindKeystroke(37, function() {if(shifting) {moveAsset(LEFT, JUMP); return;} else {moveAsset(LEFT, MOVE);}});
-kbdin.downbindKeystroke(16, function() {shifting = true; log("Jumpmode");});
+kbdin.downbindKeystroke(39, function() {moveAsset(RIGHT);});
+kbdin.downbindKeystroke(37, function() {moveAsset(LEFT);});
+kbdin.downbindKeystroke(16, function() {mode = JUMP; log("Jumpmode");});
 kbdin.downbindKeystroke(32, function() {shiftCursor(RIGHT); return;});
-kbdin.upbindKeystroke(16, function() {shifting = false; log("");});
+kbdin.upbindKeystroke(16, function() {mode = NONE; log("");});

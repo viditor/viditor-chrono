@@ -1,6 +1,7 @@
 var asset = new Array();
 
 var cursor = 0;
+var cursor = 0;
 
 window.addEventListener("load", function(event)
 {
@@ -9,17 +10,17 @@ window.addEventListener("load", function(event)
 	asset[2] = new Asset(3, 425, "room");
 }, false);
 
-JUMP = 1; MOVE = 0;
+JUMP = 1; NONE = 0;
 LEFT = -1; RIGHT = 1;
 
-function moveAsset(direction, movement)
+function moveAsset(direction)
 {
 	asset[cursor].position += (1 * direction);
 	
 	while(direction > 0 && cursor < asset.length - 1 && asset[cursor].position + asset[cursor].getWidth() > asset[cursor + 1].getPosition()
 	   || direction < 0 && cursor > 0                && asset[cursor].position                            < asset[cursor - 1].getPosition() + asset[cursor - 1].getWidth())
 	{
-		if(movement == 1)
+		if(mode == 1)
 		{
 			if(direction > 0) {dominantEdge = asset[cursor + 1].getWidth();}
 			else if(direction < 0) {dominantEdge = asset[cursor].getWidth() * -1;}
