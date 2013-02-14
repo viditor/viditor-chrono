@@ -2,33 +2,48 @@ var shifting = false;
 
 var kbdin = 
 {
-	binded: new Object(),
+	upbinded: new Object(),
+	downbinded: new Object(),
 	
-	bindKeystroke: function(keycode, functionality)
+	downbindKeystroke: function(keycode, functionality)
 	{
-		this.binded[keycode] = functionality;
+		this.downbinded[keycode] = functionality;
 	},
 	
-	isBinded: function(keycode)
+	isDownbinded: function(keycode)
 	{
-		return this.binded[keycode];
+		return this.downbinded[keycode];
+	},
+	
+	upbindKeystroke: function(keycode, functionality)
+	{
+		this.upbinded[keycode] = functionality;
+	},
+	
+	isUpbinded: function(keycode)
+	{
+		return this.upbinded[keycode];
 	}
 }
 
 window.addEventListener("keydown", function(event)
 {
-	if(kbdin.isBinded(event.keyCode))
+	if(kbdin.isDownbinded(event.keyCode))
 	{
-		kbdin.binded[event.keyCode]();
+		kbdin.downbinded[event.keyCode]();
 	}
 }, false);
 
 window.addEventListener("keyup", function(event)
 {
-	if(event.keyCode == 16) {shifting = false; log("");}
+	if(kbdin.isUpbinded(event.keyCode))
+	{
+		kbdin.upbinded[event.keyCode]();
+	}
 }, false);
 
-kbdin.bindKeystroke(39, function() {if(shifting) {moveAsset(RIGHT, JUMP); return;} else {moveAsset(RIGHT, MOVE);}});
-kbdin.bindKeystroke(37, function() {if(shifting) {moveAsset(LEFT, JUMP); return;} else {moveAsset(LEFT, MOVE);}});
-kbdin.bindKeystroke(16, function() {shifting = true; log("Jumpmode");});
-kbdin.bindKeystroke(32, function() {shiftCursor(RIGHT); return;});
+kbdin.downbindKeystroke(39, function() {if(shifting) {moveAsset(RIGHT, JUMP); return;} else {moveAsset(RIGHT, MOVE);}});
+kbdin.downbindKeystroke(37, function() {if(shifting) {moveAsset(LEFT, JUMP); return;} else {moveAsset(LEFT, MOVE);}});
+kbdin.downbindKeystroke(16, function() {shifting = true; log("Jumpmode");});
+kbdin.downbindKeystroke(32, function() {shiftCursor(RIGHT); return;});
+kbdin.upbindKeystroke(16, function() {shifting = false; log("");});
