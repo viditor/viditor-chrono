@@ -58,10 +58,15 @@ var kbdin =
 	{
 		for(var keycode in this.downbinded)
 		{
-			if(this.isStroked(keycode))
+			if(this.isStroked(keycode) > 5)
 			{
 				this.downbinded[keycode]();
 			}
+		}
+		
+		for(var keycode in this.stroked)
+		{
+			this.stroked[keycode]++;
 		}
 	}
 }
