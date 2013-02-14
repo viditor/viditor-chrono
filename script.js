@@ -9,11 +9,19 @@ window.addEventListener("load", function(event)
 	asset[2] = new Asset(3, 425, "room");
 }, false);
 
+var shifting = false;
+
 window.addEventListener("keydown", function(event)
 {
-	if(event.keyCode == 39) {moveAsset(1, 1);}
-	if(event.keyCode == 37) {moveAsset(-1, 1);}
+	if(event.keyCode == 39) {if(shifting) {moveAsset(1, 1);} else {moveAsset(1, 0);}}
+	if(event.keyCode == 37) {if(shifting) {moveAsset(-1, 1);} else {moveAsset(-1, 0);}}
+	if(event.keyCode == 16) {shifting = true; log("Jumpmode");}
 	if(event.keyCode == 32) {shiftCursor(1);}
+}, false);
+
+window.addEventListener("keyup", function(event)
+{
+	if(event.keyCode == 16) {shifting = false; log("");}
 }, false);
 
 function moveAsset(direction, movement)
