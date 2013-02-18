@@ -51,6 +51,23 @@ function shiftCursor(direction)
 	document.getElementById("cursor").innerHTML = cursor + 1;
 }
 
+function renderVideo()
+{
+	var params = "data=" + JSON.stringify(asset);
+	
+	var ajax = new XMLHttpRequest();
+	ajax.onreadystatechange = function()
+	{
+		if(ajax.readyState == 4 && ajax.status == 200)
+		{
+			var link = ajax.responseText;
+			log(link);
+		}
+	}
+	ajax.open("GET","render.php"+"?"+params,true);
+	ajax.send();
+}
+
 function parsePix(string) {return parseInt(string.slice(0,-2));}
 function log(message) {document.getElementById("debug").innerHTML = message;}
 Array.prototype.swap = function(a, b) {var temp = this[a]; this[a] = this[b]; this[b] = temp; return this;}
