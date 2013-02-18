@@ -69,6 +69,14 @@ display:inline-block;
 background-color:#C0C0C0;
 }
 
+button
+{
+right:0px;
+height:100%;
+font-weight:bold;
+position:absolute;
+}
+
 timeline
 {
 width:100%;
