@@ -69,6 +69,11 @@ display:inline-block;
 background-color:#C0C0C0;
 }
 
+statusbar > #debug > a
+{
+color:inherit;
+}
+
 button
 {
 right:0px;

@@ -61,7 +61,8 @@ function renderVideo()
 		if(ajax.readyState == 4 && ajax.status == 200)
 		{
 			var link = ajax.responseText;
-			log(link);
+			log('<a href="' + link + '">Rendered! Click here!</a>');
+			document.getElementById("videoscreen").innerHTML += '<source src="' + link + '" type="video/mp4">';
 		}
 	}
 	ajax.open("GET","render.php"+"?"+params,true);
