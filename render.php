@@ -5,7 +5,7 @@ $rendering = "";
 
 for($num = 0; $num < count($result); $num++)
 {
-	$rendering = $rendering . $result[$num]->filename;
+	$rendering = $rendering . "assets/" . $result[$num]->filename . ".mpg ";
 }
 
 echo $rendering;
