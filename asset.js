@@ -29,5 +29,5 @@ Asset.prototype.updatePosition = function()
 
 Asset.prototype.setBackground = function()
 {
-	this.element.style.backgroundImage = "url('assets/" + this.filename + ".png')";
+	this.element.style.backgroundImage = "url('andrew/" + this.filename + ".png')";
 }
