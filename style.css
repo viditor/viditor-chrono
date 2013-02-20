@@ -22,6 +22,14 @@ border-bottom-style:solid;
 border-bottom-color:#C0C0C0;
 }
 
+controlpane > input
+{
+padding:2px;
+height:14px;
+margin-top:2px;
+vertical-align:bottom;
+}
+
 fileframe
 {
 top:52px;
