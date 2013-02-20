@@ -7,9 +7,24 @@ font-family:Calibri;
 background-color:#2F2F2F;
 }
 
+controlpane
+{
+top:0px;
+left:0px;
+right:0px;
+height:25px;
+position:fixed;
+
+background-color:#777;
+
+border-bottom-width:2px;
+border-bottom-style:solid;
+border-bottom-color:#C0C0C0;
+}
+
 fileframe
 {
-top:25px;
+top:52px;
 right:25px;
 left:12.5px;
 bottom:269px;
@@ -26,7 +41,7 @@ overflow-y:scroll;
 
 videoscreen
 {
-top:25px;
+top:52px;
 left:25px;
 right:12.5px;
 bottom:269px;
