@@ -62,7 +62,7 @@ function renderVideo()
 		if(ajax.readyState == 4 && ajax.status == 200)
 		{
 			var link = ajax.responseText;
-			log('<a href="' + link + '">Rendered! Click here!</a>');
+			document.getElementById("mode").innerHTML = '<a href="' + link + '">Rendered! Click here!</a>';
 			document.getElementById("videoscreen").innerHTML += '<source src="' + link + '" type="video/mp4">';
 		}
 	}
@@ -81,5 +81,4 @@ function resetVideo()
 }
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
-function log(message) {document.getElementById("debug").innerHTML = message;}
 Array.prototype.swap = function(a, b) {var temp = this[a]; this[a] = this[b]; this[b] = temp; return this;}

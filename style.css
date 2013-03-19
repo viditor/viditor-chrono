@@ -75,9 +75,66 @@ font-size:21px;
 border-width:2px;
 }
 
-blurbframe
+viewscreen
 {
 left:50px;
+top:150px;
+bottom:150px;
+width:320px;
+display:block;
+position:fixed;
+
+border-width:2px;
+border-style:solid;
+border-color:#C0C0C0;
+
+background-color:#777;
+background-color:RGBA(119,119,119,0.36);
+}
+
+viewscreen > video
+{
+width:100%;
+bottom:25px;
+display:block;
+position:absolute;
+border-bottom-width:2px;
+border-bottom-style:solid;
+border-bottom-color:#C0C0C0;
+}
+
+viewscreen > statusbar
+{
+width:320px;
+height:25px;
+bottom:152px;
+display:block;
+position:fixed;
+line-height:25px;
+font-weight:bold;
+background-color:#777;
+}
+
+viewscreen > statusbar > #cursor
+{
+color:#777;
+height:100%;
+font-weight:bold;
+margin-right:5px;
+padding-left:7px;
+padding-right:9px;
+display:inline-block;
+background-color:#C0C0C0;
+}
+
+viewscreen > statusbar > #mode > a
+{
+color:inherit;
+}
+
+blurbframe
+{
+left:424px;
 right:50px;
 top:150px;
 bottom:150px;
@@ -110,39 +167,6 @@ blurbframe > iframe
 {
 display:block;
 margin:25px auto;
-}
-
-statusbar
-{
-left:25px;
-right:25px;
-height:25px;
-bottom:215px;
-position:fixed;
-
-font-weight:bold;
-
-border-width:2px;
-border-style:solid;
-border-color:#C0C0C0;
-
-background-color:#777;
-}
-
-statusbar > #cursor
-{
-color:#777;
-height:100%;
-margin-right:7px;
-padding-left:7px;
-padding-right:9px;
-display:inline-block;
-background-color:#C0C0C0;
-}
-
-statusbar > #debug > a
-{
-color:inherit;
 }
 
 timeline
