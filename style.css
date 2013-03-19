@@ -101,6 +101,17 @@ text-indent:50px;
 text-align:justify;
 }
 
+blurbframe > p > a
+{
+color:inherit;
+}
+
+blurbframe > iframe
+{
+display:block;
+margin:25px auto;
+}
+
 statusbar
 {
 left:25px;

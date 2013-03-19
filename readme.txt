@@ -1,9 +1,9 @@
-Viditor, a portmanteau of video editor, is an opensource video development environment implemented as a webservice. With the internet becoming increasingly ubiquitous, the applications we previously installed locally on our computers will be accessed remotely on the internet, including anything and everything from text processors to media players, or even video editors!
+Viditor, a portmanteau of video editor, is a fully featured opensource video development environment, but implemented entirely as a webservice. With the internet becoming increasingly ubiquitous, the applications we previously installed locally on our computers will be accessed remotely on the internet, including anything and everything from text processors to media players, or even video editors!
+
+Viditor will be capable of rendering together videos in variety of formats, from MP4 to MOV to AVI, and will be accessible from a variety of platforms, from computers to tablets to phones. Viditor will also provide all users with synchronous access to their projects, where they can collaborate with others as they develop their projects, and manage their assets from a secondary server through a cloudesque service.
 
 A prototype of the project is intended to be submitted by 3/22/2013 to the GigTank. Only through a gigabyte connection could our servers handle all the high definition videofiles that are processed across the internet, which would otherwise be impossibly slow to upload and download!
 
-Viditor will be capable of rendering together videos in variety of formats, from MP4 to MOV to AVI. Viditor will also provide all users with synchronous access to their projects, where they can collaborate with others as they develop their projects. Viditor will manage all their assets from a secondary server through a cloudesque service. To read through a comprehensive listing of the features we intend to support in Viditor, browse through our gitwiki!
-
 The project is developed entirely through the weblanguages that are natively supported by internet browsers, with HTML and CSS under JS. And on the server, which is currently nothing more than my new RPi, we use PHP and SQL along with ffMPEG.
 
-Viditor is going to be absolutely awesome; but not without your contributions! If you want to join the development of the project, fork off our code! You can message me at andrewmcp333@gmail.com or psn719@mocs.utc.edu, or phone me at 423-774-7782. Thanks!
+Viditor is going to be absolutely awesome; but not without your contributions! If you want to join the development of the project, visit us on <a href="github.com/arcym/viditor">github</a> and fork off our code! If you have any questions or comments, you can contact us at viditor@geoncode.com. Thanks!
