@@ -31,8 +31,10 @@ var kbdin =
 		return this.stroked[keycode];
 	},
 	
-	onDownstroke: function(keycode)
+	onDownstroke: function(event)
 	{
+		var keycode = event.keyCode;
+		
 		if(!this.isStroked(keycode))
 		{
 			this.stroked[keycode] = 1;
@@ -42,15 +44,23 @@ var kbdin =
 				this.downbinded[keycode]();
 			}
 		}
+		
+		if(this.isDownbinded(keycode))
+		{
+			event.preventDefault();
+		}
 	},
 	
-	onUpstroke: function(keycode)
+	onUpstroke: function(event)
 	{
+		var keycode = event.keyCode;
+		
 		delete this.stroked[keycode];
 		
 		if(this.isUpbinded(keycode))
 		{
 			this.upbinded[keycode]();
+			event.preventDefault();
 		}
 	},
 	
@@ -71,8 +81,8 @@ var kbdin =
 	}
 }
 
-window.addEventListener("keydown", function(event) {kbdin.onDownstroke(event.keyCode);}, false);
-window.addEventListener("keyup", function(event) {kbdin.onUpstroke(event.keyCode);}, false);
+window.addEventListener("keydown", function(event) {kbdin.onDownstroke(event);}, false);
+window.addEventListener("keyup", function(event) {kbdin.onUpstroke(event);}, false);
 window.setInterval(function() {kbdin.handleKeystrokes();}, 50);
 
 kbdin.downbindKeystroke(39, function() {moveAsset(RIGHT);});
