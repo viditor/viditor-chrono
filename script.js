@@ -56,14 +56,19 @@ function renderVideo()
 	for(num in assesed) {delete assesed[num].element;}
 	var params = "data=" + JSON.stringify(assesed);
 	
+	document.getElementById("mode").innerHTML = "<b>Please wait while compiling!</b>";
+	var warning = setTimeout('document.getElementById("mode").innerHTML = "<b>Rendering may take a few minutes..</b>"', 10000);
+	
 	var ajax = new XMLHttpRequest();
 	ajax.onreadystatechange = function()
 	{
 		if(ajax.readyState == 4 && ajax.status == 200)
 		{
+			window.clearTimeout(warning);
+			
 			var link = ajax.responseText;
 			document.getElementById("mode").innerHTML = '<a href="' + link + '">Rendered! Click here!</a>';
-			document.getElementById("videoscreen").innerHTML += '<source src="' + link + '" type="video/mp4">';
+			document.getElementById("video").innerHTML += '<source src="' + link + '" type="video/mp4">';
 		}
 	}
 	ajax.open("GET","render.php"+"?"+params,true);
