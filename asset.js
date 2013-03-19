@@ -6,7 +6,7 @@ var Asset = function(idnum, position, filename)
 	
 	this.element = document.createElement('asset');
 	this.element.id = "@" + this.idnum;
-	document.getElementById("&2").appendChild(this.element);
+	document.getElementById("&").appendChild(this.element);
 	
 	this.updatePosition();
 	this.setBackground();
