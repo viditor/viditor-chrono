@@ -1,7 +1,6 @@
 var asset = new Array();
 
 var cursor = 0;
-var cursor = 0;
 
 window.addEventListener("load", function(event)
 {
@@ -67,6 +66,16 @@ function renderVideo()
 	}
 	ajax.open("GET","render.php"+"?"+params,true);
 	ajax.send();
+}
+
+function uploadVideo()
+{
+	alert("Because our server is still somewhat insecure, we have removed the functionality for uploading new assets to the project in this version of the prototype. If you are interested in our implementation of the feature, browse over to our github! Thanks!");
+}
+
+function resetVideo()
+{
+	window.location = "/viditor";
 }
 
 function parsePix(string) {return parseInt(string.slice(0,-2));}
