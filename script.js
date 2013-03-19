@@ -52,7 +52,9 @@ function shiftCursor(direction)
 
 function renderVideo()
 {
-	var params = "data=" + JSON.stringify(asset);
+	var assesed = asset.slice(0);
+	for(num in assesed) {delete assesed[num].element;}
+	var params = "data=" + JSON.stringify(assesed);
 	
 	var ajax = new XMLHttpRequest();
 	ajax.onreadystatechange = function()
