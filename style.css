@@ -2,8 +2,9 @@ body
 {
 margin:0px;
 color:#C0C0C0;
+overflow:hidden;
+overflow-x:scroll;
 font-family:Calibri;
-/*overflow-x:scroll;*/
 background-color:#2F2F2F;
 }
 
@@ -73,38 +74,30 @@ font-size:21px;
 border-width:2px;
 }
 
-fileframe
+blurbframe
 {
-top:125px;
-right:25px;
-left:12.5px;
-bottom:125px;
+left:50px;
+right:50px;
+top:150px;
+bottom:150px;
 position:fixed;
-margin-left:50%;
+
+overflow-y:scroll;
 
 border-width:2px;
 border-style:solid;
 border-color:#C0C0C0;
 
-background-color:#777;
-overflow-y:scroll;
+background-color:RGBA(119,119,119,0.36);
 }
 
-videoscreen
+blurbframe > p
 {
-top:125px;
-left:25px;
-right:12.5px;
-bottom:125px;
-position:fixed;
-margin-right:50%;
+margin:25px;
 
-border-width:2px;
-border-style:solid;
-border-color:#C0C0C0;
-
-background-color:#777;
-overflow:hidden;
+font-size:18px;
+text-indent:50px;
+text-align:justify;
 }
 
 statusbar
