@@ -4,9 +4,10 @@ var cursor = 0;
 
 window.addEventListener("load", function(event)
 {
-	asset[0] = new Asset(1, 25, "valley");
-	asset[1] = new Asset(2, 225, "porch");
-	asset[2] = new Asset(3, 425, "room");
+	asset[0] = new Asset(1, 75, "backyard");
+	asset[1] = new Asset(2, 275, "fridge");
+	asset[2] = new Asset(3, 475, "street");
+	asset[3] = new Asset(4, 575, "thumbsup");
 }, false);
 
 JUMP = 1; NONE = 0;
