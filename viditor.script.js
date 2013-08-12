@@ -9,6 +9,11 @@ $(function()
 	{
 		grid: [16, 0],
 		stack: ".asset",
+		start: function(event, element)
+		{
+			$(this).css("opacity", "1");
+			selected[$(this).attr("id")] = true;
+		},
 		stop: function(event, element)
 		{
 			for(var idnum in selected)
