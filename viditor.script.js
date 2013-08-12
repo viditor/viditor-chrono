@@ -5,9 +5,9 @@ var selected = [];
 
 var assets =
 [
-	{color: "red", horizposition: 0},
-	{color: "blue", horizposition: 128},
-	{color: "green", horizposition: 256}
+	{color: "red", horizposition: 0 / 16},
+	{color: "blue", horizposition: 128 / 16},
+	{color: "green", horizposition: 256 / 16}
 ];
 
 $(function()
@@ -17,7 +17,7 @@ $(function()
 		$asset = $("<div></div>");
 		$asset.attr("class", "asset"); $asset.attr("id", idnum);
 		$asset.css("background-color", assets[idnum].color);
-		$asset.css("left", assets[idnum].horizposition);
+		$asset.css("left", assets[idnum].horizposition * 16);
 		$asset.draggable(
 		{
 			grid: [16, 0],
