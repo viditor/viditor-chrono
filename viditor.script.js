@@ -9,8 +9,8 @@ $(function()
 		stop: function(event, element)
 		{
 			repositioning = {};
-			repositioning.horizposition = Math.ceil(element.originalPosition.left / 16) * 16;
 			repositioning.instantiationidnum = $(this).attr("id");
+			repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
 			undo.push(repositioning);
 		}
 	});
@@ -24,7 +24,7 @@ $(function()
 				toundo = undo.pop();
 				if(toundo.horizposition != null)
 				{
-					$("#" + toundo.instantiationidnum).css("left", toundo.horizposition);
+					$("#" + toundo.instantiationidnum).css("left", toundo.horizposition * 16);
 				}
 			}
 		}
