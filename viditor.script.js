@@ -14,4 +14,19 @@ $(function()
 			undo.push(repositioning);
 		}
 	});
+	
+	$(document).keydown(function(event)
+	{
+		if(event.keyCode == 90 && event.ctrlKey)
+		{
+			if(undo.length > 0)
+			{
+				toundo = undo.pop();
+				if(toundo.horizposition != null)
+				{
+					$("#" + toundo.instantiationidnum).css("left", toundo.horizposition);
+				}
+			}
+		}
+	});
 });
