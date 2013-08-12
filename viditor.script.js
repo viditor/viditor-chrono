@@ -1,6 +1,8 @@
 var undo = [];
 var redo = [];
 
+var selected = [];
+
 $(function()
 {
 	$(".asset").draggable(
@@ -14,6 +16,20 @@ $(function()
 			repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
 			undo.push(repositioning);
 		}
+	}).click(function()
+	{
+		if($(this).css("opacity") < 1)
+		{
+			$(this).css("opacity", "1");
+			selected[$(this).attr("id")] = true;
+		}
+		else
+		{
+			$(this).css("opacity", "0.4");
+			delete selected[$(this).attr("id")];
+		}
+		
+		console.log(selected);
 	});
 	
 	$(document).keydown(function(event)
