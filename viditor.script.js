@@ -3,45 +3,61 @@ var redo = [];
 
 var selected = [];
 
+var assets =
+[
+	{color: "red", horizposition: 0},
+	{color: "blue", horizposition: 128},
+	{color: "green", horizposition: 256}
+];
+
 $(function()
 {
-	$(".asset").draggable(
+	for(var idnum in assets)
 	{
-		grid: [16, 0],
-		stack: ".asset",
-		start: function(event, element)
+		$asset = $("<div></div>");
+		$asset.attr("class", "asset"); $asset.attr("id", idnum);
+		$asset.css("background-color", assets[idnum].color);
+		$asset.css("left", assets[idnum].horizposition);
+		$asset.draggable(
 		{
-			$(this).css("opacity", "1");
-			selected[$(this).attr("id")] = true;
-		},
-		stop: function(event, element)
-		{
-			for(var idnum in selected)
+			grid: [16, 0],
+			stack: ".asset",
+			start: function(event, element)
 			{
-				if(idnum != $(this).attr("id"))
+				$(this).css("opacity", "1");
+				selected[$(this).attr("id")] = true;
+			},
+			stop: function(event, element)
+			{
+				for(var idnum in selected)
 				{
-					$("#" + idnum).css("left", $("#" + idnum).position().left + element.position.left - element.originalPosition.left);
+					if(idnum != $(this).attr("id"))
+					{
+						$("#" + idnum).css("left", $("#" + idnum).position().left + element.position.left - element.originalPosition.left);
+					}
 				}
+				
+				repositioning = {};
+				repositioning.instantiationidnum = $(this).attr("id");
+				repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
+				undo.push(repositioning);
 			}
-			
-			repositioning = {};
-			repositioning.instantiationidnum = $(this).attr("id");
-			repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
-			undo.push(repositioning);
-		}
-	}).click(function()
-	{
-		if($(this).css("opacity") < 1)
+		}).click(function()
 		{
-			$(this).css("opacity", "1");
-			selected[$(this).attr("id")] = true;
-		}
-		else
-		{
-			$(this).css("opacity", "");
-			delete selected[$(this).attr("id")];
-		}
-	});
+			if($(this).css("opacity") < 1)
+			{
+				$(this).css("opacity", "1");
+				selected[$(this).attr("id")] = true;
+			}
+			else
+			{
+				$(this).css("opacity", "");
+				delete selected[$(this).attr("id")];
+			}
+		});
+		
+		$("body").append($asset);
+	}
 	
 	$(document).keydown(function(event)
 	{
