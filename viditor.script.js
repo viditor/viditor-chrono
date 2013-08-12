@@ -11,6 +11,14 @@ $(function()
 		stack: ".asset",
 		stop: function(event, element)
 		{
+			for(var idnum in selected)
+			{
+				if(idnum != $(this).attr("id"))
+				{
+					$("#" + idnum).css("left", $("#" + idnum).position().left + element.position.left - element.originalPosition.left);
+				}
+			}
+			
 			repositioning = {};
 			repositioning.instantiationidnum = $(this).attr("id");
 			repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
@@ -25,11 +33,9 @@ $(function()
 		}
 		else
 		{
-			$(this).css("opacity", "0.4");
+			$(this).css("opacity", "");
 			delete selected[$(this).attr("id")];
 		}
-		
-		console.log(selected);
 	});
 	
 	$(document).keydown(function(event)
