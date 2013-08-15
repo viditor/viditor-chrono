@@ -22,4 +22,21 @@ $(function()
 		
 		$("body").append($asset);
 	}
+	
+	$(document).mousewheel(function(event, delta)
+	{
+		$(".asset").each(function()
+		{
+			if(delta > 0)
+			{
+				$(this).css("left", $(this).position().left * 2);
+				$(this).css("width", $(this).width() * 2);
+			}
+			else if(delta < 0)
+			{
+				$(this).css("left", $(this).position().left / 2);
+				$(this).css("width", $(this).width() / 2);
+			}
+		});
+	});
 });
