@@ -3,11 +3,13 @@ var redo = [];
 
 var selected = [];
 
+var UNIT_OF_TIME = 20;
+
 var assets =
 [
-	{color: "red", horizposition: 0 / 16},
-	{color: "blue", horizposition: 128 / 16},
-	{color: "green", horizposition: 256 / 16}
+	{color: "red", horizposition: 0 / UNIT_OF_TIME},
+	{color: "blue", horizposition: 100 / UNIT_OF_TIME},
+	{color: "green", horizposition: 200 / UNIT_OF_TIME}
 ];
 
 $(function()
@@ -17,10 +19,10 @@ $(function()
 		$asset = $("<div></div>");
 		$asset.attr("class", "asset"); $asset.attr("id", idnum);
 		$asset.css("background-color", assets[idnum].color);
-		$asset.css("left", assets[idnum].horizposition * 16);
+		$asset.css("left", assets[idnum].horizposition * UNIT_OF_TIME);
 		$asset.draggable(
 		{
-			grid: [16, 0],
+			grid: [UNIT_OF_TIME, 0],
 			stack: ".asset",
 			start: function(event, element)
 			{
@@ -39,7 +41,7 @@ $(function()
 				
 				repositioning = {};
 				repositioning.instantiationidnum = $(this).attr("id");
-				repositioning.horizposition = Math.floor(element.originalPosition.left / 16 + 0.5);
+				repositioning.horizposition = Math.floor(element.originalPosition.left / UNIT_OF_TIME + 0.5);
 				undo.push(repositioning);
 			}
 		}).click(function()
@@ -72,8 +74,8 @@ $(function()
 				
 				if(toundo.horizposition != null)
 				{
-					toredo.horizposition = Math.floor($("#" + toundo.instantiationidnum).position().left / 16 + 0.5);
-					$("#" + toundo.instantiationidnum).css("left", toundo.horizposition * 16);
+					toredo.horizposition = Math.floor($("#" + toundo.instantiationidnum).position().left / UNIT_OF_TIME + 0.5);
+					$("#" + toundo.instantiationidnum).css("left", toundo.horizposition * UNIT_OF_TIME);
 				}
 				
 				redo.push(toredo);
@@ -90,8 +92,8 @@ $(function()
 				
 				if(toredo.horizposition != null)
 				{
-					toundo.horizposition = Math.floor($("#" + toredo.instantiationidnum).position().left / 16 + 0.5);
-					$("#" + toredo.instantiationidnum).css("left", toredo.horizposition * 16);
+					toundo.horizposition = Math.floor($("#" + toredo.instantiationidnum).position().left / UNIT_OF_TIME + 0.5);
+					$("#" + toredo.instantiationidnum).css("left", toredo.horizposition * UNIT_OF_TIME);
 				}
 				
 				undo.push(toundo);
