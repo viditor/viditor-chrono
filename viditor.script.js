@@ -17,7 +17,12 @@ $(function()
 		$asset.draggable(
 		{
 			stack: ".asset",
-			grid: [PIXELS_IN_TIMEBIT, 0]
+			grid: [PIXELS_IN_TIMEBIT, 0],
+			stop: function(event, element)
+			{
+				assets[$(this).attr("id")].horizposition = element.position.left / PIXELS_IN_TIMEBIT;
+				console.log(assets[$(this).attr("id")]);
+			}
 		})
 		
 		$("body").append($asset);
