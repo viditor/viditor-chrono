@@ -1,5 +1,7 @@
 var PIXELS_IN_TIMEBIT = 20;
 
+var scope = 1;
+
 var assets = {};
 assets[0] = {color: "red", horizposition: 0 / PIXELS_IN_TIMEBIT, currentlength: 100 / PIXELS_IN_TIMEBIT};
 assets[1] = {color: "blue", horizposition: 100 / PIXELS_IN_TIMEBIT, currentlength: 100 / PIXELS_IN_TIMEBIT};
@@ -20,7 +22,7 @@ $(function()
 			grid: [PIXELS_IN_TIMEBIT, 0],
 			stop: function(event, element)
 			{
-				assets[$(this).attr("id")].horizposition = element.position.left / PIXELS_IN_TIMEBIT;
+				assets[$(this).attr("id")].horizposition = Math.ceil((element.position.left / scope) / PIXELS_IN_TIMEBIT);
 				console.log(assets[$(this).attr("id")]);
 			}
 		})
@@ -30,18 +32,19 @@ $(function()
 	
 	$(document).mousewheel(function(event, delta)
 	{
+		if(delta > 0)
+		{
+			scope++;
+		}
+		else if(delta < 0)
+		{
+			scope--;
+		}
+		
 		$(".asset").each(function()
 		{
-			if(delta > 0)
-			{
-				$(this).css("left", $(this).position().left * 2);
-				$(this).css("width", $(this).width() * 2);
-			}
-			else if(delta < 0)
-			{
-				$(this).css("left", $(this).position().left / 2);
-				$(this).css("width", $(this).width() / 2);
-			}
+			$(this).css("left", (assets[$(this).attr("id")].horizposition * scope) * PIXELS_IN_TIMEBIT);
+			$(this).css("width", (assets[$(this).attr("id")].currentlength * scope) * PIXELS_IN_TIMEBIT);
 		});
 	});
 });
