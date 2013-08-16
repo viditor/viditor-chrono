@@ -1,9 +1,9 @@
 var PIXELS_IN_TIMEBIT = 20;
 
 var assets = {};
-assets[0] = {color: "red", horizposition: 0 / PIXELS_IN_TIMEBIT};
-assets[1] = {color: "blue", horizposition: 100 / PIXELS_IN_TIMEBIT};
-assets[2] = {color: "green", horizposition: 200 / PIXELS_IN_TIMEBIT};
+assets[0] = {color: "red", horizposition: 0 / PIXELS_IN_TIMEBIT, currentlength: 100 / PIXELS_IN_TIMEBIT};
+assets[1] = {color: "blue", horizposition: 100 / PIXELS_IN_TIMEBIT, currentlength: 100 / PIXELS_IN_TIMEBIT};
+assets[2] = {color: "green", horizposition: 200 / PIXELS_IN_TIMEBIT, currentlength: 100 / PIXELS_IN_TIMEBIT};
 
 $(function()
 {
