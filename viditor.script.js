@@ -7,4 +7,6 @@ $(function()
 		stack: ".asset",
 		grid: [PIXELS_PER_TIMEBIT, 0]
 	});
+	
+	$(".asset").css("position", "absolute");
 });

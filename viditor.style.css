@@ -3,6 +3,14 @@ body
 margin:0px;
 }
 
+.timeline
+{
+width:100%;
+bottom:0px;
+height:64px;
+position:absolute;
+}
+
 .asset
 {
 width:100px;
