@@ -3,12 +3,23 @@ body
 margin:0px;
 }
 
-.timeline
+.timeline,
+.explorer
 {
 width:100%;
-bottom:0px;
 height:64px;
 position:absolute;
+background-color:#EEE;
+}
+
+.timeline
+{
+bottom:0px;
+}
+
+.explorer
+{
+top:0px;
 }
 
 .asset
@@ -16,5 +27,5 @@ position:absolute;
 width:100px;
 height:64px;
 top:0px; left:0px;
-position:absolute;
+display:inline-block;
 }

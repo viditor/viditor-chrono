@@ -2,11 +2,11 @@ var PIXELS_PER_TIMEBIT = 20;
 
 $(function()
 {
-	$(".asset").draggable(
+	$(".timeline > .asset").draggable(
 	{
 		stack: ".asset",
 		grid: [PIXELS_PER_TIMEBIT, 0]
 	});
 	
-	$(".asset").css("position", "absolute");
+	$(".timeline > .asset").css("position", "absolute");
 });
