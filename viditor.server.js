@@ -1,5 +1,6 @@
 var express = require("express");
 var socketio = require("socket.io");
+var mysql = require("mysql");
 var http = require("http");
 var fs = require("fs");
 
@@ -22,19 +23,34 @@ app.get("/", function(request, response)
 	});
 });
 
+var database = mysql.createConnection({host:"localhost", user:"root", password:""});
+database.connect(); database.query("USE viditor");
+
 app.use(express.static(__dirname + "/public_resources"));
 
 io.sockets.on("connection", function(socket)
 {
+	console.log("USER CONNECTED");
+	
+	database.query("SELECT * FROM instantiated", function(error, data)
+	{
+		for(var index = 0; index < data.length; index++)
+		{
+			socket.emit("instantiate asset", data[index])
+		}
+	});
+	
 	socket.on("instantiate asset", function(data)
 	{
 		console.log("INSTANTIATE ASSET :: " + JSON.stringify(data));
+		database.query("INSERT INTO instantiated SET ?", data);
 		io.sockets.emit("instantiate asset", data);
 	});
 	
 	socket.on("update asset", function(data)
 	{
 		console.log("UPDATE ASSET :: " + JSON.stringify(data));
+		database.query("UPDATE instantiated SET ? WHERE instantiationidnum = " + data.instantiationidnum, data);
 		socket.broadcast.emit("update asset", data);
 	});
 });
