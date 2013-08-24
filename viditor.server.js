@@ -32,19 +32,36 @@ io.sockets.on("connection", function(socket)
 {
 	console.log("USER CONNECTED");
 	
-	database.query("SELECT * FROM instantiated", function(error, data)
+	database.query("SELECT * FROM uploaded", function(error, data)
 	{
 		for(var index = 0; index < data.length; index++)
 		{
-			socket.emit("instantiate asset", data[index])
+			socket.emit("accessiblize asset", data[index]);
+		}
+	});
+	
+	database.query("SELECT * FROM instantiated JOIN uploaded ON instantiated.uploadedidnum = uploaded.uploadedidnum", function(error, data)
+	{
+		for(var index = 0; index < data.length; index++)
+		{
+			socket.emit("instantiate asset", data[index]);
 		}
 	});
 	
 	socket.on("instantiate asset", function(data)
 	{
 		console.log("INSTANTIATE ASSET :: " + JSON.stringify(data));
-		database.query("INSERT INTO instantiated SET ?", data);
-		io.sockets.emit("instantiate asset", data);
+		
+		database.query("SELECT * FROM uploaded WHERE uploadedidnum = " + data.uploadedidnum + " LIMIT 1", function(error, datum)
+		{
+			datum = datum[0];
+			
+			database.query("INSERT INTO instantiated SET ?", data);
+			
+			data.filename = datum.filename;
+			
+			io.sockets.emit("instantiate asset", data);
+		});
 	});
 	
 	socket.on("update asset", function(data)

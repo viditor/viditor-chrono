@@ -28,4 +28,7 @@ width:100px;
 height:64px;
 top:0px; left:0px;
 display:inline-block;
+background-color:black;
+background-size:auto 100%;
+background-repeat:repeat-x;
 }
