@@ -31,6 +31,12 @@ io.sockets.on("connection", function(socket)
 		console.log("INSTANTIATE ASSET :: " + JSON.stringify(data));
 		io.sockets.emit("instantiate asset", data);
 	});
+	
+	socket.on("update asset", function(data)
+	{
+		console.log("UPDATE ASSET :: " + JSON.stringify(data));
+		socket.broadcast.emit("update asset", data);
+	});
 });
 
 server.listen(3000);

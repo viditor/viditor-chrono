@@ -49,8 +49,23 @@ function instantiateAsset(data)
 	$asset.draggable(
 	{
 		stack: ".asset",
-		grid: [PIXELS_PER_TIMEBIT, 0]
+		grid: [PIXELS_PER_TIMEBIT, 0],
+		stop: function(event, element)
+		{
+			data = new Object();
+			data.instantiationidnum = parseInt($(this).attr("id"));
+			data.horizposition = $(this).position().left / PIXELS_PER_TIMEBIT;
+			
+			socket.emit("update asset", data);
+		}
 	});
 
 	$(".timeline").append($asset);
+}
+
+function updateAsset(data)
+{
+	$asset = $("#" + data.instantiationidnum);
+	
+	if(data.horizposition !== null) {$asset.css("left", data.horizposition * PIXELS_PER_TIMEBIT);}
 }
