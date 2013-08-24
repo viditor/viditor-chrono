@@ -1,7 +1,11 @@
 var express = require("express");
+var socketio = require("socket.io");
+var http = require("http");
 var fs = require("fs");
 
 var app = express();
+var server = http.createServer(app);
+var io = socketio.listen(server, {log: false});
 
 app.get("/", function(request, response)
 {
@@ -20,6 +24,6 @@ app.get("/", function(request, response)
 
 app.use(express.static(__dirname + "/public_resources"));
 
-app.listen(3000);
+server.listen(3000);
 
 console.log("Server is running on 127.0.0.1:3000");
