@@ -8,9 +8,44 @@ var app = express();
 var server = http.createServer(app);
 var io = socketio.listen(server, {log: false});
 
+var database = mysql.createConnection({host:"localhost", user:"root", password:""});
+database.connect(); database.query("USE viditor");
+
+app.use(express.static(__dirname + "/public_resources"));
+app.use(express.bodyParser({keepExtensions: true, uploadDir: "./uploaded_files"}));
+
 app.get("/", function(request, response)
 {
-	fs.readFile("viditor.index.html", function(error, data)
+	readFileIntoResponse("viditor.index.html", response);
+});
+
+app.get("/upload", function(request, response)
+{
+	readFileIntoResponse("viditor.upload.html", response);
+});
+
+app.post("/upload", function(request, response)
+{
+	oldpath = __dirname + "/" + request.files.video.path;
+	newpath = __dirname + "/public_resources/user_assets/" + request.files.video.name;
+	
+	fs.rename(oldpath, newpath, function(error)
+	{
+		data = new Object();
+		data.uploadedidnum = new Date().getTime();
+		file = request.files.video.name.split(".");
+		data.filetype = file.pop();
+		data.filename = file.join("");
+		
+		database.query("INSERT INTO uploaded SET ?", data);
+	});
+	
+	readFileIntoResponse("viditor.index.html", response);
+});
+
+function readFileIntoResponse(filepath, response)
+{
+	fs.readFile(filepath, function(error, data)
 	{
 		if(error)
 		{
@@ -21,12 +56,7 @@ app.get("/", function(request, response)
 		response.writeHead(200, {"content-type": "text/html"});
 		response.end(data);
 	});
-});
-
-var database = mysql.createConnection({host:"localhost", user:"root", password:""});
-database.connect(); database.query("USE viditor");
-
-app.use(express.static(__dirname + "/public_resources"));
+}
 
 io.sockets.on("connection", function(socket)
 {
