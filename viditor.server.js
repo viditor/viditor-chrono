@@ -81,14 +81,13 @@ io.sockets.on("connection", function(socket)
 	socket.on("instantiate asset", function(data)
 	{
 		console.log("INSTANTIATE ASSET :: " + JSON.stringify(data));
+		database.query("INSERT INTO instantiated SET ?", data);
 		
 		database.query("SELECT * FROM uploaded WHERE uploadedidnum = " + data.uploadedidnum + " LIMIT 1", function(error, datum)
 		{
 			datum = datum[0];
 			
-			database.query("INSERT INTO instantiated SET ?", data);
-			
-			data.filename = datum.filename;
+			/*append values from uploaded to inserted here*/
 			
 			io.sockets.emit("instantiate asset", data);
 		});
