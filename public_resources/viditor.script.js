@@ -41,7 +41,7 @@ function instantiateAsset(data)
 	$asset.attr("id", data.instantiationidnum);
 	$asset.css("left", data.horizposition * PIXELS_PER_TIMEBIT);
 	$asset.css("position", "absolute");
-	$asset.css("background-image", "URL(user_assets/" + data.uploadedidnum + ".png)");
+	$asset.css("background-image", "URL(user_assets/" + data.uploadedidnum + "-001.jpg)");
 
 	$asset.draggable(
 	{
@@ -72,7 +72,7 @@ function accessiblizeAsset(data)
 	$asset = $("<div></div>");
 	$asset.attr("class", "asset");
 	$asset.attr("id", data.uploadedidnum);
-	$asset.css("background-image", "URL(user_assets/" + data.uploadedidnum + ".png)");
+	$asset.css("background-image", "URL(user_assets/" + data.uploadedidnum + "-001.jpg)");
 	$asset.draggable(
 	{
 		scroll: false,

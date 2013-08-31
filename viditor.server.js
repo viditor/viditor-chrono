@@ -33,10 +33,14 @@ app.post("/upload", function(request, response)
 	data.filetype = file.pop();
 	data.filename = file.join("");
 	
-	oldpath = __dirname + "/" + request.files.video.path;
-	newpath = __dirname + "/public_resources/user_assets/" + data.uploadedidnum + "." + data.filetype;
+	oldpath = request.files.video.path;
+	newpath = "public_resources/user_assets/" + data.uploadedidnum + "." + data.filetype;
+	newimgpath = "public_resources/user_assets/" + data.uploadedidnum + "-%03d.jpg";
 	
-	fs.rename(oldpath, newpath);
+	fs.rename(oldpath, newpath, function(error)
+	{
+		exec("ffmpeg -i " + newpath + " -s 320x180 -f image2 " + newimgpath);
+	});
 	
 	database.query("INSERT INTO uploaded SET ?", data);
 	
