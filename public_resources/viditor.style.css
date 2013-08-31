@@ -32,3 +32,11 @@ background-color:black;
 background-size:auto 100%;
 background-repeat:repeat-x;
 }
+
+#stream
+{
+top:80px;
+left:16px;
+width:320px;
+position:absolute;
+}

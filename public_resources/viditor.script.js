@@ -17,6 +17,13 @@ socket.on("update asset", function(data)
 	updateAsset(data);
 });
 
+socket.on("stream asset", function(data)
+{
+	console.log("!");
+	var screen = document.getElementById("stream");
+	screen.src = "data:image/jpeg;base64," + data;
+});
+
 $(function()
 {
 	$(".timeline").droppable(

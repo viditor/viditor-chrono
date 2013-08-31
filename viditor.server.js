@@ -103,7 +103,42 @@ io.sockets.on("connection", function(socket)
 		database.query("UPDATE instantiated SET ? WHERE instantiationidnum = " + data.instantiationidnum, data);
 		socket.broadcast.emit("update asset", data);
 	});
+	
+	var streamindex = 0;
+	
+	function stream()
+	{
+		streamindex++;
+		paddedstreamindex = pad(streamindex, 3, "0");
+		filepath = "public_resources/user_assets/1377511316407-" + paddedstreamindex + ".jpg";
+		
+		fs.readFile(filepath, function(error, data)
+		{
+			if(error)
+			{
+				console.log(error);
+				clearInterval(blipper);
+				return;
+			}
+			
+			console.log(paddedstreamindex);
+			
+			socket.emit("stream asset", data.toString("base64"));
+		});
+	}
+	
+	var blipper = setInterval(stream, 25);
+	
+	socket.on("disconnect", function()
+	{
+		clearInterval(blipper);
+	});
 });
+
+function pad(n, width, z)
+{
+	z = z || "0"; n = n + ""; return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
 
 server.listen(3000);
 
