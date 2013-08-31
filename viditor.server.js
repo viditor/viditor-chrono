@@ -1,3 +1,4 @@
+var exec = require("child_process").exec;
 var express = require("express");
 var socketio = require("socket.io");
 var mysql = require("mysql");
@@ -26,19 +27,18 @@ app.get("/upload", function(request, response)
 
 app.post("/upload", function(request, response)
 {
-	oldpath = __dirname + "/" + request.files.video.path;
-	newpath = __dirname + "/public_resources/user_assets/" + request.files.video.name;
+	data = new Object();
+	data.uploadedidnum = new Date().getTime();
+	file = request.files.video.name.split(".");
+	data.filetype = file.pop();
+	data.filename = file.join("");
 	
-	fs.rename(oldpath, newpath, function(error)
-	{
-		data = new Object();
-		data.uploadedidnum = new Date().getTime();
-		file = request.files.video.name.split(".");
-		data.filetype = file.pop();
-		data.filename = file.join("");
-		
-		database.query("INSERT INTO uploaded SET ?", data);
-	});
+	oldpath = __dirname + "/" + request.files.video.path;
+	newpath = __dirname + "/public_resources/user_assets/" + data.uploadedidnum + "." + data.filetype;
+	
+	fs.rename(oldpath, newpath);
+	
+	database.query("INSERT INTO uploaded SET ?", data);
 	
 	readFileIntoResponse("viditor.index.html", response);
 });
