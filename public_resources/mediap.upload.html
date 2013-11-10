@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8"/><title>Viditor</title>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="mediap.script.js"></script>
+		<link type="text/css" rel="stylesheet" href="mediap.style.css"/>
+    </head>
+	<body>
+		<div id='cat'>
+			<img src='images/cat.gif'/>
+			<p>Loading..</p>
+		</div>
+		
+		<h1>Please upload a video!</h1>
+		<div id="body_color">
+			<form id="uploadForm" action="upload" method="post" enctype="multipart/form-data" required>
+				<div><input type="file" id="inputVideo" name="video"/></div>
+				<div><input type="submit" value="Submit"/></div>
+			</form>
+		</div>
+    </body>
+</html>
