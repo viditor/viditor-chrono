@@ -3,3 +3,31 @@
 	margin: 0px;
 	padding: 0px;
 }
+
+/* The Timeline */
+
+#timeline
+{
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 64px;
+	min-width: 100%;
+	position: absolute;
+	
+	overflow: hidden;
+	
+	padding-top: 4px;
+	padding-bottom: 4px;
+	
+	background-color: #0A9BDE;
+}
+
+#timeline > .vidit
+{
+	width: 64px;
+	height: inherit;
+	position: absolute;
+	
+	border-radius: 4px;
+}
