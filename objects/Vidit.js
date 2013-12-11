@@ -11,6 +11,7 @@ var Vidit = function(asset, tick, track)
 	this.dom.data("vidit", this);
 	this.dom.attr("class", "vidit");
 	this.dom.css(this.getDefaultCSS());
+	this.dom.draggable(this.getDraggable());
 }
 
 var PIXELS_PER_TICK = 10;
@@ -40,6 +41,7 @@ Vidit.prototype.getDefaultCSS = function()
 {
 	var css = new Object();
 	
+	css.position = "absolute";
 	css.backgroundColor = this.asset.color;
 	
 	css.left = this.getTickPosition() * PIXELS_PER_TICK;
@@ -51,4 +53,17 @@ Vidit.prototype.getDefaultCSS = function()
 Vidit.prototype.getDOM = function()
 {
 	return this.dom;
+}
+
+Vidit.prototype.getDraggable = function()
+{
+	var draggable = new Object();
+	
+	draggable.scroll = true;
+	draggable.scrollSpeed = 10;
+	draggable.scrollSensitivity = 40;
+	draggable.containment = "#timeline";
+	draggable.grid = [PIXELS_PER_TICK, 0];
+	
+	return draggable;
 }
