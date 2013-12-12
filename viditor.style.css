@@ -11,19 +11,43 @@
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	height: 64px;
 	min-width: 100%;
 	position: absolute;
 	
 	overflow: hidden;
 	
+	border-top-width: 2px;
+	border-top-color: #000;
+	border-top-style: solid;
+}
+
+#timeline > #ruler
+{
+	height: 24px;
+	
+	border-bottom-width: 2px;
+	border-bottom-color: #000;
+	border-bottom-style: solid;
+	
+	background-color: #0A9BDE;
+	background-image: url("images/ruler.png");
+}
+
+#timeline > .track
+{
+	height: 64px;
+	
 	padding-top: 4px;
 	padding-bottom: 4px;
 	
-	background-color: #0A9BDE;
+	border-bottom-width: 2px;
+	border-bottom-color: #000;
+	border-bottom-style: solid;
+	
+	background-color: rgba(53, 155, 222, 0.25);
 }
 
-#timeline > .vidit
+#timeline > .track > .vidit
 {
 	height: inherit;
 	position: absolute;

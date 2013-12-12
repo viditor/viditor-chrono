@@ -4,7 +4,7 @@ $(document).ready(function()
 	var blue = new Vidit({color: "blue", length: 12}, 18);
 	var green = new Vidit({color: "green", length: 18}, 36);
 	
-	red.getDOM().appendTo("#timeline");
-	blue.getDOM().appendTo("#timeline");
-	green.getDOM().appendTo("#timeline");
+	$(".track").first().append(red.getDOM());
+	$(".track").first().append(blue.getDOM());
+	$(".track").first().append(green.getDOM());
 });
