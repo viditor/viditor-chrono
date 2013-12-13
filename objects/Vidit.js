@@ -12,6 +12,7 @@ var Vidit = function(asset, tick, track)
 	this.dom.attr("class", "vidit");
 	this.dom.css(this.getDefaultCSS());
 	this.dom.draggable(this.getDraggable());
+	this.dom.resizable(this.getResizable());
 }
 
 var PIXELS_PER_TICK = 10;
@@ -71,6 +72,46 @@ Vidit.prototype.getDraggable = function()
 	}
 	
 	return draggable;
+}
+
+Vidit.prototype.getResizable = function()
+{
+	var resizable = new Object();
+
+	resizable.handles = "e, w";
+	resizable.grid = [PIXELS_PER_TICK, 0];
+	resizable.minWidth = PIXELS_PER_TICK - 2;
+	resizable.maxWidth = Math.ceil(this.getOriginalLength() / SECONDS_PER_TICK) * PIXELS_PER_TICK;
+	
+	resizable.drag = function(event, element)
+	{
+		var trim = Math.floor((element.originalSize.width - element.size.width) / PIXELS_PER_TICK) * SECONDS_PER_TICK;
+		var tick = pixel2tick(element.position.left);
+		
+		if(element.originalPosition.left == element.position.left)
+		{
+			$(this).data("vidit").trim.right += trim;
+			
+			if($(this).data("vidit").trim.right < 0)
+			{
+				$(this).data("vidit").trim.left += $(this).data("vidit").trim.right;
+				$(this).data("vidit").trim.right = 0;
+			}
+		}
+		else
+		{
+			$(this).data("vidit").position.tick = tick;
+			$(this).data("vidit").trim.left += trim;
+			
+			if($(this).data("vidit").trim.left < 0)
+			{
+				$(this).data("vidit").trim.right += $(this).data("vidit").trim.left;
+				$(this).data("vidit").trim.left = 0;
+			}
+		}
+	}
+	
+	return resizable;
 }
 
 function pixel2tick(pixel)
