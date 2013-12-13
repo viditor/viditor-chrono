@@ -65,5 +65,15 @@ Vidit.prototype.getDraggable = function()
 	draggable.containment = "#timeline";
 	draggable.grid = [PIXELS_PER_TICK, 0];
 	
+	draggable.drag = function(event, element)
+	{
+		$(this).data("vidit").position.tick = pixel2tick(element.position.left);
+	}
+	
 	return draggable;
+}
+
+function pixel2tick(pixel)
+{
+	return Math.floor(pixel / PIXELS_PER_TICK);
 }
