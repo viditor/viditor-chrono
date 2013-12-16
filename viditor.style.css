@@ -53,6 +53,9 @@
 	position: absolute;
 	
 	border-radius: 4px;
+	
+	background-color: pink;
+	background-size: auto 64px;
 }
 
 /* The Videoplayer */

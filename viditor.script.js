@@ -1,10 +1,10 @@
 $(document).ready(function()
 {
-	var red = new Vidit({color: "red", length: 6}, 6);
-	var blue = new Vidit({color: "blue", length: 12}, 18);
-	var green = new Vidit({color: "green", length: 18}, 36);
+	var inthecar = new Assetfile("videos/inthecar", 36).viditize(0);
+	var children = new Assetfile("videos/children", 9).viditize(38);
+	var snowing = new Assetfile("videos/snowing", 14).viditize(49);
 	
-	$(".track").first().append(red.getDOM());
-	$(".track").first().append(blue.getDOM());
-	$(".track").first().append(green.getDOM());
+	$(".track").first().append(inthecar.getDOM());
+	$(".track").first().append(children.getDOM());
+	$(".track").first().append(snowing.getDOM());
 });

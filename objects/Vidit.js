@@ -16,7 +16,7 @@ var Vidit = function(asset, tick, track)
 }
 
 var PIXELS_PER_TICK = 10;
-var SECONDS_PER_TICK = 1;
+var SECONDS_PER_TICK = 2;
 
 Vidit.prototype.getOriginalLength = function()
 {
@@ -38,15 +38,19 @@ Vidit.prototype.getTrackPosition = function()
 	return this.position.track;
 }
 
+Vidit.prototype.getImageURL = function()
+{
+	return "url(" + this.asset.filename + ".jpg)";
+}
+
 Vidit.prototype.getDefaultCSS = function()
 {
 	var css = new Object();
 	
 	css.position = "absolute";
-	css.backgroundColor = this.asset.color;
-	
-	css.left = this.getTickPosition() * PIXELS_PER_TICK;
-	css.width = this.getTrimmedLength() * PIXELS_PER_TICK;
+	css.backgroundImage = this.getImageURL();
+	css.left = Math.ceil(this.getTickPosition() / SECONDS_PER_TICK) * PIXELS_PER_TICK;
+	css.width = Math.ceil(this.getTrimmedLength() / SECONDS_PER_TICK) * PIXELS_PER_TICK;
 	
 	return css;
 }
