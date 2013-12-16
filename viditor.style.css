@@ -54,3 +54,28 @@
 	
 	border-radius: 4px;
 }
+
+/* The Videoplayer */
+
+#videoplayer
+{
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 102px;
+	width: 640px;
+	height: 360px;
+	margin: auto;
+	position: absolute;
+	
+	overflow: hidden;
+	border-radius: 4px;
+	
+	background-color: #000;
+}
+
+#videoplayer > video
+{
+	width: 100%;
+	height: 100%;
+}
