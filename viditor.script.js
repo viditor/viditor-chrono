@@ -7,4 +7,8 @@ $(document).ready(function()
 	$(".track").first().append(inthecar.getDOM());
 	$(".track").first().append(children.getDOM());
 	$(".track").first().append(snowing.getDOM());
+	
+	inthecar.setAsVideo();
+	$("video").get(0).load();
+	$("video").get(0).play();
 });

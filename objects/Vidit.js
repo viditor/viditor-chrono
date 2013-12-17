@@ -40,7 +40,7 @@ Vidit.prototype.getTrackPosition = function()
 
 Vidit.prototype.getImageURL = function()
 {
-	return "url(" + this.asset.filename + ".jpg)";
+	return "url(" + this.asset.getFilename() + ".jpg)";
 }
 
 Vidit.prototype.getDefaultCSS = function()
@@ -121,4 +121,24 @@ Vidit.prototype.getResizable = function()
 function pixel2tick(pixel)
 {
 	return Math.floor(pixel / PIXELS_PER_TICK);
+}
+
+Vidit.prototype.getStartTime = function()
+{
+	return this.trim.left;
+}
+
+Vidit.prototype.getEndTime = function()
+{
+	return this.asset.length - this.trim.right;
+}
+
+Vidit.prototype.setAsVideo = function()
+{
+	var filename = this.asset.getFilename();
+	var times = "#t=" + this.getStartTime() + "," + this.getEndTime();
+	
+	$("source#mp4").attr("src", filename + ".mp4" + times);
+	$("source#webm").attr("src", filename + ".webm" + times);
+	$("source#ogv").attr("src", filename + ".ogv" + times);
 }
