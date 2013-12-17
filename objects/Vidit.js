@@ -142,3 +142,23 @@ Vidit.prototype.setAsVideo = function()
 	$("source#webm").attr("src", filename + ".webm" + times);
 	$("source#ogv").attr("src", filename + ".ogv" + times);
 }
+
+Vidit.prototype.hasNextVidit = function()
+{
+	return this.nextVidit != Timeline.lastVidit;
+}
+
+Vidit.prototype.getNextVidit = function()
+{
+	return this.nextVidit;
+}
+
+Vidit.prototype.hasPreviousVidit = function()
+{
+	return this.previousVidit != Timeline.firstVidit;
+}
+
+Vidit.prototype.getPreviousVidit = function()
+{
+	return this.previousVidit;
+}
