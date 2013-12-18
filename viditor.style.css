@@ -82,3 +82,121 @@
 	width: 100%;
 	height: 100%;
 }
+
+#videoplayer > #control_panel
+{
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 48px;
+	position: absolute;
+}
+
+/*#videoplayer > #control_panel
+{
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+#videoplayer:hover > #control_panel
+{
+	opacity: 1;
+}*/
+
+#videoplayer > #control_panel > #timeliner,
+#videoplayer > #control_panel > #play_button,
+#videoplayer > #control_panel > #fullscreen_button
+{
+	opacity: 0.8;
+	border-radius: 4px;
+	background-color: RGB(40, 40, 40);
+}
+
+#videoplayer > #control_panel > #play_button:hover,
+#videoplayer > #control_panel > #fullscreen_button:hover
+{
+	cursor: pointer;
+	background-color: #FF2300;
+}
+
+#videoplayer > #control_panel > #play_button
+{
+	top: 8px;
+	left: 8px;
+	width: 48px;
+	height: 32px;
+	
+	position: absolute;
+	
+	background-size: 24px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: URL("images/icons/pause.png");
+}
+
+#videoplayer > #control_panel > #play_button.toggled
+{
+	background-image: URL("images/icons/play.png");
+}
+
+#videoplayer > #control_panel > #fullscreen_button
+{
+	top: 8px;
+	right: 8px;
+	width: 48px;
+	height: 32px;
+	
+	position:absolute;
+	
+	background-size: 19px;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: URL("images/icons/fullscreen.png");
+}
+
+#videoplayer > #control_panel > #fullscreen_button.toggled
+{
+	background-size: 24px;
+	background-image: URL("images/icons/close.png");
+}
+
+#videoplayer > #control_panel > #timeliner
+{
+	top: 8px;
+	left: 64px;
+	right: 64px;
+	height: 16px;
+	padding: 8px;
+	
+	position: absolute;
+}
+
+#videoplayer > #control_panel > #timeliner > #container_container
+{
+	padding: 1px;
+	
+	height: 12px;
+	
+	border-width: 1px;
+	border-style: solid;
+	border-color: RGBA(200, 200, 200, 0.8);
+}
+
+#videoplayer > #control_panel > #timeliner > #container_container > #container
+{
+	cursor: pointer;
+	height: inherit;
+	position: relative;
+}
+
+#videoplayer > #control_panel > #timeliner > #container_container > #container > #playback_bar
+{
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	height: inherit;
+	opacity: 0.8;
+	position: absolute;
+	background-color: #FF2300;
+}

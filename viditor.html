@@ -12,6 +12,7 @@
 	<body>
 		<script src="objects/Vidit.js" type="text/javascript"></script>
 		<script src="objects/Timeline.js" type="text/javascript"></script>
+		<script src="objects/Videoplayer.js" type="text/javascript"></script>
 		<script src="objects/Assetfile.js" type="text/javascript"></script>
 		<script src="viditor.script.js" type="text/javascript"></script>
 		<link href="viditor.style.css" rel="stylesheet" type="text/css"/>
@@ -22,6 +23,17 @@
 				<source id="webm" type="video/webm; codecs=vp8,vorbis">
 				<source id="ogv" type="video/ogg; codecs=theora,vorbis">
 			</video>
+			<div id="control_panel">
+				<div id="play_button"></div>
+				<div id="fullscreen_button"></div>
+				<div id="timeliner">
+					<div id="container_container">
+						<div id="container">
+							<div id="playback_bar"></div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		
 		<div id="timeline">

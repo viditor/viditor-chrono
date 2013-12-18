@@ -17,8 +17,7 @@ $(document).ready(function()
 	$(".track").first().append(snowing.getDOM());
 	
 	Timeline.getFirstVidit().setAsVideo();
-	$("video").get(0).load();
-	$("video").get(0).play();
+	Videoplayer.loadAndPlay();
 	
 	$("video").on("timeupdate", function()
 	{
@@ -30,9 +29,18 @@ $(document).ready(function()
 			if(Timeline.hasNextVidit())
 			{
 				Timeline.getNextVidit().setAsVideo();
-				$("video").get(0).load();
-				$("video").get(0).play();
+				Videoplayer.loadAndPlay();
 			}
 		}
+	});
+	
+	$("#videoplayer > #control_panel > #play_button").click(function()
+	{
+		Videoplayer.pauseplay();
+	});
+	
+	$("#videoplayer > video").click(function()
+	{
+		Videoplayer.pauseplay();
 	});
 });
