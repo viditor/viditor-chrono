@@ -1,26 +1,26 @@
 var Timeline = new function()
 {
-	this.firstVidit = new Object();
-	this.lastVidit = new Object();
+	this.firstViditbit = new Object();
+	this.lastViditbit = new Object();
 	
-	this.getFirstVidit = function()
+	this.getFirstViditbit = function()
 	{
-		return this.currentVidit = this.firstVidit.nextVidit;
+		return this.currentViditbit = this.firstViditbit.nextViditbit;
 	}
 	
-	this.getCurrentVidit = function()
+	this.getCurrentViditbit = function()
 	{
-		return this.currentVidit;
+		return this.currentViditbit;
 	}
 	
-	this.hasNextVidit = function()
+	this.hasNextViditbit = function()
 	{
-		return this.currentVidit.hasNextVidit();
+		return this.currentViditbit.hasNextViditbit();
 	}
 	
-	this.getNextVidit = function()
+	this.getNextViditbit = function()
 	{
-		var nextVidit = this.currentVidit.nextVidit;
-		return this.currentVidit = nextVidit;
+		var nextViditbit = this.currentViditbit.nextViditbit;
+		return this.currentViditbit = nextViditbit;
 	}
 }

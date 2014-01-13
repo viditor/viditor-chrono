@@ -4,31 +4,31 @@ $(document).ready(function()
 	var children = new Assetfile("videos/children", 9).viditize(38);
 	var snowing = new Assetfile("videos/snowing", 14).viditize(49);
 	
-	Timeline.firstVidit.nextVidit = inthecar;
-	inthecar.previousVidit = Timeline.firstVidit;
-	inthecar.nextVidit = children;
-	children.previousVidit = inthecar;
-	children.nextVidit = snowing;
-	snowing.previousVidit = children;
-	snowing.nextVidit = Timeline.lastVidit;
+	Timeline.firstViditbit.nextViditbit = inthecar;
+	inthecar.previousViditbit = Timeline.firstViditbit;
+	inthecar.nextViditbit = children;
+	children.previousViditbit = inthecar;
+	children.nextViditbit = snowing;
+	snowing.previousViditbit = children;
+	snowing.nextViditbit = Timeline.lastViditbit;
 	
 	$(".track").first().append(inthecar.getDOM());
 	$(".track").first().append(children.getDOM());
 	$(".track").first().append(snowing.getDOM());
 	
-	Timeline.getFirstVidit().setAsVideo();
+	Timeline.getFirstViditbit().setAsVideo();
 	Videoplayer.loadAndPlay();
 	
 	$("video").on("timeupdate", function()
 	{
 		var currentTime = $(this).get(0).currentTime;
-		var endTime = Timeline.getCurrentVidit().getEndTime();
+		var endTime = Timeline.getCurrentViditbit().getEndTime();
 		
 		if(currentTime >= endTime)
 		{
-			if(Timeline.hasNextVidit())
+			if(Timeline.hasNextViditbit())
 			{
-				Timeline.getNextVidit().setAsVideo();
+				Timeline.getNextViditbit().setAsVideo();
 				Videoplayer.loadAndPlay();
 			}
 		}

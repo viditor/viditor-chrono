@@ -11,5 +11,5 @@ Assetfile.prototype.getFilename = function()
 
 Assetfile.prototype.viditize = function(tick, track)
 {
-	return new Vidit(this, tick, track);
+	return new Viditbit(this, tick, track);
 }
