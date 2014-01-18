@@ -72,8 +72,49 @@ Viditbit.prototype.getDraggable = function()
 	
 	draggable.drag = function(event, element)
 	{
-		$(this).data("viditbit").position.tick = pixel2tick(element.position.left);
+		var thisViditbit = $(this).data("viditbit");
+		
+		thisViditbit.position.tick = pixel2sec(element.position.left);
+		
+		if(thisViditbit.hasNextViditbit())
+		{
+			if(thisViditbit.position.tick > thisViditbit.getNextViditbit().position.tick)
+			{
+				console.log("swapped with next");
+				thisViditbit.swapWithNextViditbit();
+			}
+		}
+		
+		if(thisViditbit.hasPreviousViditbit())
+		{
+			if(thisViditbit.position.tick < thisViditbit.getPreviousViditbit().position.tick)
+			{
+				console.log("swapped with previous");
+				thisViditbit.swapWithPreviousViditbit();
+			}
+		}
 	}
+	
+	/*draggable.stop = function()
+	{
+		if($(this).data("viditbit").getPreviousViditbit().dom)
+		{
+			console.log($(this).data("viditbit").getPreviousViditbit().dom[0]);
+		}
+		else
+		{
+			console.log(undefined);
+		}
+		
+		if($(this).data("viditbit").getNextViditbit().dom)
+		{
+			console.log($(this).data("viditbit").getNextViditbit().dom[0]);
+		}
+		else
+		{
+			console.log(undefined);
+		}
+	}*/
 	
 	return draggable;
 }
@@ -123,6 +164,11 @@ function pixel2tick(pixel)
 	return Math.floor(pixel / PIXELS_PER_TICK);
 }
 
+function pixel2sec(pixel)
+{
+	return pixel2tick(pixel) * SECONDS_PER_TICK;
+}
+
 Viditbit.prototype.getStartTime = function()
 {
 	return this.trim.left;
@@ -145,6 +191,7 @@ Viditbit.prototype.setAsVideo = function()
 
 Viditbit.prototype.hasNextViditbit = function()
 {
+	console.log(this.nextViditbit);
 	return this.nextViditbit != Timeline.lastViditbit;
 }
 
@@ -161,4 +208,36 @@ Viditbit.prototype.hasPreviousViditbit = function()
 Viditbit.prototype.getPreviousViditbit = function()
 {
 	return this.previousViditbit;
+}
+
+Viditbit.prototype.swapWithNextViditbit = function()
+{
+	var that = this.nextViditbit;
+	
+	this.nextViditbit = that.nextViditbit;
+	that.nextViditbit = this;
+	
+	that.previousViditbit = this.previousViditbit;
+	this.previousViditbit = that;
+	
+	this.nextViditbit.previousViditbit = this;
+	this.previousViditbit.nextViditbit = this;
+	that.nextViditbit.previousViditbit = that;
+	that.previousViditbit.nextViditbit = that;
+}
+
+Viditbit.prototype.swapWithPreviousViditbit = function()
+{
+	var that = this.previousViditbit;
+	
+	this.previousViditbit = that.previousViditbit;
+	that.previousViditbit = this;
+	
+	that.nextViditbit = this.nextViditbit;
+	this.nextViditbit = that;
+	
+	this.nextViditbit.previousViditbit = this;
+	this.previousViditbit.nextViditbit = this;
+	that.nextViditbit.previousViditbit = that;
+	that.previousViditbit.nextViditbit = that;
 }

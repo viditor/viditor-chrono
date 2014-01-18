@@ -5,12 +5,17 @@ $(document).ready(function()
 	var snowing = new Assetfile("videos/snowing", 14).viditize(49);
 	
 	Timeline.firstViditbit.nextViditbit = inthecar;
+	
 	inthecar.previousViditbit = Timeline.firstViditbit;
 	inthecar.nextViditbit = children;
+	
 	children.previousViditbit = inthecar;
 	children.nextViditbit = snowing;
+	
 	snowing.previousViditbit = children;
 	snowing.nextViditbit = Timeline.lastViditbit;
+	
+	Timeline.lastViditbit.previousViditbit = snowing;
 	
 	$(".track").first().append(inthecar.getDOM());
 	$(".track").first().append(children.getDOM());
@@ -26,6 +31,8 @@ $(document).ready(function()
 		
 		if(currentTime >= endTime)
 		{
+			console.log(Timeline.getCurrentViditbit().nextViditbit);
+			
 			if(Timeline.hasNextViditbit())
 			{
 				Timeline.getNextViditbit().setAsVideo();
