@@ -31,7 +31,7 @@ $(document).ready(function()
 		
 		if(currentTime >= endTime)
 		{
-			console.log(Timeline.getCurrentViditbit().nextViditbit);
+			console.log("HELLO WORLD!");
 			
 			if(Timeline.hasNextViditbit())
 			{
@@ -41,12 +41,12 @@ $(document).ready(function()
 		}
 	});
 	
-	$("#videoplayer > #control_panel > #play_button").click(function()
+	$("#videoplayer > #control_panel > #play_button").on("click", function()
 	{
 		Videoplayer.pauseplay();
 	});
 	
-	$("#videoplayer > video").click(function()
+	$("#videoplayer > video").on("click", function()
 	{
 		Videoplayer.pauseplay();
 	});

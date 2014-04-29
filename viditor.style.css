@@ -92,7 +92,7 @@
 	position: absolute;
 }
 
-/*#videoplayer > #control_panel
+#videoplayer > #control_panel
 {
 	opacity: 0;
 	transition: opacity 0.3s ease;
@@ -101,7 +101,7 @@
 #videoplayer:hover > #control_panel
 {
 	opacity: 1;
-}*/
+}
 
 #videoplayer > #control_panel > #timeliner,
 #videoplayer > #control_panel > #play_button,
@@ -199,4 +199,25 @@
 	opacity: 0.8;
 	position: absolute;
 	background-color: #FF2300;
+}
+
+/* The Filebrowser */
+
+#filebrowser
+{
+	padding: 8px;
+}
+
+.assetfile
+{
+	width: 128px;
+	height: 96px;
+	
+	float: left;
+	margin-right: 8px;
+	
+	border-radius: 4px;
+	
+	background-color: pink;
+	background-size: auto 128px;
 }

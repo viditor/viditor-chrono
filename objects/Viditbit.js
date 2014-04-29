@@ -1,9 +1,9 @@
-var Viditbit = function(asset, tick, track)
+var Viditbit = function(assetfile, tick, track, trim)
 {
-	this.asset = asset;
+	this.assetfile = assetfile;
+	
 	this.trim = {left: 0, right: 0};
 	this.position = {tick: 0, track: 0};
-	
 	if(tick) {this.position.tick = tick;}
 	if(track) {this.position.track = track;}
 	
@@ -20,12 +20,22 @@ var SECONDS_PER_TICK = 2;
 
 Viditbit.prototype.getOriginalLength = function()
 {
-	return this.asset.length;
+	return this.assetfile.getLength();
 }
 
 Viditbit.prototype.getTrimmedLength = function()
 {
-	return this.asset.length - this.trim.right - this.trim.left;
+	return this.assetfile.getLength() - this.getRightTrim() - this.getLeftTrim();
+}
+
+Viditbit.prototype.getRightTrim = function()
+{
+	return this.trim.right;
+}
+
+Viditbit.prototype.getLeftTrim = function()
+{
+	return this.trim.left;
 }
 
 Viditbit.prototype.getTickPosition = function()
@@ -38,17 +48,12 @@ Viditbit.prototype.getTrackPosition = function()
 	return this.position.track;
 }
 
-Viditbit.prototype.getImageURL = function()
-{
-	return "url(" + this.asset.getFilename() + ".jpg)";
-}
-
 Viditbit.prototype.getDefaultCSS = function()
 {
 	var css = new Object();
 	
 	css.position = "absolute";
-	css.backgroundImage = this.getImageURL();
+	css.backgroundImage = this.assetfile.getImageURL();
 	css.left = Math.ceil(this.getTickPosition() / SECONDS_PER_TICK) * PIXELS_PER_TICK;
 	css.width = Math.ceil(this.getTrimmedLength() / SECONDS_PER_TICK) * PIXELS_PER_TICK;
 	
@@ -70,30 +75,26 @@ Viditbit.prototype.getDraggable = function()
 	draggable.containment = "#timeline";
 	draggable.grid = [PIXELS_PER_TICK, 0];
 	
-	draggable.drag = function(event, element)
+	/*draggable.drag = function(event, element)
 	{
-		var thisViditbit = $(this).data("viditbit");
+		$(this).data("viditbit").position.tick = pixel2sec(element.position.left);
 		
-		thisViditbit.position.tick = pixel2sec(element.position.left);
-		
-		if(thisViditbit.hasNextViditbit())
+		if($(this).next().length)
 		{
-			if(thisViditbit.position.tick > thisViditbit.getNextViditbit().position.tick)
+			if($(this).position().left > $(this).next().position().left)
 			{
-				console.log("swapped with next");
-				thisViditbit.swapWithNextViditbit();
+				$(this).insertAfter($(this).next());
 			}
 		}
 		
-		if(thisViditbit.hasPreviousViditbit())
+		if($(this).prev().length)
 		{
-			if(thisViditbit.position.tick < thisViditbit.getPreviousViditbit().position.tick)
+			if($(this).position().left < $(this).prev().position().left)
 			{
-				console.log("swapped with previous");
-				thisViditbit.swapWithPreviousViditbit();
+				$(this).insertBefore($(this).prev());
 			}
 		}
-	}
+	}*/
 	
 	/*draggable.stop = function()
 	{
@@ -171,17 +172,17 @@ function pixel2sec(pixel)
 
 Viditbit.prototype.getStartTime = function()
 {
-	return this.trim.left;
+	return this.getLeftTrim();
 }
 
 Viditbit.prototype.getEndTime = function()
 {
-	return this.asset.length - this.trim.right;
+	return this.assetfile.getLength() - this.getRightTrim();
 }
 
 Viditbit.prototype.setAsVideo = function()
 {
-	var filename = this.asset.getFilename();
+	var filename = this.assetfile.getFilename();
 	var times = "#t=" + this.getStartTime() + "," + this.getEndTime();
 	
 	$("source#mp4").attr("src", filename + ".mp4" + times);
@@ -191,7 +192,6 @@ Viditbit.prototype.setAsVideo = function()
 
 Viditbit.prototype.hasNextViditbit = function()
 {
-	console.log(this.nextViditbit);
 	return this.nextViditbit != Timeline.lastViditbit;
 }
 
