@@ -24,6 +24,8 @@ $(document).ready(function()
 	Timeline.getFirstViditbit().setAsVideo();
 	Videoplayer.loadAndPlay();
 	
+	$("video").prop("muted", true);
+	
 	$("video").on("timeupdate", function()
 	{
 		var currentTime = $(this).get(0).currentTime;
