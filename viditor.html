@@ -1,14 +1,39 @@
 <head>
-	<title>Viditor</title>
+	<title>viditor</title>
 	<meta charset="UTF-8"/>
 	
 	<link href="viditor.css" type="text/css" rel="stylesheet"/>
+	<link href="viditor.ctrlpane.css" type="text/css" rel="stylesheet"/>
+	<link href="viditor.timeline.css" type="text/css" rel="stylesheet"/>
+	<link href="viditor.playback.css" type="text/css" rel="stylesheet"/>
+	<link href="viditor.fileview.css" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
-	{{> viditor}}
+  {{> ctrlpane}}
 </body>
 
-<template name="viditor">
-	<h1>Viditor goes here!</h1>
+<template name="ctrlpane">
+	<div id="ctrlpane">
+		<a id="logo"></a>
+		<div id="outerpane">
+			<div id="innerpane">
+				<div id="title">
+					<h1>{{title}}</h1>
+				</div>
+				<div id="menulist">
+					<span id="file" class="menu">Project</span>
+					<span id="edit" class="menu">Insert</span>
+					<span id="edit" class="menu">Edit</span>
+					<span id="view" class="menu">View</span>
+					<span id="share" class="menu">Share</span>
+					<span id="help" class="menu">Help</span>
+				</div>
+				<div id="userlist">
+					<div id="new" class="user"></div>
+					<div class="user" style="background-image: URL(images/chattanooga.jpg); border-color: orange;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

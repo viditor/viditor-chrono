@@ -1,0 +1,122 @@
+#ctrlpane
+{
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 3.75em;
+	position: fixed;
+	line-height: 1em;
+}
+
+#ctrlpane > #logo
+{
+	top: 0px;
+	left: 0px;
+	width: 3.75em;
+	height: 3.75em;
+	display: block;
+	position: absolute;
+	
+	cursor: pointer;
+	
+	background-size: 3em;
+	background-color: #0A9BDE;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: URL(images/shortlogo.png);
+}
+
+#ctrlpane > #outerpane
+{
+	top: 0px;
+	right: 0px;
+	left: 3.75em;
+	height: 3.5em;
+	position: absolute;
+	padding-bottom: 0.25em;
+	
+	background-color: #0A9BDE;
+	background-image: URL(images/linedpaper.png);
+}
+
+#ctrlpane > #outerpane > #innerpane
+{
+	height: 3em;
+	padding: 0.25em;
+	
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #0A9BDE;
+}
+
+#ctrlpane > #outerpane > #innerpane > #title
+{
+	/*?*/
+}
+
+#ctrlpane > #outerpane > #innerpane > #title > h1
+{
+	display: inline;
+	
+	font-size: 2em;
+	line-height: 1em;
+	font-family: abel;
+	font-weight: normal;
+}
+
+#ctrlpane > #outerpane > #innerpane > #title > h1:hover
+{
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+#ctrlpane > #outerpane > #innerpane > #menulist
+{
+	/*?*/
+}
+
+#ctrlpane > #outerpane > #innerpane > #menulist > .menu
+{
+	margin-right: 0.5em;
+}
+
+#ctrlpane > #outerpane > #innerpane > #menulist > .menu:hover
+{
+	color: #0A9BDE;
+	cursor: pointer;
+}
+
+#ctrlpane > #outerpane > #innerpane > #userlist
+{
+	top: 0.25em;
+	right: 0.25em;
+	bottom: 0.25em;
+	position: absolute;
+}
+
+#ctrlpane > #outerpane > #innerpane > #userlist > .user
+{
+	width: 2.5em;
+	height: 2.5em;
+	float: right;
+	margin-left: 0.25em;
+	
+	background-size: cover;
+	
+	border-bottom-style: solid;
+	border-bottom-width: 0.5em;
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+}
+
+#ctrlpane > #outerpane > #innerpane > #userlist > #new.user
+{
+	cursor: pointer;
+	border-color: #FFF;
+	
+	background-size: 1.75em;
+	background-color: #0A9BDE;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-image: URL(images/icons/adduser.png);
+}
