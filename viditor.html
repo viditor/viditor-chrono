@@ -6,11 +6,12 @@
 	<link href="viditor.ctrlpane.css" type="text/css" rel="stylesheet"/>
 	<link href="viditor.timeline.css" type="text/css" rel="stylesheet"/>
 	<link href="viditor.playback.css" type="text/css" rel="stylesheet"/>
-	<link href="viditor.fileview.css" type="text/css" rel="stylesheet"/>
+	<link href="viditor.assetlist.css" type="text/css" rel="stylesheet"/>
 </head>
 
 <body>
   {{> ctrlpane}}
+  {{> assetlist}}
   {{> timeline}}
 </body>
 
@@ -45,5 +46,17 @@
 		<div class="track"></div>
 		<div class="track"></div>
 		<div class="track"></div>
+	</div>
+</template>
+
+<template name="assetlist">
+	<div id="assetlist">
+		{{#each assets}}
+			<div class="asset">
+				<div class="{{type}} type"></div>
+				<div class="thumbnail" style="background-image: {{thumbnail}}"></div>
+				<div class="name">{{name}}</div>
+			</div>
+		{{/each}}
 	</div>
 </template>
