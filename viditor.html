@@ -12,6 +12,7 @@
 <body>
   {{> ctrlpane}}
   {{> assetlist}}
+  {{> viewframe}}
   {{> timeline}}
 </body>
 
@@ -58,5 +59,29 @@
 				<div class="name">{{name}}</div>
 			</div>
 		{{/each}}
+	</div>
+</template>
+
+<template name="viewframe">
+	<div id="viewframe">
+		<div id="outerframe">
+			<div id="innerframe">
+				<video id="player">
+					<source src="videos/snowing.mp4" id="mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
+					<source src="videos/snowing.webm" id="webm" type="video/webm; codecs=vp8,vorbis">
+					<source src="videos/snowing.ogv" id="ogv" type="video/ogg; codecs=theora,vorbis">
+				</video>
+				<div id="viewer">
+					Hello World!
+				</div>
+			</div>
+		</div>
+		<div id="ctrlbar">
+			<div id="pauseplay" class="button"></div>
+			<div id="stop" class="button"></div>
+			<div id="previous" class="button"></div>
+			<div id="next" class="button"></div>
+			<div id="muteunmute" class="button"></div>
+		</div>
 	</div>
 </template>
