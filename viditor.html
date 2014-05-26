@@ -11,6 +11,7 @@
 
 <body>
   {{> ctrlpane}}
+  {{> timeline}}
 </body>
 
 <template name="ctrlpane">
@@ -35,5 +36,14 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</template>
+
+<template name="timeline">
+	<div id="timeline">
+		<div id="ruler"></div>
+		<div class="track"></div>
+		<div class="track"></div>
+		<div class="track"></div>
 	</div>
 </template>
