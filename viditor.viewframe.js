@@ -96,6 +96,8 @@ if(Meteor.isClient)
 		}
 	});
 	
+	Template.viewframe.video = "snowing"; //Session.???
+	
 	$(document).on("keypress", function(event)
 	{
 		if(event.keyCode == 32)
