@@ -1,55 +1,105 @@
+var Videieio = new function()
+{
+	this.pauseplay = function()
+	{
+		if(this.isPaused())
+		{
+			this.play();
+		}
+		else
+		{
+			this.pause();
+		}
+		
+		return this;
+	}
+	
+	this.pause = function()
+	{
+		$("video").get(0).pause();
+		$("#playback").find("#pauseplay").removeClass("toggled");
+		
+		return this;
+	}
+	
+	this.play = function()
+	{
+		$("video").get(0).play();
+		$("#playback").find("#pauseplay").addClass("toggled");
+		
+		return this;
+	}
+	
+	this.isPaused = function()
+	{
+		return $("video").get(0).paused;
+	}
+	
+	this.muteunmute = function()
+	{
+		if(this.isMuted())
+		{
+			this.unmute();
+		}
+		else
+		{
+			this.mute();
+		}
+		
+		return this;
+	}
+	
+	this.mute = function()
+	{
+		$("video").get(0).muted = true;
+		$("#playback").find("#muteunmute").addClass("toggled");
+		
+		return this;
+	}
+	
+	this.unmute = function()
+	{
+		$("video").get(0).muted = false;
+		$("#playback").find("#muteunmute").removeClass("toggled");
+		
+		return this;
+	}
+	
+	this.isMuted = function()
+	{
+		return $("video").get(0).muted;
+	}
+	
+	this.load = function()
+	{
+		$("video").get(0).load();
+		
+		return this;
+	}
+}
+
 $(document).ready(function()
 {
-	var inthecar = new Assetfile("videos/inthecar", 36).viditize(0);
-	var children = new Assetfile("videos/children", 9).viditize(38);
-	var snowing = new Assetfile("videos/snowing", 14).viditize(49);
-	
-	Timeline.firstViditbit.nextViditbit = inthecar;
-	
-	inthecar.previousViditbit = Timeline.firstViditbit;
-	inthecar.nextViditbit = children;
-	
-	children.previousViditbit = inthecar;
-	children.nextViditbit = snowing;
-	
-	snowing.previousViditbit = children;
-	snowing.nextViditbit = Timeline.lastViditbit;
-	
-	Timeline.lastViditbit.previousViditbit = snowing;
-	
-	$(".track").first().append(inthecar.getDOM());
-	$(".track").first().append(children.getDOM());
-	$(".track").first().append(snowing.getDOM());
-	
-	Timeline.getFirstViditbit().setAsVideo();
-	Videoplayer.loadAndPlay();
-	
-	$("video").prop("muted", true);
-	
-	$("video").on("timeupdate", function()
+	$("#playback").find("video").on("click", function()
 	{
-		var currentTime = $(this).get(0).currentTime;
-		var endTime = Timeline.getCurrentViditbit().getEndTime();
-		
-		if(currentTime >= endTime)
+		Videieio.pauseplay();
+	});
+	
+	$("#playback").find("#pauseplay").on("click", function()
+	{
+		Videieio.pauseplay();
+	});
+	
+	$("#playback").find("#muteunmute").on("click", function()
+	{
+		Videieio.muteunmute();
+	});
+	
+	$(document).on("keypress", function(event)
+	{
+		if(event.keyCode == 32)
 		{
-			console.log("HELLO WORLD!");
-			
-			if(Timeline.hasNextViditbit())
-			{
-				Timeline.getNextViditbit().setAsVideo();
-				Videoplayer.loadAndPlay();
-			}
+			Videieio.pauseplay();
 		}
-	});
-	
-	$("#videoplayer > #control_panel > #play_button").on("click", function()
-	{
-		Videoplayer.pauseplay();
-	});
-	
-	$("#videoplayer > video").on("click", function()
-	{
-		Videoplayer.pauseplay();
 	});
 });
