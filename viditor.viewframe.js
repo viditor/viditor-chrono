@@ -69,13 +69,6 @@ var Videieio = new function()
 	{
 		return $("video").get(0).muted;
 	}
-	
-	this.load = function()
-	{
-		$("video").get(0).load();
-		
-		return this;
-	}
 }
 
 if(Meteor.isClient)
@@ -96,13 +89,26 @@ if(Meteor.isClient)
 		}
 	});
 	
-	Template.viewframe.video = "snowing"; //Session.???
-	
 	$(document).on("keypress", function(event)
 	{
 		if(event.keyCode == 32)
 		{
 			Videieio.pauseplay();
 		}
+	});
+	
+	Meteor.startup(function()
+	{
+		Session.setDefault("currentlyPlayingVideo", "snowing");
+		
+		Deps.autorun(function()
+		{
+			var handle = Session.get("currentlyPlayingVideo");
+			
+			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
+			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
+			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
+			$("#viewframe").find("video").get(0).load();
+		});
 	});
 }
