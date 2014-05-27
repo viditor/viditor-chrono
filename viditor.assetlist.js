@@ -20,8 +20,8 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Assets.remove({});
-		Assets.insert({name: "SnowyFlag", thumbnail: "url(videos/snowing.jpg)", type: "video"});
-		Assets.insert({name: "ChildrenLaughing", thumbnail: "url(videos/children.jpg)", type: "audio"});
-		Assets.insert({name: "InTheCarOnTheRoad", thumbnail: "url(videos/inthecar.jpg)", type: "video"});
+		Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video"});
+		Assets.insert({name: "ChildrenLaughing", handle: "children", type: "audio"});
+		Assets.insert({name: "InTheCarOnTheRoad", handle: "inthecar", type: "video"});
 	});
 }

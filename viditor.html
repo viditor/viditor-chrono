@@ -44,9 +44,18 @@
 <template name="timeline">
 	<div id="timeline">
 		<div id="ruler"></div>
-		<div class="track"></div>
-		<div class="track"></div>
-		<div class="track"></div>
+		{{> track}}
+		{{> track}}
+		{{> track}}
+	</div>
+</template>
+
+<template name="track">
+	<div class="track">
+		{{#each orsuts}}
+			<div class="orsut" style="left: {{position}}px; background-image: url(videos/{{handle}}.jpg); width: {{length}}px;">
+			</div>
+		{{/each}}
 	</div>
 </template>
 
@@ -55,7 +64,7 @@
 		{{#each assets}}
 			<div class="asset">
 				<div class="{{type}} type"></div>
-				<div class="thumbnail" style="background-image: {{thumbnail}}"></div>
+				<div class="thumbnail" style="background-image: url(videos/{{handle}}.jpg)"></div>
 				<div class="name">{{name}}</div>
 			</div>
 		{{/each}}
