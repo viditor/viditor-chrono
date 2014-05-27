@@ -52,9 +52,8 @@
 
 <template name="track">
 	<div class="track">
-		{{#each orsuts}}
-			<div class="orsut" style="left: {{position}}px; background-image: url(videos/{{handle}}.jpg); width: {{length}}px;">
-			</div>
+		{{#each instances}}
+			<div class="instance" style="left: {{position}}px; background-image: url(videos/{{handle}}.jpg); width: {{length}}px;"></div>
 		{{/each}}
 	</div>
 </template>
