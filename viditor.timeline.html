@@ -10,7 +10,9 @@
 <template name="track">
 	<div class="track">
 		{{#each instances}}
-			<div class="instance" style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};"></div>
+			<div class="instance" style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};">
+				<span>{{_id}}</span> <!--for debug-->
+			</div>
 		{{/each}}
 	</div>
 </template>

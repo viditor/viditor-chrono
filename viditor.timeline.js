@@ -8,6 +8,7 @@ if(Meteor.isClient)
 	{
 		"click .instance": function()
 		{
+			Videieio.pause();
 			Instances.update(this._id, {$inc: {position: 5}});
 		}
 	}

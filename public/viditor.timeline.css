@@ -36,6 +36,15 @@
 	
 	border-radius: 2px;
 	
+	overflow: hidden;
+	line-height: 2.5em;
 	background-color: pink;
 	background-size: auto 64px;
+}
+
+#timeline > .track > .instance > span
+{
+	color: #FFF;
+	font-weight: bold;
+	background-color: grey;
 }

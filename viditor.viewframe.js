@@ -1,4 +1,4 @@
-var Videieio = new function()
+Videieio = new function()
 {
 	this.pauseplay = function()
 	{
@@ -69,6 +69,15 @@ var Videieio = new function()
 	{
 		return $("video").get(0).muted;
 	}
+	
+	this.stop = function()
+	{
+		var instance = Instances.findOne({}, {sort: {position: 1}});
+		if(instance) {Session.set("currentlyPlayingVideo", instance._id);}
+		//if($("video").get(0).currentTime) {$("video").get(0).currentTime = 0;}
+		
+		return this;
+	}
 }
 
 if(Meteor.isClient)
@@ -83,11 +92,23 @@ if(Meteor.isClient)
 		{
 			Videieio.muteunmute();
 		},
+		"click #stop": function()
+		{
+			Videieio.stop();
+		},
 		"keydown video": function(event)
 		{
 			Videieio.pauseplay();
 		}
 	});
+	
+	/*Instances.find({}, {sort: {position: 1}}).observe(
+	{
+		movedTo: function(doc, from, to, before)
+		{
+			console.log(doc._id, from, to);
+		}
+	});*/
 	
 	$(document).ready(function()
 	{
@@ -107,20 +128,15 @@ if(Meteor.isClient)
 			{
 				var currentTime = $(this).get(0).currentTime;
 				var endTime = Instances.findOne(_id).length;
-				console.log(currentTime, endTime);
 				
-				//end time is not realistic at the moment
-					//it should be 13, not 100.
-					//but it needs to render as 130
-						//look into helpers?
-				
-				/*if(currentTime >= endTime)
+				if($("video").get(0).ended) //if(currentTime >= endTime)
 				{
-					console.log("the video has finished!");
+					//var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
+					//var index; for(var i in timeline) {if(timeline[i]._id == _id) {index = i;}}
 					
-					//if has next video
-					//get next video from database..?
-				}*/
+					//console.log(timeline.length, index, timeline);
+					//console.log(Instances.findOne({}, {skip: index}));
+				}
 			}
 		});
 	});
