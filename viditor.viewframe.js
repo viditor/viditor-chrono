@@ -98,18 +98,48 @@ if(Meteor.isClient)
 				Videieio.pauseplay();
 			}
 		});
+		
+		$("video").on("timeupdate", function()
+		{
+			var _id = Session.get("currentlyPlayingVideo");
+			
+			if(_id)
+			{
+				var currentTime = $(this).get(0).currentTime;
+				var endTime = Instances.findOne(_id).length;
+				console.log(currentTime, endTime);
+				
+				//end time is not realistic at the moment
+					//it should be 13, not 100.
+					//but it needs to render as 130
+						//look into helpers?
+				
+				if(currentTime >= endTime)
+				{
+					console.log("the video has finished!");
+					
+					//if has next video
+					//get next video from database..?
+				}
+			}
+		});
 	});
 	
 	Meteor.startup(function()
 	{
 		Deps.autorun(function()
 		{
-			var handle = Session.get("currentlyPlayingVideo");
+			var _id = Session.get("currentlyPlayingVideo");
 			
-			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
-			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
-			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
-			$("#viewframe").find("video").get(0).load();
+			if(_id)
+			{
+				var handle = Instances.findOne(_id).handle;
+				
+				$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
+				$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
+				$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
+				$("#viewframe").find("video").get(0).load();
+			}
 		});
 	});
 }
