@@ -1,4 +1,4 @@
-var Instances = new Meteor.Collection("instances");
+Instances = new Meteor.Collection("instances");
 
 if(Meteor.isClient)
 {
@@ -18,6 +18,5 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Instances.remove({});
-		Instances.insert({handle: "snowing", position: 100, length: 100});
 	});
 }

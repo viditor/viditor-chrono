@@ -89,18 +89,19 @@ if(Meteor.isClient)
 		}
 	});
 	
-	$(document).on("keypress", function(event)
+	$(document).ready(function()
 	{
-		if(event.keyCode == 32)
+		$(document).on("keypress", function(event)
 		{
-			Videieio.pauseplay();
-		}
+			if(event.keyCode == 32)
+			{
+				Videieio.pauseplay();
+			}
+		});
 	});
 	
 	Meteor.startup(function()
 	{
-		Session.setDefault("currentlyPlayingVideo", "snowing");
-		
 		Deps.autorun(function()
 		{
 			var handle = Session.get("currentlyPlayingVideo");

@@ -1,4 +1,4 @@
-var Assets = new Meteor.Collection("assets");
+Assets = new Meteor.Collection("assets");
 
 if(Meteor.isClient)
 {
@@ -7,12 +7,14 @@ if(Meteor.isClient)
 		return Assets.find({});
 	};
 	
-	/*Template.assetlist.events = {
+	Template.assetlist.events =
+	{
 		"click .asset": function()
 		{
-			console.log(this);
+			Instances.insert({asset: this._id, handle: this.handle, position: 0, length: 100});
+			Session.set("currentlyPlayingVideo", this.handle);
 		}
-	}*/
+	}
 }
 
 if(Meteor.isServer)
