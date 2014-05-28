@@ -1,0 +1,11 @@
+<template name="assetlist">
+	<div id="assetlist">
+		{{#each assets}}
+			<div class="asset">
+				<div class="{{type}} type"></div>
+				<div class="thumbnail" style="background-image: url(videos/{{handle}}.jpg)"></div>
+				<div class="name">{{name}}</div>
+			</div>
+		{{/each}}
+	</div>
+</template>

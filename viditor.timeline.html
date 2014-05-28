@@ -1,0 +1,16 @@
+<template name="timeline">
+	<div id="timeline">
+		<div id="ruler"></div>
+		{{> track}}
+		{{> track}}
+		{{> track}}
+	</div>
+</template>
+
+<template name="track">
+	<div class="track">
+		{{#each instances}}
+			<div class="instance" style="left: {{position}}px; background-image: url(videos/{{handle}}.jpg); width: {{length}}px;"></div>
+		{{/each}}
+	</div>
+</template>
