@@ -114,13 +114,13 @@ if(Meteor.isClient)
 					//but it needs to render as 130
 						//look into helpers?
 				
-				if(currentTime >= endTime)
+				/*if(currentTime >= endTime)
 				{
 					console.log("the video has finished!");
 					
 					//if has next video
 					//get next video from database..?
-				}
+				}*/
 			}
 		});
 	});

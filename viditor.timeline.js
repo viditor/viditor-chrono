@@ -8,9 +8,25 @@ if(Meteor.isClient)
 	{
 		"click .instance": function()
 		{
-			Instances.update(this._id, {$inc: {position: 100}});
+			Instances.update(this._id, {$inc: {position: 5}});
 		}
 	}
+	
+	Template.track.helpers(
+	{
+		width: function()
+		{
+			return this.length * 10 + "px";
+		},
+		left: function()
+		{
+			return this.position * 10 + "px";
+		},
+		backgroundImage: function()
+		{
+			return "url(videos/" + this.handle + ".jpg)";
+		}
+	});
 }
 
 if(Meteor.isServer)

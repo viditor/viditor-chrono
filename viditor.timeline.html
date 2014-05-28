@@ -10,7 +10,7 @@
 <template name="track">
 	<div class="track">
 		{{#each instances}}
-			<div class="instance" style="left: {{position}}px; background-image: url(videos/{{handle}}.jpg); width: {{length}}px;"></div>
+			<div class="instance" style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};"></div>
 		{{/each}}
 	</div>
 </template>
