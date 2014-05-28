@@ -127,10 +127,12 @@ if(Meteor.isClient)
 			if(_id)
 			{
 				var currentTime = $(this).get(0).currentTime;
-				var endTime = Instances.findOne(_id).length;
+				var endTime = Instances.findOne(_id).length; //trim? //sessioned?
 				
 				if($("video").get(0).ended) //if(currentTime >= endTime)
 				{
+					
+					
 					//var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
 					//var index; for(var i in timeline) {if(timeline[i]._id == _id) {index = i;}}
 					
@@ -149,7 +151,7 @@ if(Meteor.isClient)
 			
 			if(_id)
 			{
-				var handle = Instances.findOne(_id).handle;
+				var handle = Instances.findOne(_id).handle; //sessioned?
 				
 				$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
 				$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
