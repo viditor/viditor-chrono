@@ -12,7 +12,7 @@ if(Meteor.isClient)
 		"click .asset": function()
 		{
 			var _id = Instances.insert({asset: this._id, handle: this.handle, length: this.length, position: 0});
-			Session.set("currentlyPlayingVideo", Instances.findOne(_id));
+			//Session.set("currentlyPlayingVideo", Instances.findOne(_id));
 		}
 	}
 }

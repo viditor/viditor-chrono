@@ -92,16 +92,12 @@ if(Meteor.isClient)
 			return Instances.findOne(Session.get("currentlySelectedVideo"));
 		},
 		backgroundImage: function()
-		{;
-			var handle = this.handle;
-			//var handle = Session.get("currentlySelectedVideo").handle;
-			return "url(videos/" + handle + ".jpg)";
+		{
+			return "url(videos/" + this.handle + ".jpg)";
 		},
 		name: function()
 		{
-			var asset = this.asset;
-			//var asset = Session.get("currentlySelectedVideo").asset;
-			return Assets.findOne(asset).name;
+			return Assets.findOne(this.asset).name;
 		}
 	});
 	
@@ -158,13 +154,27 @@ if(Meteor.isClient)
 				var currentTime = $(this).get(0).currentTime;
 				var endTime = instance.length; //trim?
 				
-				if($("video").get(0).ended) //if(currentTime >= endTime)
+				if(currentTime >= endTime)
 				{
-					//var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
-					//var index; for(var i in timeline) {if(timeline[i]._id == _id) {index = i;}}
+					var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
 					
-					//console.log(timeline.length, index, timeline);
-					//console.log(Instances.findOne({}, {skip: index}));
+					var index;
+					for(var i in timeline)
+					{
+						if(timeline[i]._id == instance._id)
+						{
+							index = parseInt(i, 10);
+						}
+					}
+					
+					if(index + 1 < timeline.length)
+					{
+						Session.set("currentlyPlayingVideo", timeline[index + 1]);
+					}
+					else
+					{
+						Session.set("currentlyPlayingVideo", undefined);
+					}
 				}
 			}
 		});
