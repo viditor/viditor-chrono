@@ -111,7 +111,6 @@
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	overflow: hidden;
 	position: absolute;
 }
 
@@ -129,8 +128,8 @@
 	/*filter: blur(2px);
 	-o-filter: blur(2px);
 	-ms-filter: blur(2px);
-	-moz-filter: blur(2px);
-	-webkit-filter: blur(5px);*/
+	-moz-filter: blur(2px);*/
+	-webkit-filter: blur(5px);
 }
 
 #viewframe > #outerframe > #innerframe > #viewer > #details
@@ -143,5 +142,4 @@
 	position: absolute;
 	
 	color: #FFF;
-	font-weight: bold;
 }

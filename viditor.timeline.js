@@ -10,6 +10,7 @@ if(Meteor.isClient)
 		{
 			Videieio.pause();
 			event.stopPropagation();
+			Session.set("currentlyPlayingVideo", this);
 			Session.set("currentlySelectedVideo", this._id);
 		}
 	}

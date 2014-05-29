@@ -73,7 +73,7 @@ Videieio = new function()
 	this.stop = function()
 	{
 		var instance = Instances.findOne({}, {sort: {position: 1}});
-		if(instance) {Session.set("currentlyPlayingVideo", instance._id);}
+		if(instance) {Session.set("currentlyPlayingVideo", instance);}
 		//if($("video").get(0).currentTime) {$("video").get(0).currentTime = 0;}
 		
 		return this;
@@ -82,29 +82,26 @@ Videieio = new function()
 
 if(Meteor.isClient)
 {
+	Session.set("currentlyPlayingVideo");
+	Session.set("currentlySelectedVideo");
+			
 	Template.viewframe.helpers(
 	{
 		selectedVideo: function()
 		{
 			return Instances.findOne(Session.get("currentlySelectedVideo"));
 		},
-		selectedBackgroundImage: function()
+		backgroundImage: function()
 		{;
 			var handle = this.handle;
 			//var handle = Session.get("currentlySelectedVideo").handle;
 			return "url(videos/" + handle + ".jpg)";
 		},
-		selectedName: function()
+		name: function()
 		{
 			var asset = this.asset;
 			//var asset = Session.get("currentlySelectedVideo").asset;
 			return Assets.findOne(asset).name;
-		},
-		selectedPosition: function()
-		{
-			var position = this.position;
-			//var position = Session.get("currentlySelectedVideo").position;
-			return position;
 		}
 	});
 	
@@ -154,12 +151,12 @@ if(Meteor.isClient)
 		
 		$("video").on("timeupdate", function()
 		{
-			var _id = Session.get("currentlyPlayingVideo");
+			var instance = Session.get("currentlyPlayingVideo");
 			
-			if(_id)
+			if(instance)
 			{
 				var currentTime = $(this).get(0).currentTime;
-				var endTime = Instances.findOne(_id).length; //trim? //sessioned?
+				var endTime = instance.length; //trim?
 				
 				if($("video").get(0).ended) //if(currentTime >= endTime)
 				{
@@ -177,11 +174,11 @@ if(Meteor.isClient)
 	{
 		Deps.autorun(function()
 		{
-			var _id = Session.get("currentlyPlayingVideo");
+			var instance = Session.get("currentlyPlayingVideo");
 			
-			if(_id)
+			if(instance)
 			{
-				var handle = Instances.findOne(_id).handle; //sessioned?
+				var handle = instance.handle;
 				
 				$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
 				$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
