@@ -84,9 +84,13 @@ if(Meteor.isClient)
 {
 	Template.viewframe.helpers(
 	{
-		"selected": function()
+		selectedVideo: function()
 		{
 			return Session.get("currentlySelectedVideo");
+		},
+		backgroundImage: function()
+		{
+			return "url(videos/" + this.handle + ".jpg)";
 		}
 	});
 	
@@ -107,6 +111,13 @@ if(Meteor.isClient)
 		"keydown video": function(event)
 		{
 			Videieio.pauseplay();
+		},
+		"keyup #position": function(event)
+		{
+			var value = $(event.currentTarget).val() || 0;
+			console.log(value);
+			var _id = this._id; //Session.get("currentlySelectedVideo")._id;
+			Instances.update(_id, {$set: {position: value}});
 		}
 	});
 	

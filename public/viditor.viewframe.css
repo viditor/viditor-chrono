@@ -111,6 +111,7 @@
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+	overflow: hidden;
 	position: absolute;
 }
 
@@ -125,11 +126,11 @@
 	background-size: cover;
 	background-image: url('videos/snowing.jpg');
 
-	filter: blur(2px);
+	/*filter: blur(2px);
 	-o-filter: blur(2px);
 	-ms-filter: blur(2px);
 	-moz-filter: blur(2px);
-	-webkit-filter: blur(2px);
+	-webkit-filter: blur(5px);*/
 }
 
 #viewframe > #outerframe > #innerframe > #viewer > #details
@@ -138,5 +139,9 @@
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
+	padding: 1em;
 	position: absolute;
+	
+	color: #FFF;
+	font-weight: bold;
 }

@@ -6,10 +6,19 @@ if(Meteor.isClient)
 	
 	Template.track.events =
 	{
-		"click .instance": function()
+		"click .instance": function(event)
 		{
 			Videieio.pause();
-			Instances.update(this._id, {$inc: {position: 5}});
+			event.stopPropagation();
+			Session.set("currentlySelectedVideo", this);
+		}
+	}
+	
+	Template.timeline.events =
+	{
+		"click": function()
+		{
+			Session.set("currentlySelectedVideo", undefined);
 		}
 	}
 	
