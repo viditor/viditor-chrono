@@ -86,21 +86,24 @@ if(Meteor.isClient)
 	{
 		selectedVideo: function()
 		{
-			return Session.get("currentlySelectedVideo");
+			return Instances.findOne(Session.get("currentlySelectedVideo"));
 		},
 		selectedBackgroundImage: function()
-		{
-			var handle = Session.get("currentlySelectedVideo").handle;
+		{;
+			var handle = this.handle;
+			//var handle = Session.get("currentlySelectedVideo").handle;
 			return "url(videos/" + handle + ".jpg)";
 		},
 		selectedName: function()
 		{
-			var asset_id = Session.get("currentlySelectedVideo").asset;
-			return Assets.findOne(asset_id).name;
+			var asset = this.asset;
+			//var asset = Session.get("currentlySelectedVideo").asset;
+			return Assets.findOne(asset).name;
 		},
 		selectedPosition: function()
 		{
-			var position = Session.get("currentlySelectedVideo").position;
+			var position = this.position;
+			//var position = Session.get("currentlySelectedVideo").position;
 			return position;
 		}
 	});
@@ -126,7 +129,7 @@ if(Meteor.isClient)
 		"keyup #selectedPosition, change #selectedPosition": function(event)
 		{
 			var value = parseInt($(event.currentTarget).val()) || 0;
-			var _id = Session.get("currentlySelectedVideo")._id;
+			var _id = Session.get("currentlySelectedVideo");
 			Instances.update(_id, {$set: {position: value}});
 		}
 	});
