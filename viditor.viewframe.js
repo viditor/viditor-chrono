@@ -88,9 +88,20 @@ if(Meteor.isClient)
 		{
 			return Session.get("currentlySelectedVideo");
 		},
-		backgroundImage: function()
+		selectedBackgroundImage: function()
 		{
-			return "url(videos/" + this.handle + ".jpg)";
+			var handle = Session.get("currentlySelectedVideo").handle;
+			return "url(videos/" + handle + ".jpg)";
+		},
+		selectedName: function()
+		{
+			var asset_id = Session.get("currentlySelectedVideo").asset;
+			return Assets.findOne(asset_id).name;
+		},
+		selectedPosition: function()
+		{
+			var position = Session.get("currentlySelectedVideo").position;
+			return position;
 		}
 	});
 	
@@ -112,11 +123,10 @@ if(Meteor.isClient)
 		{
 			Videieio.pauseplay();
 		},
-		"keyup #position": function(event)
+		"keyup #selectedPosition, change #selectedPosition": function(event)
 		{
-			var value = $(event.currentTarget).val() || 0;
-			console.log(value);
-			var _id = this._id; //Session.get("currentlySelectedVideo")._id;
+			var value = parseInt($(event.currentTarget).val()) || 0;
+			var _id = Session.get("currentlySelectedVideo")._id;
 			Instances.update(_id, {$set: {position: value}});
 		}
 	});

@@ -8,15 +8,13 @@
 					<source id="ogv" type="video/ogg; codecs=theora,vorbis">
 				</video>
 				{{#if selectedVideo}}
-					{{#with selectedVideo}}
-						<div id="viewer">
-							<div id="screenshot" style="background-image: {{backgroundImage}}"></div>
-							<div id="details">
-								{{_id}}
-								<input id="position" type="number" value="{{position}}"/>
-							</div>
+					<div id="viewer">
+						<div id="screenshot" style="background-image: {{selectedBackgroundImage}}"></div>
+						<div id="details">
+							<div>{{selectedName}}</div>
+							<input id="selectedPosition" type="number" value="{{selectedPosition}}"/>
 						</div>
-					{{/with}}
+					</div>
 				{{/if}}
 			</div>
 		</div>
