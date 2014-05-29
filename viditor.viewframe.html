@@ -7,9 +7,16 @@
 					<source id="webm" type="video/webm; codecs=vp8,vorbis">
 					<source id="ogv" type="video/ogg; codecs=theora,vorbis">
 				</video>
-				<div id="viewer">
-					Hello World!
-				</div>
+				{{#if selected}}
+					{{#with selected}}
+						<div id="viewer">
+							<div id="screenshot"></div>
+							<div id="details">
+								{{hello}}
+							</div>
+						</div>
+					{{/with}}
+				{{/if}}
 			</div>
 		</div>
 		<div id="ctrlbar">

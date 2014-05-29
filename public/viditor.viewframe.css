@@ -111,7 +111,32 @@
 	left: 0px;
 	right: 0px;
 	bottom: 0px;
-	display: none;
 	position: absolute;
-	background-color: green;
+}
+
+#viewframe > #outerframe > #innerframe > #viewer > #screenshot
+{
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
+	
+	background-size: cover;
+	background-image: url('videos/snowing.jpg');
+
+	filter: blur(2px);
+	-o-filter: blur(2px);
+	-ms-filter: blur(2px);
+	-moz-filter: blur(2px);
+	-webkit-filter: blur(2px);
+}
+
+#viewframe > #outerframe > #innerframe > #viewer > #details
+{
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	position: absolute;
 }

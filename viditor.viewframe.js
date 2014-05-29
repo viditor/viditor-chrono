@@ -82,6 +82,14 @@ Videieio = new function()
 
 if(Meteor.isClient)
 {
+	Template.viewframe.helpers(
+	{
+		"selected": function()
+		{
+			return Session.get("currentlySelectedVideo");
+		}
+	});
+	
 	Template.viewframe.events(
 	{
 		"click video, click #pauseplay": function()
@@ -131,8 +139,6 @@ if(Meteor.isClient)
 				
 				if($("video").get(0).ended) //if(currentTime >= endTime)
 				{
-					
-					
 					//var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
 					//var index; for(var i in timeline) {if(timeline[i]._id == _id) {index = i;}}
 					
