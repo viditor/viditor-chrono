@@ -1,0 +1,4 @@
+.DS-Store
+.sass-cache/
+node_modules/
+public/stylesheets/
