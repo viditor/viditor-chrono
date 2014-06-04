@@ -34,9 +34,11 @@ if(Meteor.isClient)
 			
 			if(!Session.get("currentlyPlayingVideo"))
 			{
-				var instance = Instances.findOne({position: cursor.position});
-				
-				//get a better algorithm for selecting what asset is next
+				var instance = Instances.findOne({
+					position: {$lte: cursor.position},
+					endposition: {$gt/*e*/: cursor.position}
+				});
+				//for each track?
 				
 				if(instance)
 				{

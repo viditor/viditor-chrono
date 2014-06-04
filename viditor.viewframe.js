@@ -132,9 +132,12 @@ if(Meteor.isClient)
 		},
 		"keyup #selectedPosition, change #selectedPosition": function(event)
 		{
-			var value = parseInt($(event.currentTarget).val()) || 0;
 			var _id = Session.get("currentlySelectedVideo");
-			Instances.update(_id, {$set: {position: value}});
+			var instance = Instances.findOne(_id);
+			
+			var beginposition = parseInt($(event.currentTarget).val()) || 0;
+			var endposition = beginposition + instance.length; //trim?
+			Instances.update(_id, {$set: {position: beginposition, endposition: endposition}});
 		}
 	});
 	
