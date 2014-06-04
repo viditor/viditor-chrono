@@ -1,0 +1,24 @@
+template name="viewframe"
+  #viewframe
+    #outerframe
+      #innerframe
+        video#player autoplay=true
+          source#mp4 type="video/mp4; codecs=avc1.42E01E,mp4a.40.2"/
+          source#webm type="video/webm; codecs=vp8,vorbis"/
+          source#ogv type="video/ogg; codecs=theora,vorbis"/
+        | {{#if selectedVideo}}
+        | {{#with selectedVideo}}
+        #viewer
+          #screenshot style="background-image: {{backgroundImage}}"
+          #details
+            div
+              | {{name}}
+            input#selectedPosition type="number" value="{{position}}"
+        | {{/with}}
+        | {{/if}}
+    #ctrlbar
+      #pauseplay.button
+      #stop.button
+      #previous.button
+      #next.button
+      #muteunmute.button

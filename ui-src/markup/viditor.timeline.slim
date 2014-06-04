@@ -1,0 +1,15 @@
+template name="timeline"
+  #timeline
+    #ruler
+    " {{> track}}
+    " {{> track}}
+    " {{> track}}
+
+template name="track"
+  .track
+    | {{#each instances}}
+    .instance style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};"
+      span
+        | {{_id}}
+      /! for debug
+    | {{/each}}
