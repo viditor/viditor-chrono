@@ -38,6 +38,17 @@ Videieio = new function()
 		return this;
 	}
 	
+	this.stop = function()
+	{
+		Videieio.pause();
+		
+		var cursor = Session.get("cursor");
+		cursor.position = 0;
+		Session.set("cursor", cursor);
+		
+		return this;
+	}
+	
 	this.isPaused = function()
 	{
 		var playing = Session.get("cursor").playing;
@@ -77,15 +88,6 @@ Videieio = new function()
 	this.isMuted = function()
 	{
 		return $("video").get(0).muted;
-	}
-	
-	this.stop = function()
-	{
-		var instance = Instances.findOne({}, {sort: {position: 1}});
-		if(instance) {Session.set("currentlyPlayingVideo", instance);}
-		//if($("video").get(0).currentTime) {$("video").get(0).currentTime = 0;}
-		
-		return this;
 	}
 }
 
@@ -154,39 +156,22 @@ if(Meteor.isClient)
 			}
 		});
 		
-		/*$("video").on("timeupdate", function()
+		$("video").on("timeupdate", function()
 		{
 			var instance = Session.get("currentlyPlayingVideo");
 			
 			if(instance)
 			{
-				var currentTime = $(this).get(0).currentTime;
+				/*var currentTime = $(this).get(0).currentTime;
 				var endTime = instance.length; //trim?
 				
-				if(currentTime >= endTime)
+				if(currentTime >= endTime)*/
+				if($(this).get(0).ended)
 				{
-					var timeline = Instances.find({}, {sort: {position: 1}}).fetch();
-					
-					var index;
-					for(var i in timeline)
-					{
-						if(timeline[i]._id == instance._id)
-						{
-							index = parseInt(i, 10);
-						}
-					}
-					
-					if(index + 1 < timeline.length)
-					{
-						Session.set("currentlyPlayingVideo", timeline[index + 1]);
-					}
-					else
-					{
-						Session.set("currentlyPlayingVideo", undefined);
-					}
+					Session.set("currentlyPlayingVideo");
 				}
 			}
-		});*/
+		});
 	});
 	
 	Meteor.startup(function()
@@ -194,23 +179,17 @@ if(Meteor.isClient)
 		Deps.autorun(function()
 		{
 			var instance = Session.get("currentlyPlayingVideo");
+			var handle = undefined;
 			
 			if(instance)
 			{
 				var handle = instance.handle;
+			}
 				
-				$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
-				$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
-				$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
-				$("#viewframe").find("video").get(0).load();
-			}
-			else
-			{
-				$("#viewframe").find("source#mp4").attr("src", undefined);
-				$("#viewframe").find("source#webm").attr("src", undefined);
-				$("#viewframe").find("source#ogv").attr("src", undefined);
-				$("#viewframe").find("video").get(0).load();
-			}
+			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
+			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
+			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
+			$("#viewframe").find("video").get(0).load();
 		});
 	});
 }

@@ -32,15 +32,20 @@ if(Meteor.isClient)
 				clock -= 1000;
 			}
 			
-			var instance = Instances.findOne({position: cursor.position});
-			//console.log(instance);
-			if(instance)
+			if(!Session.get("currentlyPlayingVideo"))
 			{
-				Session.set("currentlyPlayingVideo", instance);
-			}
-			else
-			{
-				Session.set("currentlyPlayingVideo");
+				var instance = Instances.findOne({position: cursor.position});
+				
+				//get a better algorithm for selecting what asset is next
+				
+				if(instance)
+				{
+					Session.set("currentlyPlayingVideo", instance);
+				}
+				else
+				{
+					Session.set("currentlyPlayingVideo");
+				}
 			}
 		}
 	};
