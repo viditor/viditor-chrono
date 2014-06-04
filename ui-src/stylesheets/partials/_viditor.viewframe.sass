@@ -5,88 +5,81 @@
   bottom: 193px
   position: fixed
   overflow: hidden
-  >
-    #ctrlbar
-      left: 0em
-      right: 0em
-      bottom: 0em
-      width: 17em
-      height: 2em
-      margin: auto
-      padding: 0.5em
-      position: absolute
-      >
-        .button
-          width: 3em
-          height: 2em
-          float: left
-          border-radius: 4px
-          background-size: 1.5em
-          background-color: #0A9BDE
-          background-repeat: no-repeat
-          background-position: center center
-          &:not(:last-child)
-            margin-right: 0.5em
-          &:hover
-            cursor: pointer
-            background-color: #FF3500
-        #pauseplay
-          &.button
-            background-image: url("../images/icons/play.png")
-          &.toggled.button
-            background-image: url("../images/icons/pause.png")
-        #muteunmute
-          &.button
-            background-size: 1.25em
-            background-image: url("../images/icons/unmuted.png")
-          &.toggled.button
-            background-image: url("../images/icons/muted.png")
-        #stop.button
-          background-image: url("../images/icons/stop.png")
-        #previous.button
-          background-image: url("../images/icons/previous.png")
-        #next.button
-          background-image: url("../images/icons/next.png")
-    #outerframe
-      top: 0em
-      left: 0em
-      right: 0em
-      bottom: 2.5em
-      padding: 0.5em
-      position: absolute
-      > #innerframe
+  #ctrlbar
+    left: 0em
+    bottom: 0em
+    width: 48px
+    height: 197px
+    position: fixed
+    background-color: #000
+    >
+      .button
         width: 100%
-        height: 100%
-        position: relative
-        >
-          video
-            width: 100%
-            height: 100%
-          #viewer
-            top: 0px
-            left: 0px
-            right: 0px
-            bottom: 0px
-            position: absolute
-            >
-              #screenshot
-                top: 0px
-                left: 0px
-                right: 0px
-                bottom: 0px
-                position: absolute
-                background-size: cover
-                background-image: url("../videos/snowing.jpg")
-                /*filter: blur(2px);
-                 *-o-filter: blur(2px);
-                 *-ms-filter: blur(2px);
-                 *-moz-filter: blur(2px);*/
-                -webkit-filter: blur(5px)
-              #details
-                top: 0px
-                left: 0px
-                right: 0px
-                bottom: 0px
-                padding: 1em
-                position: absolute
-                color: #FFF
+        height: (197 / 5) * 1px
+        float: left
+        background-size: 1.5em
+        background-repeat: no-repeat
+        background-position: center center
+        &:hover
+          cursor: pointer
+          background-color: $gray
+      #pauseplay
+        &.button
+          background-image: url("../images/icons/play.png")
+        &.toggled.button
+          background-image: url("../images/icons/pause.png")
+      #muteunmute
+        &.button
+          background-size: 1.25em
+          background-image: url("../images/icons/unmuted.png")
+        &.toggled.button
+          background-image: url("../images/icons/muted.png")
+      #stop.button
+        background-image: url("../images/icons/stop.png")
+      #previous.button
+        background-image: url("../images/icons/previous.png")
+      #next.button
+        background-image: url("../images/icons/next.png")
+  #outerframe
+    top: 0em
+    left: 0em
+    right: 0em
+    bottom: 2.5em
+    padding: 0.5em
+    position: absolute
+    > #innerframe
+      width: 100%
+      height: 100%
+      position: relative
+      >
+        video
+          width: 100%
+          height: 100%
+        #viewer
+          top: 0px
+          left: 0px
+          right: 0px
+          bottom: 0px
+          position: absolute
+          >
+            #screenshot
+              top: 0px
+              left: 0px
+              right: 0px
+              bottom: 0px
+              position: absolute
+              background-size: cover
+              background-image: url("../videos/snowing.jpg")
+              /*filter: blur(2px);
+               *-o-filter: blur(2px);
+               *-ms-filter: blur(2px);
+               *-moz-filter: blur(2px);*/
+              -webkit-filter: blur(5px)
+            #details
+              top: 0px
+              left: 0px
+              right: 0px
+              bottom: 0px
+              padding: 1em
+              position: absolute
+              color: #FFF
