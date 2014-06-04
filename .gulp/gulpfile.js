@@ -6,20 +6,20 @@ var gulp = require("gulp"),
     rename = require("gulp-rename");
 
 gulp.task("default", function() {
-  
+  gulp.watch("../ui-src/stylesheets/**/*.sass", ["styles"]);
 });
 
 gulp.task("markup", function() {
-  gulp.src("ui-src/markup/**.slim")
+  gulp.src("../ui-src/markup/**.slim")
     .pipe(changed("./"))
     .pipe(slim({pretty:true, sort_attrs:false}))
     .pipe(gulp.dest("./"));
 });
 
 gulp.task("styles", function() {
-  gulp.src("ui-src/stylesheets/viditor.main.sass")
-    .pipe(changed("public/stylesheets"))
+  gulp.src("../ui-src/stylesheets/viditor.main.sass")
+    .pipe(changed("../public/stylesheets"))
     .pipe(sass({sourcemap: true, style: "compact"}))
     .pipe(prefix("last 1 version", "> 1%", "ie 8", "ie 7"))
-    .pipe(gulp.dest("public/stylesheets"));
+    .pipe(gulp.dest("../public/stylesheets"));
 });
