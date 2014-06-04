@@ -12,7 +12,7 @@ gulp.task("default", function() {
 gulp.task("markup", function() {
   gulp.src("ui-src/markup/**.slim")
     .pipe(changed("./"))
-    .pipe(slim({pretty:true}))
+    .pipe(slim({pretty:true, sort_attrs:false}))
     .pipe(gulp.dest("./"));
 });
 
