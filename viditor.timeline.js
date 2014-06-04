@@ -1,12 +1,14 @@
 Instances = new Meteor.Collection("instances");
+Cursors = new Meteor.Collection("cursors");
 
 if(Meteor.isClient)
 {
-	Session.setDefault("cursor", {position: 0, playing: false});
+	var _id = Cursors.insert({position: 0, playing: false});
+	Session.set("cursor", _id);
 	
 	Template.timeline.cursor = function()
 	{
-		return Session.get("cursor");
+		return Cursors.findOne(Session.get("cursor"));
 	}
 	
 	Template.timeline.helpers(
@@ -20,14 +22,14 @@ if(Meteor.isClient)
 	var clock = 0;
 	loop.func = function()
 	{
-		var cursor = Session.get("cursor");
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
 		if(cursor.playing)
 		{
 			clock += loop.framerate.getCurrent();
 			if(clock > 1000)
 			{
-				cursor.position++;
-				Session.set("cursor", cursor);
+				Cursors.update(cursor_id, {$inc: {position: 1}});
 				
 				clock -= 1000;
 			}
@@ -95,5 +97,6 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Instances.remove({});
+		Cursors.remove({});
 	});
 }

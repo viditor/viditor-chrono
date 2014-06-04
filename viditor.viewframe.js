@@ -19,9 +19,8 @@ Videieio = new function()
 		$("video").get(0).pause();
 		$("#viewframe").find("#pauseplay").removeClass("toggled");
 		
-		var cursor = Session.get("cursor");
-		cursor.playing = false;
-		Session.set("cursor", cursor);
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {playing: false}});
 		
 		return this;
 	}
@@ -31,9 +30,8 @@ Videieio = new function()
 		$("video").get(0).play();
 		$("#viewframe").find("#pauseplay").addClass("toggled");
 		
-		var cursor = Session.get("cursor");
-		cursor.playing = true;
-		Session.set("cursor", cursor);
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {playing: true}});
 		
 		return this;
 	}
@@ -42,17 +40,16 @@ Videieio = new function()
 	{
 		Videieio.pause();
 		
-		var cursor = Session.get("cursor");
-		cursor.position = 0;
-		Session.set("cursor", cursor);
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {position: 0});
 		
 		return this;
 	}
 	
 	this.isPaused = function()
 	{
-		var playing = Session.get("cursor").playing;
-		return !playing;
+		var cursor_id = Session.get("cursor");
+		return !Cursors.findOne(cursor_id).playing;
 	}
 	
 	this.muteunmute = function()
