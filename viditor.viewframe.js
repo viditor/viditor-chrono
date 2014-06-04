@@ -40,7 +40,8 @@ Videieio = new function()
 	
 	this.isPaused = function()
 	{
-		return $("video").get(0).paused;
+		var playing = Session.get("cursor").playing;
+		return !playing;
 	}
 	
 	this.muteunmute = function()
@@ -153,7 +154,7 @@ if(Meteor.isClient)
 			}
 		});
 		
-		$("video").on("timeupdate", function()
+		/*$("video").on("timeupdate", function()
 		{
 			var instance = Session.get("currentlyPlayingVideo");
 			
@@ -185,7 +186,7 @@ if(Meteor.isClient)
 					}
 				}
 			}
-		});
+		});*/
 	});
 	
 	Meteor.startup(function()
@@ -201,6 +202,13 @@ if(Meteor.isClient)
 				$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
 				$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
 				$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
+				$("#viewframe").find("video").get(0).load();
+			}
+			else
+			{
+				$("#viewframe").find("source#mp4").attr("src", undefined);
+				$("#viewframe").find("source#webm").attr("src", undefined);
+				$("#viewframe").find("source#ogv").attr("src", undefined);
 				$("#viewframe").find("video").get(0).load();
 			}
 		});
