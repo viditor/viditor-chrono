@@ -16,6 +16,20 @@
 	background-image: URL(images/ruler.png);
 }
 
+#timeline > #cursor
+{
+	border-width: 1px;
+	border-color: #111;
+	border-style: dashed;
+	border-top: none;
+	border-bottom: none;
+	
+	top: 0px;
+	bottom: 0px;
+	z-index: 1;
+	position: absolute;
+}
+
 #timeline > .track
 {
 	height: 2.5em;

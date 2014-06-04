@@ -19,6 +19,10 @@ Videieio = new function()
 		$("video").get(0).pause();
 		$("#viewframe").find("#pauseplay").removeClass("toggled");
 		
+		var cursor = Session.get("cursor");
+		cursor.playing = false;
+		Session.set("cursor", cursor);
+		
 		return this;
 	}
 	
@@ -26,6 +30,10 @@ Videieio = new function()
 	{
 		$("video").get(0).play();
 		$("#viewframe").find("#pauseplay").addClass("toggled");
+		
+		var cursor = Session.get("cursor");
+		cursor.playing = true;
+		Session.set("cursor", cursor);
 		
 		return this;
 	}
