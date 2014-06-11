@@ -7,17 +7,15 @@
 					<source id="webm" type="video/webm; codecs=vp8,vorbis">
 					<source id="ogv" type="video/ogg; codecs=theora,vorbis">
 				</video>
-				{{#if selectedVideo}}
-					{{#with selectedVideo}}
-						<div id="viewer">
-							<div id="screenshot" style="background-image: {{backgroundImage}}"></div>
-							<div id="details">
-								<div>{{name}}</div>
-								<input id="selectedPosition" type="number" value="{{position}}"/>
-							</div>
+				{{#with selected_instance}}
+					<div id="viewer">
+						<div id="screenshot" style="{{css_background_image}}"></div>
+						<div id="details">
+							<div>{{asset_name}}</div>
+							<input id="selectedPosition" type="number" value="{{position}}"/>
 						</div>
-					{{/with}}
-				{{/if}}
+					</div>
+				{{/with}}
 			</div>
 		</div>
 		<div id="ctrlbar">

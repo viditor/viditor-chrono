@@ -4,8 +4,8 @@ if(Meteor.isClient)
 {
 	Template.assetlist.assets = function()
 	{
-		return Assets.find({});
-	};
+		return Assets.find();
+	}
 	
 	Template.assetlist.events =
 	{

@@ -39,21 +39,21 @@ if(Meteor.isClient)
 		return Instances.find({track: track_id});
 	}
 	
+	Template.timeline.events =
+	{
+		"click": function(event)
+		{
+			Session.set("selection", undefined);
+		}
+	}
+	
 	Template.track.events =
 	{
 		"click .instance": function(event)
 		{
 			Videieio.pause();
 			event.stopPropagation();
-			Session.set("currentlySelectedVideo", this._id);
-		}
-	}
-	
-	Template.timeline.events =
-	{
-		"click": function(event)
-		{
-			Session.set("currentlySelectedVideo", undefined);
+			Session.set("selection", this._id);
 		}
 	}
 }

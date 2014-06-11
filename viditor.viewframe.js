@@ -17,10 +17,7 @@ Videieio = new function()
 	this.pause = function()
 	{
 		$("video").get(0).pause();
-		$("#viewframe").find("#pauseplay").removeClass("toggled");
-		
-		var cursor_id = Session.get("cursor");
-		Cursors.update(cursor_id, {$set: {playing: false}});
+		$("#pauseplay").removeClass("toggled");
 		
 		return this;
 	}
@@ -28,10 +25,16 @@ Videieio = new function()
 	this.play = function()
 	{
 		$("video").get(0).play();
-		$("#viewframe").find("#pauseplay").addClass("toggled");
+		$("#pauseplay").addClass("toggled");
 		
-		var cursor_id = Session.get("cursor");
-		Cursors.update(cursor_id, {$set: {playing: true}});
+		var cursor = Session.get("cursor");
+		if(!cursor.instance)
+		{
+			cursor.instance = Instances.findOne();
+			console.log(cursor.instance); //undefined?!
+			
+			//Session.set("cursor", cursor); //?! how to get autorun?
+		}
 		
 		return this;
 	}
@@ -48,8 +51,7 @@ Videieio = new function()
 	
 	this.isPaused = function()
 	{
-		var cursor_id = Session.get("cursor");
-		return !Cursors.findOne(cursor_id).playing;
+		return $("video").get(0).paused;
 	}
 	
 	this.muteunmute = function()
@@ -90,25 +92,19 @@ Videieio = new function()
 
 if(Meteor.isClient)
 {
-	Template.viewframe.helpers(
+	Template.viewframe.selected_instance = function()
 	{
-		selectedVideo: function()
-		{
-			return Instances.findOne(Session.get("currentlySelectedVideo"));
-		},
-		backgroundImage: function()
-		{
-			return "url(videos/" + this.handle + ".jpg)";
-		},
-		name: function()
-		{
-			return Assets.findOne(this.asset).name;
-		}
-	});
+		return Instances.findOne(Session.get("selection"));
+	}
+	
+	Template.viewframe.asset_name = function()
+	{
+		return Assets.findOne(this.asset).name;
+	}
 	
 	Template.viewframe.events(
 	{
-		"click video, click #pauseplay": function()
+		"click #pauseplay, click video": function()
 		{
 			Videieio.pauseplay();
 		},
@@ -120,13 +116,9 @@ if(Meteor.isClient)
 		{
 			Videieio.stop();
 		},
-		"keydown video": function(event)
-		{
-			Videieio.pauseplay();
-		},
 		"keyup #selectedPosition, change #selectedPosition": function(event)
 		{
-			var _id = Session.get("currentlySelectedVideo");
+			var _id = Session.get("selection");
 			var instance = Instances.findOne(_id);
 			
 			var beginposition = parseInt($(event.currentTarget).val()) || 0;
@@ -135,19 +127,12 @@ if(Meteor.isClient)
 		}
 	});
 	
-	/*Instances.find({}, {sort: {position: 1}}).observe(
-	{
-		movedTo: function(doc, from, to, before)
-		{
-			console.log(doc._id, from, to);
-		}
-	});*/
-	
-	$(document).ready(function()
+	Meteor.startup(function()
 	{
 		$(document).on("keypress", function(event)
 		{
-			if(event.keyCode == 32)
+			var SPACEBAR_KEYCODE = 32;
+			if(event.keyCode == SPACEBAR_KEYCODE)
 			{
 				Videieio.pauseplay();
 			}
@@ -155,18 +140,21 @@ if(Meteor.isClient)
 		
 		$("video").on("timeupdate", function()
 		{
-			var instance = Session.get("currentlyPlayingVideo");
+			var instance = Session.get("cursor").instance;
 			
 			if(instance)
 			{
-				/*var currentTime = $(this).get(0).currentTime;
+				var currentTime = $(this).get(0).currentTime;
 				var endTime = instance.length; //trim?
 				
-				if(currentTime >= endTime)*/
+				console.log(currentTime, endTime);
+				
+				/*if(currentTime >= endTime)
 				if($(this).get(0).ended)
 				{
-					Session.set("currentlyPlayingVideo");
-				}
+					var cursor = Session.get("cursor");
+					cursor.instance = undefined;
+				}*/
 			}
 		});
 	});
@@ -175,7 +163,7 @@ if(Meteor.isClient)
 	{
 		Deps.autorun(function()
 		{
-			var instance = Session.get("currentlyPlayingVideo");
+			var instance = Session.get("cursor").instance; //THIS MIGHT BE BAD, BECAUSE IT IS IN AUTORUN!!
 			
 			var handle;
 			if(instance)
