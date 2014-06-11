@@ -27,14 +27,16 @@ Videieio = new function()
 		$("video").get(0).play();
 		$("#pauseplay").addClass("toggled");
 		
-		var instance = Instances.findOne();
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
+		
+		var instance = Instances.findOne({position: {$gte: cursor.position}});
 		
 		if(instance)
 		{
 			Session.set("cursor_instance", instance._id);
 			
-			var cursor_id = Session.get("cursor");
-			Cursors.update(cursor_id, {$set: {global_position: instance.position}});
+			Cursors.update(cursor_id, {$set: {position: instance.position}});
 		}
 		
 		return this;
@@ -45,7 +47,7 @@ Videieio = new function()
 		Videieio.pause();
 		
 		var cursor_id = Session.get("cursor");
-		Cursors.update(cursor_id, {$set: {global_position: 0, local_position: 0}});
+		Cursors.update(cursor_id, {$set: {position: 0}});
 		
 		return this;
 	}
@@ -144,6 +146,7 @@ if(Meteor.isClient)
 			if(!$(this).get(0).paused)
 			{
 				var instance_id = Session.get("cursor_instance");
+				var instance = Instances.findOne(instance_id);
 				
 				if(instance_id)
 				{
@@ -151,16 +154,12 @@ if(Meteor.isClient)
 					//var endTime = cursor.instance_id.length; //trim?
 					
 					var cursor_id = Session.get("cursor");
-					Cursors.update(cursor_id, {$set: {local_position: currentTime}});
+					Cursors.update(cursor_id, {$set: {position: instance.position + currentTime}});
 					
 					//if(currentTime >= endTime)
 					if($(this).get(0).ended)
 					{
-						Session.set("cursor_instance")
-						
-						var duration = $(this).get(0).duration;
-						var cursor_id = Session.get("cursor");
-						Cursors.update(cursor_id, {$set: {local_position: 0}, $inc: {global_position: duration}});
+						Session.set("cursor_instance");
 					}
 				}
 			}

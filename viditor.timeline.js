@@ -34,12 +34,6 @@ if(Meteor.isClient)
 		return Cursors.findOne(cursor_id);
 	}
 	
-	Template.timeline.cursor_css_left = function()
-	{
-		var left = (this.local_position + this.global_position) * 10 + "px";
-		return "left: " + left + ";";
-	}
-	
 	Template.track.instances = function()
 	{
 		var track_id = parseInt(this);
