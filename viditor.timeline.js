@@ -3,67 +3,40 @@ Cursors = new Meteor.Collection("cursors");
 
 if(Meteor.isClient)
 {
-	var _id = Cursors.insert({position: 0, playing: false});
-	Session.set("cursor", _id);
+	Meteor.startup(function()
+	{
+		var _id = Cursors.insert({position: 0});
+		Session.set("cursor", _id);
+	});
+	
+	UI.registerHelper("css_width", function()
+	{
+		var width = this.length * 10 + "px";
+		return "width: " + width + ";";
+	});
+	
+	UI.registerHelper("css_background_image", function()
+	{
+		var background_image = "url(videos/" + this.handle + ".jpg)";
+		return "background-image: " + background_image + ";";
+	});
+	
+	UI.registerHelper("css_left", function()
+	{
+		var left = this.position * 10 + "px";
+		return "left: " + left + ";";
+	});
 	
 	Template.timeline.cursor = function()
 	{
-		return Cursors.findOne(Session.get("cursor"));
-	}
-	
-	Template.timeline.tracks = function()
-	{
-		return [1, 2, 3]
-	}
-	
-	Template.timeline.helpers(
-	{
-		left: function()
-		{
-			return this.position * 10 + "px";
-		}
-	});
-	
-	var clock = 0;
-	loop.func = function()
-	{
 		var cursor_id = Session.get("cursor");
-		var cursor = Cursors.findOne(cursor_id);
-		if(cursor.playing)
-		{
-			clock += loop.framerate.getCurrent();
-			if(clock > 1000)
-			{
-				Cursors.update(cursor_id, {$inc: {position: 1}});
-				
-				clock -= 1000;
-			}
-			
-			if(!Session.get("currentlyPlayingVideo"))
-			{
-				var instance = Instances.findOne({
-					position: {$lte: cursor.position},
-					endposition: {$gt/*e*/: cursor.position}
-				});
-				//for each track?
-				
-				if(instance)
-				{
-					Session.set("currentlyPlayingVideo", instance);
-				}
-				else
-				{
-					Session.set("currentlyPlayingVideo");
-				}
-			}
-		}
-	};
-	loop.reloop();
+		return Cursors.findOne(cursor_id);
+	}
 	
 	Template.track.instances = function()
 	{
-		//console.log(this); ?!?!?!?! how to get the id of the track
-		return Instances.find();
+		var track_id = parseInt(this);
+		return Instances.find({track: track_id});
 	}
 	
 	Template.track.events =
@@ -78,27 +51,11 @@ if(Meteor.isClient)
 	
 	Template.timeline.events =
 	{
-		"click": function()
+		"click": function(event)
 		{
 			Session.set("currentlySelectedVideo", undefined);
 		}
 	}
-	
-	Template.track.helpers(
-	{
-		width: function()
-		{
-			return this.length * 10 + "px";
-		},
-		left: function()
-		{
-			return this.position * 10 + "px";
-		},
-		backgroundImage: function()
-		{
-			return "url(videos/" + this.handle + ".jpg)";
-		}
-	});
 }
 
 if(Meteor.isServer)

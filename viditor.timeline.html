@@ -5,12 +5,12 @@
 		<div id="ruler"></div>
 		
 		{{#with cursor}}
-			<div id="cursor" style="left: {{left}}"></div>
+			<div id="cursor" style="{{css_left}}"></div>
 		{{/with}}
 		
-		{{> track}}
-		{{> track}}
-		{{> track}}
+		{{> track 1}}
+		{{> track 2}}
+		{{> track 3}}
 		
 	</div>
 	
@@ -21,8 +21,7 @@
 	<div class="track" id="{{this}}">
 		
 		{{#each instances}}
-			<div class="instance" style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};">
-			</div>
+			<div class="instance" style="{{css_left}} {{css_background_image}} {{css_width}}"></div>
 		{{/each}}
 		
 	</div>
