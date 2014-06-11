@@ -24,19 +24,41 @@ Videieio = new function()
 	
 	this.play = function()
 	{
-		$("video").get(0).play();
-		$("#pauseplay").addClass("toggled");
-		
 		var cursor_id = Session.get("cursor");
 		var cursor = Cursors.findOne(cursor_id);
 		
-		var instance = Instances.findOne({position: {$gte: cursor.position}});
+		var instance = Instances.findOne({position: {$lte: cursor.position}, endposition: {$gt: cursor.position}});
+		if(instance)
+		{
+			Session.set("cursor_instance", instance._id);
+			
+			var start = cursor.position - instance.position;
+			var times = "#t=" + start + "," + instance.length;
+			$("#viewframe").find("source#mp4").attr("src", "videos/" + instance.handle + ".mp4" + times);
+			$("#viewframe").find("source#webm").attr("src", "videos/" + instance.handle + ".webm" + times);
+			$("#viewframe").find("source#ogv").attr("src", "videos/" + instance.handle + ".ogv" + times);
+			$("#viewframe").find("video").get(0).load();
+			
+			$("video").get(0).play();
+			$("#pauseplay").addClass("toggled");
+			
+			return this;
+		}
 		
+		instance = Instances.findOne({position: {$gte: cursor.position}});
 		if(instance)
 		{
 			Session.set("cursor_instance", instance._id);
 			
 			Cursors.update(cursor_id, {$set: {position: instance.position}});
+			
+			$("video").get(0).play();
+			$("#pauseplay").addClass("toggled");
+			
+			$("#viewframe").find("source#mp4").attr("src", "videos/" + instance.handle + ".mp4");
+			$("#viewframe").find("source#webm").attr("src", "videos/" + instance.handle + ".webm");
+			$("#viewframe").find("source#ogv").attr("src", "videos/" + instance.handle + ".ogv");
+			$("#viewframe").find("video").get(0).load();
 		}
 		
 		return this;
@@ -114,6 +136,7 @@ if(Meteor.isClient)
 		"click #muteunmute": function()
 		{
 			Videieio.muteunmute();
+			
 		},
 		"click #stop": function()
 		{
@@ -143,24 +166,24 @@ if(Meteor.isClient)
 		
 		$("video").on("timeupdate", function()
 		{
-			if(!$(this).get(0).paused)
+			var instance_id = Session.get("cursor_instance");
+			var instance = Instances.findOne(instance_id);
+			
+			if(instance_id)
 			{
-				var instance_id = Session.get("cursor_instance");
-				var instance = Instances.findOne(instance_id);
-				
-				if(instance_id)
+				if(!$(this).get(0).paused)
 				{
 					var currentTime = $(this).get(0).currentTime;
 					//var endTime = cursor.instance_id.length; //trim?
-					
 					var cursor_id = Session.get("cursor");
 					Cursors.update(cursor_id, {$set: {position: instance.position + currentTime}});
-					
-					//if(currentTime >= endTime)
-					if($(this).get(0).ended)
-					{
-						Session.set("cursor_instance");
-					}
+				}
+				
+				//if(currentTime >= endTime)
+				if($(this).get(0).ended)
+				{
+					Videieio.pause();
+					Session.set("cursor_instance");
 				}
 			}
 		});
@@ -168,7 +191,7 @@ if(Meteor.isClient)
 	
 	Meteor.startup(function()
 	{
-		Deps.autorun(function()
+		/*Deps.autorun(function()
 		{
 			var instance_id = Session.get("cursor_instance");
 			
@@ -178,11 +201,11 @@ if(Meteor.isClient)
 				var instance = Instances.findOne(instance_id);
 				handle = instance.handle;
 			}
-				
+			
 			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
 			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
 			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
 			$("#viewframe").find("video").get(0).load();
-		});
+		});*/
 	});
 }

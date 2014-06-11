@@ -21,7 +21,7 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Assets.remove({});
-		Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video", length: 14});
+		Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video", length: 13.6});
 		Assets.insert({name: "ChildrenLaughing", handle: "children", type: "audio", length: 9});
 		Assets.insert({name: "InTheCarOnTheRoad", handle: "inthecar", type: "video", length: 36});
 	});
