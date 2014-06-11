@@ -11,6 +11,11 @@ if(Meteor.isClient)
 		return Cursors.findOne(Session.get("cursor"));
 	}
 	
+	Template.timeline.tracks = function()
+	{
+		return [1, 2, 3]
+	}
+	
 	Template.timeline.helpers(
 	{
 		left: function()
@@ -55,7 +60,11 @@ if(Meteor.isClient)
 	};
 	loop.reloop();
 	
-	Template.track.instances = Instances.find();
+	Template.track.instances = function()
+	{
+		//console.log(this); ?!?!?!?! how to get the id of the track
+		return Instances.find();
+	}
 	
 	Template.track.events =
 	{

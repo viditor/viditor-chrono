@@ -18,11 +18,10 @@
 
 <template name="track">
 	
-	<div class="track">
+	<div class="track" id="{{this}}">
 		
 		{{#each instances}}
 			<div class="instance" style="left: {{left}}; background-image: {{backgroundImage}}; width: {{width}};">
-				<span>{{_id}}</span> <!--for debug-->
 			</div>
 		{{/each}}
 		

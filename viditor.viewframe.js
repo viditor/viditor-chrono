@@ -90,9 +90,6 @@ Videieio = new function()
 
 if(Meteor.isClient)
 {
-	Session.set("currentlyPlayingVideo");
-	Session.set("currentlySelectedVideo");
-			
 	Template.viewframe.helpers(
 	{
 		selectedVideo: function()
@@ -179,8 +176,8 @@ if(Meteor.isClient)
 		Deps.autorun(function()
 		{
 			var instance = Session.get("currentlyPlayingVideo");
-			var handle = undefined;
 			
+			var handle;
 			if(instance)
 			{
 				var handle = instance.handle;
