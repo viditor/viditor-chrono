@@ -27,13 +27,12 @@ Videieio = new function()
 		$("video").get(0).play();
 		$("#pauseplay").addClass("toggled");
 		
-		var cursor = Session.get("cursor");
-		if(!cursor.instance)
+		var instance_id = Session.get("cursor_instance");
+		
+		if(!instance_id)
 		{
-			cursor.instance = Instances.findOne();
-			console.log(cursor.instance); //undefined?!
-			
-			//Session.set("cursor", cursor); //?! how to get autorun?
+			instance_id = Instances.findOne()._id;
+			Session.set("cursor_instance", instance_id);
 		}
 		
 		return this;
@@ -140,14 +139,16 @@ if(Meteor.isClient)
 		
 		$("video").on("timeupdate", function()
 		{
-			var instance = Session.get("cursor").instance;
+			var instance_id = Session.get("cursor_instance");
 			
-			if(instance)
+			if(instance_id)
 			{
 				var currentTime = $(this).get(0).currentTime;
-				var endTime = instance.length; //trim?
+				//var endTime = cursor.instance_id.length; //trim?
 				
-				console.log(currentTime, endTime);
+				//console.log(currentTime);
+				var cursor_id = Session.get("cursor");
+				Cursors.update(cursor_id, {$set: {position: currentTime}});
 				
 				/*if(currentTime >= endTime)
 				if($(this).get(0).ended)
@@ -163,12 +164,13 @@ if(Meteor.isClient)
 	{
 		Deps.autorun(function()
 		{
-			var instance = Session.get("cursor").instance; //THIS MIGHT BE BAD, BECAUSE IT IS IN AUTORUN!!
+			var instance_id = Session.get("cursor_instance");
 			
-			var handle;
-			if(instance)
+			var handle = undefined;
+			if(instance_id)
 			{
-				var handle = instance.handle;
+				var instance = Instances.findOne(instance_id);
+				handle = instance.handle;
 			}
 				
 			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");

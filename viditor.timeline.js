@@ -5,6 +5,7 @@ if(Meteor.isClient)
 {
 	Meteor.startup(function()
 	{
+		Session.set("cursor_instance");
 		var _id = Cursors.insert({position: 0});
 		Session.set("cursor", _id);
 	});
