@@ -27,19 +27,14 @@ Videieio = new function()
 		$("video").get(0).play();
 		$("#pauseplay").addClass("toggled");
 		
-		var instance_id = Session.get("cursor_instance");
+		var instance = Instances.findOne();
 		
-		if(!instance_id)
+		if(instance)
 		{
-			var instance = Instances.findOne();
+			Session.set("cursor_instance", instance._id);
 			
-			if(instance)
-			{
-				Session.set("cursor_instance", instance._id);
-				
-				var cursor_id = Session.get("cursor");
-				Cursors.update(cursor_id, {$set: {global_position: instance.position}});
-			}
+			var cursor_id = Session.get("cursor");
+			Cursors.update(cursor_id, {$set: {global_position: instance.position}});
 		}
 		
 		return this;
@@ -50,7 +45,7 @@ Videieio = new function()
 		Videieio.pause();
 		
 		var cursor_id = Session.get("cursor");
-		Cursors.update(cursor_id, {position: 0});
+		Cursors.update(cursor_id, {$set: {global_position: 0, local_position: 0}});
 		
 		return this;
 	}
@@ -146,23 +141,28 @@ if(Meteor.isClient)
 		
 		$("video").on("timeupdate", function()
 		{
-			var instance_id = Session.get("cursor_instance");
-			
-			if(instance_id)
+			if(!$(this).get(0).paused)
 			{
-				var currentTime = $(this).get(0).currentTime;
-				//var endTime = cursor.instance_id.length; //trim?
+				var instance_id = Session.get("cursor_instance");
 				
-				//console.log(currentTime);
-				var cursor_id = Session.get("cursor");
-				Cursors.update(cursor_id, {$set: {local_position: currentTime}});
-				
-				/*if(currentTime >= endTime)
-				if($(this).get(0).ended)
+				if(instance_id)
 				{
-					var cursor = Session.get("cursor");
-					cursor.instance = undefined;
-				}*/
+					var currentTime = $(this).get(0).currentTime;
+					//var endTime = cursor.instance_id.length; //trim?
+					
+					var cursor_id = Session.get("cursor");
+					Cursors.update(cursor_id, {$set: {local_position: currentTime}});
+					
+					//if(currentTime >= endTime)
+					if($(this).get(0).ended)
+					{
+						Session.set("cursor_instance")
+						
+						var duration = $(this).get(0).duration;
+						var cursor_id = Session.get("cursor");
+						Cursors.update(cursor_id, {$set: {local_position: 0}, $inc: {global_position: duration}});
+					}
+				}
 			}
 		});
 	});
