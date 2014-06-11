@@ -17,15 +17,19 @@ if(Meteor.isClient)
 		{
 			var button = document.getElementById("assetlist-expand-collapse");
 			var al = document.getElementById("assetlist");
+			var video = document.getElementById("player");
 			button.className = "assetlist-collapse";
 			al.className = al.className + " expanded";
+			video.className = video.className + " unfocused";
 		},
 		"click .assetlist-collapse": function()
 		{
 			var button = document.getElementById("assetlist-expand-collapse");
 			var al = document.getElementById("assetlist");
+			var video = document.getElementById("player");
 			button.className = "assetlist-expand";
 			al.className = al.className.replace(" expanded", "");
+			video.className = video.className.replace(" unfocused", "");
 		}
 	}
 }
