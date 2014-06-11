@@ -1,12 +1,35 @@
 #assetlist
   top: 68px
-  right: 0px
-  width: 320px
-  bottom: 193px
+  left: -308px
+  width: 356px
+  bottom: 197px
   position: fixed
-  overflow-y: scroll
-  border-left: 1px dashed #0A9BDE
-  > .asset
+  box-sizing: border-box
+  padding-right: 48px
+  -webkit-transition: left 0.2s ease
+  background-image: -o-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
+  background-image: -moz-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
+  background-image: -ms-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
+  background-image: linear-gradient(-179deg, #FFFFFF 0%, #E3E3E3 36%)
+  &.expanded
+    left: 0px
+  .assetlist-expand, .assetlist-collapse
+    content: " "
+    text-indent: -100000px
+    border: none
+    width: 48px
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    background-color: $dark_gray
+    cursor: pointer
+    outline: none
+    box-sizing: border-box
+  .assetlist-collapse
+    background-color: $light_gray
+    border: 2px solid $dark_gray
+  .asset
     height: 2.5em
     margin: 0.5em
     cursor: pointer
