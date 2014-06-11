@@ -31,8 +31,15 @@ Videieio = new function()
 		
 		if(!instance_id)
 		{
-			instance_id = Instances.findOne()._id;
-			Session.set("cursor_instance", instance_id);
+			var instance = Instances.findOne();
+			
+			if(instance)
+			{
+				Session.set("cursor_instance", instance._id);
+				
+				var cursor_id = Session.get("cursor");
+				Cursors.update(cursor_id, {$set: {global_position: instance.position}});
+			}
 		}
 		
 		return this;
@@ -148,7 +155,7 @@ if(Meteor.isClient)
 				
 				//console.log(currentTime);
 				var cursor_id = Session.get("cursor");
-				Cursors.update(cursor_id, {$set: {position: currentTime}});
+				Cursors.update(cursor_id, {$set: {local_position: currentTime}});
 				
 				/*if(currentTime >= endTime)
 				if($(this).get(0).ended)
