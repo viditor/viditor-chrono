@@ -2,3 +2,4 @@
 .sass-cache/
 node_modules/
 public/stylesheets/
+viditor.main.css*
