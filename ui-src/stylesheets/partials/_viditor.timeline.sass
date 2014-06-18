@@ -3,45 +3,44 @@
   right: 0
   bottom: 0
   position: fixed
-  >
-    #ruler
-      height: 30px
-      padding: 0.125em 0 0
-      background-color: $bright_blue
-      background-repeat: repeat-x
-      background-position: 0 14px
-      background-image: url("../images/ruler.png")
-    #cursor
-      border-width: 1px
-      border-color: #111
-      border-style: dashed
-      border-top: none
-      border-bottom: none
-      top: 0px
-      bottom: 0px
-      z-index: 1
+  #ruler
+    height: 30px
+    padding: 0.125em 0 0
+    background-color: $bright_blue
+    background-repeat: repeat-x
+    background-position: 0 14px
+    background-image: url("../images/ruler.png")
+  #cursor
+    border-width: 1px
+    border-color: #111
+    border-style: dashed
+    border-top: none
+    border-bottom: none
+    top: 0px
+    bottom: 0px
+    z-index: 1
+    position: absolute
+  .track
+    height: 2.5em
+    padding: 0.25em 0em
+    border-bottom-width: 1px
+    border-bottom-style: solid
+    border-bottom-color: $gray
+    background-color: #eee
+    background-image: -o-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
+    background-image: -moz-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
+    background-image: -ms-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
+    background-image: linear-gradient(-179deg, #F6F6F6 0%, #E3E3E3 99%)
+    .instance
+      height: inherit
       position: absolute
-    .track
-      height: 2.5em
-      padding: 0.25em 0em
-      border-bottom-width: 1px
-      border-bottom-style: solid
-      border-bottom-color: $gray
-      background-color: #eee
-      background-image: -o-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
-      background-image: -moz-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
-      background-image: -ms-linear-gradient(-89deg, #F6F6F6 0%, #E3E3E3 99%)
-      background-image: linear-gradient(-179deg, #F6F6F6 0%, #E3E3E3 99%)
-      > .instance
-        height: inherit
-        position: absolute
-        border-radius: 2px
-        overflow: hidden
-        line-height: 2.5em
-        background-color: pink
-        background-size: auto 64px
-        box-shadow: 0 1px 1px $dark_gray
-        > span
-          color: #FFF
-          font-weight: bold
-          background-color: grey
+      border-radius: 2px
+      overflow: hidden
+      line-height: 2.5em
+      background-color: pink
+      background-size: auto 64px
+      box-shadow: 0 1px 1px $dark_gray
+      span
+        color: #FFF
+        font-weight: bold
+        background-color: grey
