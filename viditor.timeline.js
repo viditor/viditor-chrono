@@ -42,41 +42,17 @@ if(Meteor.isClient)
 	
 	Template.instance.rendered = function()
 	{
-		var _id = this.data._id;
+		var data = this.data;
 		var dom = this.find(".instance");
 
 		$(dom).draggable({drag: function(event, element)
 		{
-
 			var position = element.position.left / 10;
-			Instances.update(_id, {$set: {position: position}});
+			Instances.update(data._id, {$set: {position: position}});
 		},
 		grid: [10, 0], grid: [10, 55]});
 
-		$(dom).resizable({resize: function(event, element)
-		{
-			var length = (element.size.width - 6) / 10;
-			Instances.update(_id, {$set: {length: length}});
-		},
-		handles: "e, w", grid: [10, 0]})
-	}
-
-	Template.timeline.events =
-	{
-		"click": function(event)
-		{
-			Session.set("selection", undefined);
-		}
-	}
-	
-	Template.track.events =
-	{
-		"click .instance": function(event)
-		{
-			Videieio.pause();
-			event.stopPropagation();
-			Session.set("selection", this._id);
-		}
+		$(dom).resizable(getResizable(data));
 	}
 }
 
@@ -87,4 +63,32 @@ if(Meteor.isServer)
 		Instances.remove({});
 		Cursors.remove({});
 	});
+}
+
+
+
+PIXELS_PER_TICK = 10;
+SECONDS_PER_TICK = 1;
+pixel2tick = function(pixel) {return Math.floor(pixel / PIXELS_PER_TICK);}
+pixel2sec = function(pixel) {return pixel2tick(pixel) * SECONDS_PER_TICK;}
+
+function getResizable(data)
+{
+	var resizable = new Object();
+	console.log(data.length);
+	resizable.handles = "e, w";
+	resizable.grid = [PIXELS_PER_TICK, 0];
+	resizable.minWidth = PIXELS_PER_TICK;
+	resizable.maxWidth = data.length * PIXELS_PER_TICK;
+
+	resizable.resize = function(event, element)
+	{
+		var trim = pixel2sec((element.originalSize.width - element.size.width));
+		var tick = pixel2tick(element.position.left);
+		console.log(trim, tick);
+		//var length = (element.size.width - 6) / 10;
+		//Instances.update(data._id, {$set: {length: length}});
+	}
+
+	return resizable;
 }
