@@ -6,6 +6,7 @@ var gulp = require("gulp"),
     rename = require("gulp-rename");
 
 gulp.task("default", function() {
+  gulp.run("styles");
   gulp.watch("../ui-src/stylesheets/**/*.sass", ["styles"]);
 });
 
