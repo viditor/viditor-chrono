@@ -117,16 +117,6 @@ Videieio = new function()
 
 if(Meteor.isClient)
 {
-	Template.viewframe.selected_instance = function()
-	{
-		return Instances.findOne(Session.get("selection"));
-	}
-	
-	Template.viewframe.asset_name = function()
-	{
-		return Assets.findOne(this.asset).name;
-	}
-	
 	Template.viewframe.events(
 	{
 		"click #pauseplay, click video": function()
@@ -141,15 +131,6 @@ if(Meteor.isClient)
 		"click #stop": function()
 		{
 			Videieio.stop();
-		},
-		"keyup #selectedPosition, change #selectedPosition": function(event)
-		{
-			var _id = Session.get("selection");
-			var instance = Instances.findOne(_id);
-			
-			var beginposition = parseInt($(event.currentTarget).val()) || 0;
-			var endposition = beginposition + instance.length; //trim?
-			Instances.update(_id, {$set: {position: beginposition, endposition: endposition}});
 		}
 	});
 	
@@ -164,7 +145,7 @@ if(Meteor.isClient)
 			}
 		});
 		
-		$("video").on("timeupdate", function()
+		/*$("video").on("timeupdate", function()
 		{
 			var instance_id = Session.get("cursor_instance");
 			var instance = Instances.findOne(instance_id);
@@ -186,16 +167,16 @@ if(Meteor.isClient)
 					Session.set("cursor_instance");
 				}
 			}
-		});
+		});*/
 	});
 	
 	Meteor.startup(function()
 	{
-		/*Deps.autorun(function()
+		Deps.autorun(function()
 		{
+			var handle = "blank";
+
 			var instance_id = Session.get("cursor_instance");
-			
-			var handle = undefined;
 			if(instance_id)
 			{
 				var instance = Instances.findOne(instance_id);
@@ -206,6 +187,6 @@ if(Meteor.isClient)
 			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
 			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
 			$("#viewframe").find("video").get(0).load();
-		});*/
+		});
 	});
 }

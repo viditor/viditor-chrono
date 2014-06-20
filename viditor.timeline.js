@@ -17,7 +17,7 @@ if(Meteor.isClient)
 		var width = length * 10 + 3 + "px";
 		return "width: " + width + ";";
 	});
-	
+
 	UI.registerHelper("css_background_image", function()
 	{
 		var background_image = "url(videos/" + this.handle + ".jpg)";
@@ -52,9 +52,19 @@ if(Meteor.isClient)
 			var position = element.position.left / 10;
 			Instances.update(data._id, {$set: {position: position}});
 		},
-		grid: [10, 0], grid: [10, 55]});
+		grid: [10, 55], grid: [10, 0]});
 
 		$(dom).resizable(getResizable(data));
+	}
+
+	Template.timeline.events =
+	{
+		"click": function(event)
+		{
+			var position = pixel2tick(event.clientX);
+			console.log(position);
+			Cursors.update(Session.get("cursor"), {$set: {position: position}});
+		}
 	}
 }
 
