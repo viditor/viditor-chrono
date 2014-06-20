@@ -5,12 +5,20 @@
   bottom: 185px
   position: fixed
   box-sizing: border-box
-  padding-right: 48px
+  padding: 24px 48px 36px 24px
   -webkit-transition: left 0.2s ease
   background-image: -o-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
   background-image: -moz-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
   background-image: -ms-linear-gradient(-89deg, #FFFFFF 0%, #E3E3E3 36%)
   background-image: linear-gradient(-179deg, #FFFFFF 0%, #E3E3E3 36%)
+  h2
+    font-size: 1em
+    float: left
+    margin-right: 1em
+  p
+    clear: both
+    font-size: 14px
+    margin: 0.4em 0 1em
   &.expanded
     left: 0px
   .assetlist-expand, .assetlist-collapse
@@ -35,13 +43,16 @@
     background-color: $light_gray
     background-image: url("/images/filmstrip_opened.png")
   .asset
-    height: 2.5em
-    margin: 0.5em
+    width: 116px
+    height: 24px
     cursor: pointer
-    overflow: hidden
-    border-radius: 2px
     position: relative
-    background-color: #0A9BDE
+    float: left
+    margin: 0 24px 18px 0
+    padding-top: 73px
+    &:focus
+      .thumbnail
+        border: 4px solid $bright_blue
     .type
       top: 0em
       left: 0em
@@ -51,23 +62,24 @@
       background-size: 1.5em
       background-repeat: no-repeat
       background-position: center center
-    .video.type
-      background-image: url("../images/icons/videofile.png")
-    .audio.type
-      background-image: url("../images/icons/audiofile.png")
+      &.video
+        background-image: url("../images/icons/videofile.png")
+      &.audio
+        background-image: url("../images/icons/audiofile.png")
     .thumbnail
-      top: 0em
-      left: 2.5em
-      width: 2.5em
-      height: 2.5em
+      top: 0
+      left: 0
+      width: 116px
+      height: 73px
       position: absolute
+      border-radius: 2px
+      overflow: hidden
       background-size: cover
       background-repeat: no-repeat
+      box-sizing: border-box
     .name
-      top: 0em
-      left: 5em
-      right: 0em
-      padding: 0.5em
-      line-height: 1.5em
-      position: absolute
-      color: #FFF
+      line-height: 1.2em
+      width: 100%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
