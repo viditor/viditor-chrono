@@ -40,6 +40,19 @@ if(Meteor.isClient)
 		return Instances.find({track: track_id});
 	}
 	
+	Template.instance.rendered = function()
+	{
+		var _id = this.data._id;
+		$(this.find(".instance")).draggable({
+			drag: function(event, element)
+			{
+				var position = element.position.left / 10;
+				Instances.update(_id, {$set: {position: position}});
+			},
+			grid: [10, 0]
+		});
+	}
+
 	Template.timeline.events =
 	{
 		"click": function(event)

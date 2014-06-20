@@ -21,9 +21,13 @@
 	<div class="track" id="{{this}}">
 		
 		{{#each instances}}
-			<div class="instance" style="{{css_left}} {{css_background_image}} {{css_width}}"></div>
+			{{> instance}}
 		{{/each}}
 		
 	</div>
 	
+</template>
+
+<template name="instance">
+	<div class="instance" style="{{css_left}} {{css_background_image}} {{css_width}}"></div>
 </template>
