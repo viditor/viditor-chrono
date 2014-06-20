@@ -6,7 +6,7 @@ if(Meteor.isClient)
 	Meteor.startup(function()
 	{
 		Session.set("cursor_instance");
-		var _id = Cursors.insert({position: 0, active: false, handle: "children"});
+		var _id = Cursors.insert({position: 0, playing: false, muted: true, handle: "children"});
 		Session.set("cursor", _id);
 	});
 	
@@ -66,6 +66,49 @@ if(Meteor.isClient)
 			Cursors.update(cursor_id, {$set: {position: position}});
 		}
 	}
+
+	var loop = function(func)
+	{
+		this.delta = Date.now();
+
+		this._preupdate = function()
+		{
+			this.delta = Date.now() - this.delta;
+		}
+
+		this._postupdate = function()
+		{
+			this.delta = Date.now();
+		}
+
+		this._loop = function()
+		{
+			this._preupdate();
+			if(this.func) {this.func();}
+			this._postupdate();
+			this._reloop();
+		}
+
+		this._reloop = function()
+		{
+			window.requestAnimationFrame(this._loop.bind(this));
+		}
+
+		this.func = func;
+		this._reloop();
+	}
+
+	loop(function()
+	{
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
+
+		if(cursor.playing)
+		{
+			Cursors.update(cursor_id, {$inc: {position: this.delta / 1000}});
+			console.log(Cursors.findOne(cursor_id).position)
+		}
+	})
 }
 
 if(Meteor.isServer)
@@ -126,56 +169,4 @@ function getResizable(data)
 	}
 
 	return resizable;
-}
-
-loop = new function()
-{
-	this.framerate = new function()
-	{
-		//delta is the time between frames, sigma
-		//is the sum of all deltas, and the theta
-		//is the count of all deltas.
-
-		this.delta = Date.now();
-		this.sigma = Date.now();
-		this.theta = 0;
-
-		this.preupdate = function()
-		{
-			this.delta = Date.now() - this.delta;
-			this.sigma += this.delta;
-			this.theta++;
-		}
-
-		this.postupdate = function()
-		{
-			this.delta = Date.now();
-		}
-
-		this.getCurrent = function()
-		{
-			var current = this.delta;
-			return current//.toFixed(2);
-		}
-
-		this.getAverage = function()
-		{
-			var average = this.sigma / this.theta;
-			return average.toFixed(2);
-		}
-	}
-
-	this.loop = function()
-	{
-		this.framerate.preupdate();
-		if(this.func) {this.func();}
-		this.framerate.postupdate();
-
-		this.reloop();
-	}
-
-	this.reloop = function()
-	{
-		window.requestAnimationFrame(this.loop.bind(this));
-	}
 }
