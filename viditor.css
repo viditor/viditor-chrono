@@ -3,18 +3,18 @@
 @import URL("fonts/abel.css");
 
 *
+
 {
 	margin: 0px;
 }
 
-body
+html
 {
 	color: #111;
 	font-size: 18px;
 	font-family: ubuntu-light, calibri, sans-serif;
-	
-	/*overflow: hidden;*/
-	
-	background-color: #FFF;
-	background-image: URL(images/linedpaper.png);
 }
+
+
+html, body {height: 100%;}
+.view {min-height: 100%;}
