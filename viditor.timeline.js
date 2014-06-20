@@ -63,7 +63,7 @@ if(Meteor.isClient)
 		{
 			var cursor_id = Session.get("cursor");
 			var position = pixel2tick(event.clientX);
-			Cursors.update(cursor_id, {$set: {position: position}});
+			Cursors.update(cursor_id, {$set: {position: position, playing: false}});
 		}
 	}
 
@@ -105,8 +105,19 @@ if(Meteor.isClient)
 
 		if(cursor.playing)
 		{
-			Cursors.update(cursor_id, {$inc: {position: this.delta / 1000}});
-			console.log(Cursors.findOne(cursor_id).position)
+			var position = cursor.position + (this.delta / 1000);
+
+			var handle = "blank";
+			var instances = Instances.find({position: {$lte: position}});
+			instances.forEach(function(instance, index)
+			{
+				handle = instance.handle;
+
+				//will save the MOST RIGHT instance that is still
+				//left of the cursor as the handle
+			});
+
+			Cursors.update(cursor_id, {$set: {position: position, handle: handle}});
 		}
 	})
 }

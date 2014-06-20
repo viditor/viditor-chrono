@@ -105,6 +105,21 @@ if(Meteor.isClient)
 		"click #stop": function()
 		{
 			Playback.stop();
+		},
+		"click #previous": function()
+		{
+			var cursor_id = Session.get("cursor");
+			var cursor = Cursors.findOne(cursor_id);
+
+			var position = cursor.position -= 5;
+			if(position < 0) {position = 0;}
+
+			Cursors.update(cursor_id, {$set: {position: position}});
+		},
+		"click #next": function()
+		{
+			var cursor_id = Session.get("cursor");
+			Cursors.update(cursor_id, {$inc: {position: 5}});
 		}
 	});
 	
@@ -155,21 +170,9 @@ if(Meteor.isClient)
 					$("#muteunmute").removeClass("toggled");
 				}
 
-
-				if(video.handle)
+				if(video.handle != cursor.handle)
 				{
-					if(video.handle != cursor.handle)
-					{
-						video.handle = cursor.handle;
-						$(video).find("source#mp4").attr("src", "videos/" + video.handle + ".mp4");
-						$(video).find("source#webm").attr("src", "videos/" + video.handle + ".webm");
-						$(video).find("source#ogv").attr("src", "videos/" +video. handle + ".ogv");
-						video.load();
-					}
-				}
-				else
-				{
-					video.handle = "inthecar";
+					video.handle = cursor.handle;
 					$(video).find("source#mp4").attr("src", "videos/" + video.handle + ".mp4");
 					$(video).find("source#webm").attr("src", "videos/" + video.handle + ".webm");
 					$(video).find("source#ogv").attr("src", "videos/" +video. handle + ".ogv");
