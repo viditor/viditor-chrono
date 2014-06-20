@@ -103,7 +103,7 @@ if(Meteor.isClient)
 		var cursor_id = Session.get("cursor");
 		var cursor = Cursors.findOne(cursor_id);
 
-		if(cursor.playing)
+		if(cursor && cursor.playing)
 		{
 			var position = cursor.position + (this.delta / 1000);
 
@@ -111,10 +111,14 @@ if(Meteor.isClient)
 			var instances = Instances.find({position: {$lte: position}});
 			instances.forEach(function(instance, index)
 			{
-				handle = instance.handle;
+				if(position < instance.position + instance.length)
+				{
+					handle = instance.handle;
+				}
 
-				//will save the MOST RIGHT instance that is still
-				//left of the cursor as the handle
+				//THIS ALGORITH IS SO STUPID IT HURTS.
+
+				//BUT AT LEAST IT WORKS, RIGHT?
 			});
 
 			Cursors.update(cursor_id, {$set: {position: position, handle: handle}});
