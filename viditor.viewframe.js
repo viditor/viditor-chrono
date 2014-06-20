@@ -141,6 +141,7 @@ if(Meteor.isClient)
 			var video = $("video").get(0);
 			var cursor_id = Session.get("cursor");
 			var cursor = Cursors.findOne(cursor_id);
+			var instance = Instances.findOne(cursor.instance_id);
 
 			if(cursor)
 			{
@@ -170,13 +171,27 @@ if(Meteor.isClient)
 					$("#muteunmute").removeClass("toggled");
 				}
 
-				if(video.handle != cursor.handle)
+				if(video.instance_id != cursor.instance_id)
 				{
-					video.handle = cursor.handle;
-					$(video).find("source#mp4").attr("src", "videos/" + video.handle + ".mp4");
-					$(video).find("source#webm").attr("src", "videos/" + video.handle + ".webm");
-					$(video).find("source#ogv").attr("src", "videos/" +video. handle + ".ogv");
+					video.instance_id = cursor.instance_id;
+
+					var handle = instance ? instance.handle : "blank";
+					$(video).find("source#mp4").attr("src", "videos/" + handle + ".mp4");
+					$(video).find("source#webm").attr("src", "videos/" + handle + ".webm");
+					$(video).find("source#ogv").attr("src", "videos/" + handle + ".ogv");
 					video.load();
+				}
+
+				if(instance)
+				{
+					var current_position = instance.position + video.currentTime;
+
+					var diff = Math.abs(cursor.position - current_position);
+					
+					if(diff > 1) //ie: NOT IN SYNC!!
+					{
+						video.currentTime = cursor.position - instance.position;
+					}
 				}
 			}
 		});

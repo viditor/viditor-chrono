@@ -5,8 +5,7 @@ if(Meteor.isClient)
 {
 	Meteor.startup(function()
 	{
-		Session.set("cursor_instance");
-		var _id = Cursors.insert({position: 0, playing: false, muted: true, handle: "children"});
+		var _id = Cursors.insert({position: 0, playing: false, muted: true, instance_id: undefined});
 		Session.set("cursor", _id);
 	});
 	
@@ -107,13 +106,13 @@ if(Meteor.isClient)
 		{
 			var position = cursor.position + (this.delta / 1000);
 
-			var handle = "blank";
+			var instance_id = -1;
 			var instances = Instances.find({position: {$lte: position}});
 			instances.forEach(function(instance, index)
 			{
 				if(position < instance.position + instance.length)
 				{
-					handle = instance.handle;
+					instance_id = instance._id;
 				}
 
 				//THIS ALGORITH IS SO STUPID IT HURTS.
@@ -121,7 +120,7 @@ if(Meteor.isClient)
 				//BUT AT LEAST IT WORKS, RIGHT?
 			});
 
-			Cursors.update(cursor_id, {$set: {position: position, handle: handle}});
+			Cursors.update(cursor_id, {$set: {position: position, instance_id: instance_id}});
 		}
 	})
 }
