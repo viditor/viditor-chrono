@@ -43,14 +43,30 @@ if(Meteor.isClient)
 	Template.instance.rendered = function()
 	{
 		var _id = this.data._id;
-		$(this.find(".instance")).draggable({
+		var dom = this.find(".instance");
+
+		$(dom).draggable({
 			drag: function(event, element)
 			{
+
 				var position = element.position.left / 10;
 				Instances.update(_id, {$set: {position: position}});
 			},
-			grid: [10, 0]
+			grid: [10, 0], grid: [10, 55]
 		});
+
+		$(dom).resizable({
+			stop: function(event, element)
+			{
+				var length = (element.size.width - 6) / 10;
+				console.log(length);
+				Instances.update(_id, {$set: {length: length}});
+
+				//does not respect the trim!!
+			},
+			handles: "e, w",
+			grid: [10, 0]
+		})
 	}
 
 	Template.timeline.events =
