@@ -42,25 +42,38 @@
             color: #0A9BDE
             cursor: pointer
       #userlist
-        top: 0.25em
-        right: 0.25em
-        bottom: 0.25em
-        position: absolute
+        float: right
         .user
           width: 30px
           height: 30px
           float: right
-          margin-left: 0.25em
+          margin-left: 8px
           background-size: cover
-          border-bottom-style: solid
-          border-bottom-width: 3px
+          border: 2px solid $gray
           border-radius: 2px
           box-sizing: border-box
-        #new.user
+        .button
+          width: 30px
+          height: 30px
+          float: right
           cursor: pointer
-          border-color: #FFF
-          background-size: 1.75em
-          background-color: #0A9BDE
-          background-repeat: no-repeat
-          background-position: center center
-          background-image: url("../images/icons/adduser.png")
+          font-size: 1.4em
+          line-height: 0
+          font-weight: bold
+          text-align: center
+          padding-top: 11px
+      #help
+        float: right
+        border-left: 1px solid $gray
+        margin-left: 12px
+        padding: 0 12px 0 12px
+        button
+          -webkit-appearance: none
+          background-color: transparent
+          border: none
+          height: 30px
+          width: 30px
+          font-size: 1.4em
+          font-weight: bold
+          text-shadow: none
+          cursor: pointer

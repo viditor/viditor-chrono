@@ -15,7 +15,7 @@ if(Meteor.isClient)
 		{
 			console.log("access a menu");
 		},
-		"click #new.user": function()
+		"click #new": function()
 		{
 			console.log("share with a new user");
 		}
