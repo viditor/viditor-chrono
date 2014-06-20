@@ -16,6 +16,5 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Projects.remove({});
-		//Projects.insert({});
 	});
 }
