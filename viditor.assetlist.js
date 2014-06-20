@@ -11,7 +11,7 @@ if(Meteor.isClient)
 	{
 		"click .asset": function()
 		{
-			var _id = Instances.insert({asset: this._id, handle: this.handle, length: this.length, position: 0, endposition: this.length, track: 1});
+			var _id = Instances.insert({asset: this._id, handle: this.handle, length: this.length, position: 0, endposition: this.length, track: 1, left_trim: 0, right_trim: 0});
 		}
 	}
 }

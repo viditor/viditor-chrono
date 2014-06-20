@@ -12,7 +12,9 @@ if(Meteor.isClient)
 	
 	UI.registerHelper("css_width", function()
 	{
-		var width = this.length * 10 + "px";
+		var length = this.length - this.left_trim - this.right_trim;
+		console.log(this.length, this.left_trim, this.right_trim)
+		var width = length * 10 + 3 + "px";
 		return "width: " + width + ";";
 	});
 	
@@ -75,19 +77,42 @@ pixel2sec = function(pixel) {return pixel2tick(pixel) * SECONDS_PER_TICK;}
 function getResizable(data)
 {
 	var resizable = new Object();
-	console.log(data.length);
+	
 	resizable.handles = "e, w";
-	resizable.grid = [PIXELS_PER_TICK, 0];
 	resizable.minWidth = PIXELS_PER_TICK;
-	resizable.maxWidth = data.length * PIXELS_PER_TICK;
+	resizable.grid = [PIXELS_PER_TICK, 0];
+	resizable.maxWidth = (data.length + 1) * PIXELS_PER_TICK;
 
-	resizable.resize = function(event, element)
+	resizable.stop = function(event, element)
 	{
 		var trim = pixel2sec((element.originalSize.width - element.size.width));
-		var tick = pixel2tick(element.position.left);
-		console.log(trim, tick);
-		//var length = (element.size.width - 6) / 10;
-		//Instances.update(data._id, {$set: {length: length}});
+		var position = pixel2tick(element.position.left);
+
+		var instance = Instances.findOne(data._id);
+		var right_trim = instance.right_trim;
+		var left_trim = instance.left_trim;
+		if(instance.position == position)
+		{
+			right_trim += trim;
+
+			if(right_trim < 0)
+			{
+				left_trim += right_trim;
+				right_trim = 0;
+			}
+		}
+		else
+		{
+			left_trim += trim;
+
+			if(left_trim < 0)
+			{
+				right_trim += left_trim;
+				left_trim = 0;
+			}
+		}
+
+		Instances.update(data._id, {$set: {right_trim: right_trim, left_trim: left_trim, position: position}})
 	}
 
 	return resizable;
