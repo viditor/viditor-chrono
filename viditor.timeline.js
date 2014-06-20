@@ -6,14 +6,14 @@ if(Meteor.isClient)
 	Meteor.startup(function()
 	{
 		Session.set("cursor_instance");
-		var _id = Cursors.insert({position: 0});
+		var _id = Cursors.insert({position: 0, active: false, handle: "children"});
 		Session.set("cursor", _id);
 	});
 	
 	UI.registerHelper("css_width", function()
 	{
 		var length = this.length - this.left_trim - this.right_trim;
-		console.log(this.length, this.left_trim, this.right_trim)
+		//console.log(this.length, this.left_trim, this.right_trim);
 		var width = length * 10 + 3 + "px";
 		return "width: " + width + ";";
 	});
@@ -61,9 +61,9 @@ if(Meteor.isClient)
 	{
 		"click": function(event)
 		{
+			var cursor_id = Session.get("cursor");
 			var position = pixel2tick(event.clientX);
-			console.log(position);
-			Cursors.update(Session.get("cursor"), {$set: {position: position}});
+			Cursors.update(cursor_id, {$set: {position: position}});
 		}
 	}
 }
@@ -126,4 +126,56 @@ function getResizable(data)
 	}
 
 	return resizable;
+}
+
+loop = new function()
+{
+	this.framerate = new function()
+	{
+		//delta is the time between frames, sigma
+		//is the sum of all deltas, and the theta
+		//is the count of all deltas.
+
+		this.delta = Date.now();
+		this.sigma = Date.now();
+		this.theta = 0;
+
+		this.preupdate = function()
+		{
+			this.delta = Date.now() - this.delta;
+			this.sigma += this.delta;
+			this.theta++;
+		}
+
+		this.postupdate = function()
+		{
+			this.delta = Date.now();
+		}
+
+		this.getCurrent = function()
+		{
+			var current = this.delta;
+			return current//.toFixed(2);
+		}
+
+		this.getAverage = function()
+		{
+			var average = this.sigma / this.theta;
+			return average.toFixed(2);
+		}
+	}
+
+	this.loop = function()
+	{
+		this.framerate.preupdate();
+		if(this.func) {this.func();}
+		this.framerate.postupdate();
+
+		this.reloop();
+	}
+
+	this.reloop = function()
+	{
+		window.requestAnimationFrame(this.loop.bind(this));
+	}
 }

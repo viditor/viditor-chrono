@@ -2,13 +2,13 @@ Videieio = new function()
 {
 	this.pauseplay = function()
 	{
-		if(this.isPaused())
+		if(this.isActive())
 		{
-			this.play();
+			this.pause();
 		}
 		else
 		{
-			this.pause();
+			this.play();
 		}
 		
 		return this;
@@ -16,17 +16,26 @@ Videieio = new function()
 	
 	this.pause = function()
 	{
-		$("video").get(0).pause();
 		$("#pauseplay").removeClass("toggled");
+
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {active: false}});
 		
 		return this;
 	}
 	
 	this.play = function()
 	{
+		$("#pauseplay").addClass("toggled");
+
 		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {active: true}});
+
+		return this;
+
+		/*var cursor_id = Session.get("cursor");
 		var cursor = Cursors.findOne(cursor_id);
-		
+
 		var instance = Instances.findOne({position: {$lte: cursor.position}, endposition: {$gt: cursor.position}});
 		if(instance)
 		{
@@ -59,7 +68,7 @@ Videieio = new function()
 			$("#viewframe").find("source#webm").attr("src", "videos/" + instance.handle + ".webm");
 			$("#viewframe").find("source#ogv").attr("src", "videos/" + instance.handle + ".ogv");
 			$("#viewframe").find("video").get(0).load();
-		}
+		}*/
 		
 		return this;
 	}
@@ -74,9 +83,12 @@ Videieio = new function()
 		return this;
 	}
 	
-	this.isPaused = function()
+	this.isActive = function()
 	{
-		return $("video").get(0).paused;
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
+
+		return cursor.active;
 	}
 	
 	this.muteunmute = function()
@@ -174,19 +186,42 @@ if(Meteor.isClient)
 	{
 		Deps.autorun(function()
 		{
-			var handle = "blank";
+			var video = $("video").get(0);
+			var cursor_id = Session.get("cursor");
+			var cursor = Cursors.findOne(cursor_id);
 
-			var instance_id = Session.get("cursor_instance");
-			if(instance_id)
+			if(cursor)
 			{
-				var instance = Instances.findOne(instance_id);
-				handle = instance.handle;
+				console.log("!");
+				if(cursor.active)
+				{
+					video.play();
+				}
+				else
+				{
+					video.pause();
+				}
+
+				if(video.handle)
+				{
+					if(video.handle != cursor.handle)
+					{
+						video.handle = cursor.handle;
+						$(video).find("source#mp4").attr("src", "videos/" + video.handle + ".mp4");
+						$(video).find("source#webm").attr("src", "videos/" + video.handle + ".webm");
+						$(video).find("source#ogv").attr("src", "videos/" +video. handle + ".ogv");
+						video.load();
+					}
+				}
+				else
+				{
+					video.handle = "inthecar";
+					$(video).find("source#mp4").attr("src", "videos/" + video.handle + ".mp4");
+					$(video).find("source#webm").attr("src", "videos/" + video.handle + ".webm");
+					$(video).find("source#ogv").attr("src", "videos/" +video. handle + ".ogv");
+					video.load();
+				}
 			}
-			
-			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
-			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
-			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
-			$("#viewframe").find("video").get(0).load();
 		});
 	});
 }
