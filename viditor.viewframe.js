@@ -1,14 +1,14 @@
-Videieio = new function()
+Playback = new function()
 {
 	this.pauseplay = function()
 	{
-		if(this.isPaused())
+		if(this.isPlaying())
 		{
-			this.play();
+			this.pause();
 		}
 		else
 		{
-			this.pause();
+			this.play();
 		}
 		
 		return this;
@@ -16,8 +16,8 @@ Videieio = new function()
 	
 	this.pause = function()
 	{
-		$("video").get(0).pause();
-		$("#pauseplay").removeClass("toggled");
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {playing: false}});
 		
 		return this;
 	}
@@ -25,58 +25,25 @@ Videieio = new function()
 	this.play = function()
 	{
 		var cursor_id = Session.get("cursor");
-		var cursor = Cursors.findOne(cursor_id);
-		
-		var instance = Instances.findOne({position: {$lte: cursor.position}, endposition: {$gt: cursor.position}});
-		if(instance)
-		{
-			Session.set("cursor_instance", instance._id);
-			
-			var start = cursor.position - instance.position;
-			var times = "#t=" + start + "," + instance.length;
-			$("#viewframe").find("source#mp4").attr("src", "videos/" + instance.handle + ".mp4" + times);
-			$("#viewframe").find("source#webm").attr("src", "videos/" + instance.handle + ".webm" + times);
-			$("#viewframe").find("source#ogv").attr("src", "videos/" + instance.handle + ".ogv" + times);
-			$("#viewframe").find("video").get(0).load();
-			
-			$("video").get(0).play();
-			$("#pauseplay").addClass("toggled");
-			
-			return this;
-		}
-		
-		instance = Instances.findOne({position: {$gte: cursor.position}});
-		if(instance)
-		{
-			Session.set("cursor_instance", instance._id);
-			
-			Cursors.update(cursor_id, {$set: {position: instance.position}});
-			
-			$("video").get(0).play();
-			$("#pauseplay").addClass("toggled");
-			
-			$("#viewframe").find("source#mp4").attr("src", "videos/" + instance.handle + ".mp4");
-			$("#viewframe").find("source#webm").attr("src", "videos/" + instance.handle + ".webm");
-			$("#viewframe").find("source#ogv").attr("src", "videos/" + instance.handle + ".ogv");
-			$("#viewframe").find("video").get(0).load();
-		}
+		Cursors.update(cursor_id, {$set: {playing: true}});
 		
 		return this;
 	}
 	
 	this.stop = function()
 	{
-		Videieio.pause();
-		
 		var cursor_id = Session.get("cursor");
-		Cursors.update(cursor_id, {$set: {position: 0}});
+		Cursors.update(cursor_id, {$set: {playing: false, position: 0}});
 		
 		return this;
 	}
 	
-	this.isPaused = function()
+	this.isPlaying = function()
 	{
-		return $("video").get(0).paused;
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
+
+		return cursor.playing;
 	}
 	
 	this.muteunmute = function()
@@ -95,61 +62,64 @@ Videieio = new function()
 	
 	this.mute = function()
 	{
-		$("video").get(0).muted = true;
-		$("#viewframe").find("#muteunmute").addClass("toggled");
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {muted: true}});
 		
 		return this;
 	}
 	
 	this.unmute = function()
 	{
-		$("video").get(0).muted = false;
-		$("#viewframe").find("#muteunmute").removeClass("toggled");
+		var cursor_id = Session.get("cursor");
+		Cursors.update(cursor_id, {$set: {muted: false}});
 		
 		return this;
 	}
 	
 	this.isMuted = function()
 	{
-		return $("video").get(0).muted;
+		var cursor_id = Session.get("cursor");
+		var cursor = Cursors.findOne(cursor_id);
+
+		return cursor.muted;
 	}
 }
 
 if(Meteor.isClient)
 {
-	Template.viewframe.selected_instance = function()
-	{
-		return Instances.findOne(Session.get("selection"));
-	}
-	
-	Template.viewframe.asset_name = function()
-	{
-		return Assets.findOne(this.asset).name;
-	}
-	
 	Template.viewframe.events(
 	{
-		"click #pauseplay, click video": function()
+		"click #pauseplay": function()
 		{
-			Videieio.pauseplay();
+			Playback.pauseplay();
+		},
+		"click video": function()
+		{
+			Playback.pauseplay();
 		},
 		"click #muteunmute": function()
 		{
-			Videieio.muteunmute();
+			Playback.muteunmute();
 			
 		},
 		"click #stop": function()
 		{
-			Videieio.stop();
+			Playback.stop();
 		},
-		"keyup #selectedPosition, change #selectedPosition": function(event)
+		"click #previous": function()
 		{
-			var _id = Session.get("selection");
-			var instance = Instances.findOne(_id);
-			
-			var beginposition = parseInt($(event.currentTarget).val()) || 0;
-			var endposition = beginposition + instance.length; //trim?
-			Instances.update(_id, {$set: {position: beginposition, endposition: endposition}});
+			var cursor_id = Session.get("cursor");
+			var cursor = Cursors.findOne(cursor_id);
+
+			var position = cursor.position -= 5;
+			if(position < 0) {position = 0;}
+
+			Cursors.update(cursor_id, {$set: {position: position}});
+		},
+		"click #next": function()
+		{
+			var cursor_id = Session.get("cursor");
+			Cursors.update(cursor_id, {$inc: {position: 5}});
 		}
 	});
 	
@@ -157,55 +127,75 @@ if(Meteor.isClient)
 	{
 		$(document).on("keypress", function(event)
 		{
-			var SPACEBAR_KEYCODE = 32;
 			if(event.keyCode == SPACEBAR_KEYCODE)
 			{
-				Videieio.pauseplay();
-			}
-		});
-		
-		$("video").on("timeupdate", function()
-		{
-			var instance_id = Session.get("cursor_instance");
-			var instance = Instances.findOne(instance_id);
-			
-			if(instance_id)
-			{
-				if(!$(this).get(0).paused)
-				{
-					var currentTime = $(this).get(0).currentTime;
-					//var endTime = cursor.instance_id.length; //trim?
-					var cursor_id = Session.get("cursor");
-					Cursors.update(cursor_id, {$set: {position: instance.position + currentTime}});
-				}
-				
-				//if(currentTime >= endTime)
-				if($(this).get(0).ended)
-				{
-					Videieio.pause();
-					Session.set("cursor_instance");
-				}
+				Playback.pauseplay();
 			}
 		});
 	});
 	
 	Meteor.startup(function()
 	{
-		/*Deps.autorun(function()
+		Deps.autorun(function()
 		{
-			var instance_id = Session.get("cursor_instance");
-			
-			var handle = undefined;
-			if(instance_id)
+			var video = $("video").get(0);
+			var cursor_id = Session.get("cursor");
+			var cursor = Cursors.findOne(cursor_id);
+			var instance = Instances.findOne(cursor.instance_id);
+
+			if(cursor)
 			{
-				var instance = Instances.findOne(instance_id);
-				handle = instance.handle;
+				//console.log("!!!", cursor);
+
+
+				if(cursor.playing)
+				{
+					$("video").get(0).play();
+					$("#pauseplay").addClass("toggled");
+				}
+				else
+				{
+					$("video").get(0).pause();
+					$("#pauseplay").removeClass("toggled");
+				}
+
+
+				if(cursor.muted)
+				{
+					$("video").get(0).muted = true;
+					$("#muteunmute").addClass("toggled");
+				}
+				else
+				{
+					$("video").get(0).muted = false;
+					$("#muteunmute").removeClass("toggled");
+				}
+
+				if(video.instance_id != cursor.instance_id)
+				{
+					video.instance_id = cursor.instance_id;
+
+					var handle = instance ? instance.handle : "blank";
+					$(video).find("source#mp4").attr("src", "videos/" + handle + ".mp4");
+					$(video).find("source#webm").attr("src", "videos/" + handle + ".webm");
+					$(video).find("source#ogv").attr("src", "videos/" + handle + ".ogv");
+					video.load();
+				}
+
+				if(instance)
+				{
+					var current_position = instance.position + video.currentTime;
+
+					var diff = Math.abs(cursor.position - current_position);
+					
+					if(diff > 1) //ie: NOT IN SYNC!!
+					{
+						video.currentTime = cursor.position - instance.position;
+					}
+				}
 			}
-			
-			$("#viewframe").find("source#mp4").attr("src", "videos/" + handle + ".mp4");
-			$("#viewframe").find("source#webm").attr("src", "videos/" + handle + ".webm");
-			$("#viewframe").find("source#ogv").attr("src", "videos/" + handle + ".ogv");
-			$("#viewframe").find("video").get(0).load();
-		});*/
+		});
 	});
 }
+
+var SPACEBAR_KEYCODE = 32;
