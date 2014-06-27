@@ -71,25 +71,24 @@
     float: left
     color: transparent
     background-color: transparent
-    background-size: 1.5em
+    background-size: 200%
     background-repeat: no-repeat
-    background-position: center center
+    background-image: url("../images/control_buttons.png")
     outline: none
     &:hover
       cursor: pointer
-      background-color: $gray
+      background-color: $dark_gray
     &#pauseplay
-      background-image: url("../images/icons/play.png")
+      background-position: left top
       &.toggled
-        background-image: url("../images/icons/pause.png")
+        background-position: -48px top
     &#muteunmute
-      background-size: 1.25em
-      background-image: url("../images/icons/unmuted.png")
+      background-position: left -148px
       &.toggled
-        background-image: url("../images/icons/muted.png")
+        background-position: -48px -148px
     &#stop
-      background-image: url("../images/icons/stop.png")
+      background-position: left -37px
     &#previous
-      background-image: url("../images/icons/previous.png")
+      background-position: left -111px
     &#next
-      background-image: url("../images/icons/next.png")
+      background-position: left -74px
