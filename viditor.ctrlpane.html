@@ -1,15 +1,18 @@
 <template name="ctrlpane">
 	<div id="ctrlpane">
 		<a id="logo">Viditor</a>
-		<h1 id="title">{{title}}</h1>
-		<!-- <div id="menulist">
-			<span id="file" class="menu">Project</span>
-			<span id="insert" class="menu">Insert</span>
-			<span id="edit" class="menu">Edit</span>
-			<span id="view" class="menu">View</span>
-			<span id="share" class="menu">Share</span>
-			<span id="help" class="menu">Help</span>
-		</div> -->
+		<div class="title-menu drop-down-container">
+			<h1 id="title">
+				{{title}}
+			</h1>
+			<ul id="menulist" class="drop-down">
+				<li id="file" class="menu">Project</li>
+				<li id="insert" class="menu">Insert</li>
+				<li id="edit" class="menu">Edit</li>
+				<li id="view" class="menu">View</li>
+				<li id="share" class="menu">Share</li>
+			</ul>
+		</div>
 		<div id="help">
 			<button>?</button>
 		</div>

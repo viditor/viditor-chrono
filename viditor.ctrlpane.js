@@ -7,9 +7,10 @@ if(Meteor.isClient)
 	
 	Template.ctrlpane.events(
 	{
-		"click #title": function()
+		"click #title": function(event)
 		{
-			console.log("rename the project");
+			var dropDown = $(event.target).parent().find(".drop-down");
+			dropDown.toggleClass("visible");
 		},
 		"click .menu": function()
 		{

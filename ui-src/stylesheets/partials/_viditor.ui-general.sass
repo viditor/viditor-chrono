@@ -42,3 +42,39 @@
   &.visible
     display: block
     opacity: 0.9
+
+.drop-down
+  @extend .tooltip
+  background-image: none
+  background-color: #777
+  box-shadow: 0 0 0 2px #777, 0 5px 25px #000
+  top: 100%
+  left: initial
+  right: 0
+  bottom: initial
+  margin-left: 0
+  list-style: none
+  padding: 0
+  min-width: 150px
+  &::after
+    bottom: initial
+    top: -22px
+    left: initial
+    right: 3px
+    margin-left: 0
+    background-image: url("/images/drop-down-point.png")
+  li
+    padding: 0.6em 0.8em
+    margin: 0
+    border-bottom: 1px solid #999
+    &:last-child
+      border-bottom: none
+    &:hover
+      background-color: #fff
+      color: #777
+
+.drop-down-container
+  background-image: url("/images/drop-down-container-dark.png")
+  background-repeat: no-repeat
+  background-position: center right
+  padding-right: 12px !important
