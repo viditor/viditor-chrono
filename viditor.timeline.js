@@ -66,6 +66,18 @@ if(Meteor.isClient)
 		}
 	}
 
+	Template.instance.events =
+	{
+		"click": function(event)
+		{
+			event.stopPropagation(); // Don’t bubble up to the timeline, sonny!
+			var tooltip = $(event.target).find(".tooltip");
+			var otherTooltips = $(event.target).parent().find(".instance").not(event.target).find(".tooltip");
+			tooltip.toggleClass("visible");
+			otherTooltips.removeClass("visible");
+		}
+	}
+
 	var loop = function(func)
 	{
 		this.delta = Date.now();
