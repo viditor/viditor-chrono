@@ -1,18 +1,14 @@
-//Projects = new Meteor.Collection("projects");
-
 if(Meteor.isClient)
 {
-	var url = "127.0.0.1:8080/v1/youtube";
-	HTTP.call("GET", url, function(result)
+	Template.dashboard.assets = function()
 	{
-		console.log(result.content);
-	});
-}
-
-if(Meteor.isServer)
-{
-	/*Meteor.startup(function()
-	{
-		Projects.remove({});
-	});*/
+		return [
+			{
+				ytid: "XOC3vixnj_0"
+			},
+			{
+				ytid: "rDjrOaoHz9s"
+			}
+		];
+	}
 }

@@ -1,7 +1,17 @@
 <template name="dashboard">
 	<div id="dashboard" class="view">
+
+		<input type="text">
 		
-		<b>You are logged in as anonymous1271</b>
+		<ul>
+			{{#each assets}}
+				<li>
+					<a href="{{ytid}}">
+						{{ytid}}
+					</a>
+				</li>
+			{{/each}}
+		</ul>
 		
 	</div>
 </template>

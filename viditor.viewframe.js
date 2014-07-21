@@ -134,7 +134,7 @@ if(Meteor.isClient)
 		});
 	});
 	
-	Meteor.startup(function()
+	/*Meteor.startup(function()
 	{
 		Deps.autorun(function()
 		{
@@ -195,7 +195,7 @@ if(Meteor.isClient)
 				}
 			}
 		});
-	});
+	});*/
 }
 
 var SPACEBAR_KEYCODE = 32;
