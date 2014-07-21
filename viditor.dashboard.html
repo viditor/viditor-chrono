@@ -1,14 +1,33 @@
 <template name="dashboard">
 	<div id="dashboard" class="view">
-
-		<input type="text">
+		
+		<!--
+		<h1>
+			<img src="/images/logo.png" alt="Viditor"/>
+		</h1>
+		<hr>
+		-->
+		
+		<div id="previewer">
+			{{#with selection}}
+				<b>{{ytid}}</b>
+				<video>
+					<source src="http://cloud.viditor.us/v1/youtube/{{ytid}}.mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
+					<source src="http://cloud.viditor.us/v1/youtube/{{ytid}}.webm" id="webm" type="video/webm; codecs=vp8,vorbis">
+					<source src="http://cloud.viditor.us/v1/youtube/{{ytid}}.ogv" id="ogv" type="video/ogg; codecs=theora,vorbis">
+				</video>
+				<a id="abort-preview">X</a>
+			{{else}}
+				<div id="prompt-message">
+					Select an asset to preview.
+				</div>
+			{{/with}}
+		</div>
 		
 		<ul>
 			{{#each assets}}
 				<li>
-					<a href="{{ytid}}">
-						{{ytid}}
-					</a>
+					{{ytid}}
 				</li>
 			{{/each}}
 		</ul>
