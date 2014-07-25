@@ -1,5 +1,7 @@
 if(Meteor.isClient)
 {
+	Session.set("selection", undefined);
+	
 	Template.dashboard.assets = function()
 	{
 		return [

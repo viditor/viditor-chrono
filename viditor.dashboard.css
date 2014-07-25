@@ -26,27 +26,36 @@
 
 #dashboard > #previewer
 {
-	width: 100%;
+	width: 640px;
+	height: 360px;
 	position: relative;
-	
-	border-radius: 4px;
 	
 	color: #FFF;
 	background-color: #000;
 }
 
-#dashboard > #previewer > b
+#dashboard > #previewer > h2
 {
 	top: 0px;
 	left: 0px;
 	z-index: 1;
 	padding: 0.5rem;
 	position: absolute;
+	
+	font-size: 1.5rem;
+}
+
+#dashboard > #previewer > h2:hover
+{
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 #dashboard > #previewer > video
 {
 	width: 100%;
+	height: 100%;
+	margin: auto;
 	display: block;
 }
 
