@@ -4,10 +4,10 @@ if(Meteor.isClient)
 	{
 		return [
 			{
-				ytid: "XOC3vixnj_0"
+				ytid: "iJKU-w4pK1M"
 			},
 			{
-				ytid: "rDjrOaoHz9s"
+				ytid: "2aEsr_2Cfp4",
 			}
 		];
 	}
@@ -19,14 +19,24 @@ if(Meteor.isClient)
 	
 	Template.dashboard.events =
 	{
-		"click li": function(event)
+		"click li": function()
 		{
-			event.preventDefault();
 			Session.set("selection", this);
 		},
-		"click #abort-preview": function(event)
+		"click #abort-preview": function()
 		{
 			Session.set("selection", undefined);
 		}
 	}
+	
+	Meteor.startup(function()
+	{
+		Deps.autorun(function()
+		{
+			if(Session.get("selection") != undefined)
+			{
+				$("video").get(0).load();
+			}
+		});
+	});
 }

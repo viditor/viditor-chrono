@@ -27,10 +27,8 @@
 #dashboard > #previewer
 {
 	width: 100%;
-	height: 240px;
 	position: relative;
 	
-	overflow: hidden;
 	border-radius: 4px;
 	
 	color: #FFF;
@@ -48,16 +46,15 @@
 
 #dashboard > #previewer > video
 {
-	top: 0px;
-	left: 0px;
-	padding: 0.5rem;
-	position: absolute;
+	width: 100%;
+	display: block;
 }
 
 #dashboard > #previewer > #abort-preview
 {
 	top: 0px;
 	right: 0px;
+	width: 2rem;
 	padding: 0.5rem;
 	position: absolute;
 	
