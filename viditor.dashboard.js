@@ -32,8 +32,10 @@ if(Meteor.isClient)
 		{
 			if(Session.get("selection") != undefined)
 			{
-				var video = $("video").get(0);
-				if(video != undefined) {video.load();}
+				$("video").find("source#mp4").attr("src", "http://viditor.us:8080/v1/youtube/" + selection.ytid + ".mp4");
+				$("video").find("source#webm").attr("src", "http://viditor.us:8080/v1/youtube/" + selection.ytid + ".webm");
+				$("video").find("source#ogv").attr("src", "http://viditor.us:8080/v1/youtube/" + selection.ytid + ".ogv");
+				$("video").get(0).load();
 			}
 		});
 	});

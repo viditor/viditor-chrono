@@ -12,9 +12,9 @@
 			{{#with selection}}
 				<h2>{{ytid}}</h2>
 				<video controls>
-					<source src="http://viditor.us:8080/v1/youtube/{{ytid}}.mp4" id="mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
-					<source src="http://viditor.us:8080/v1/youtube/{{ytid}}.webm" id="webm" type="video/webm; codecs=vp8,vorbis">
-					<source src="http://viditor.us:8080/v1/youtube/{{ytid}}.ogv" id="ogv" type="video/ogg; codecs=theora,vorbis">
+					<source id="mp4" type="video/mp4; codecs=avc1.42E01E,mp4a.40.2">
+					<source id="webm" type="video/webm; codecs=vp8,vorbis">
+					<source id="ogv" type="video/ogg; codecs=theora,vorbis">
 				</video>
 				<img id="abort" src="/images/icons/close.png"/>
 			{{else}}
