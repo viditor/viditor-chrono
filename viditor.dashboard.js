@@ -30,7 +30,9 @@ if(Meteor.isClient)
 	{
 		Deps.autorun(function()
 		{
-			if(Session.get("selection") != undefined)
+			var selection = Session.get("selection");
+			
+			if(selection != undefined)
 			{
 				$("video").find("source#mp4").attr("src", "http://viditor.us:8080/v1/youtube/" + selection.ytid + ".mp4");
 				$("video").find("source#webm").attr("src", "http://viditor.us:8080/v1/youtube/" + selection.ytid + ".webm");
