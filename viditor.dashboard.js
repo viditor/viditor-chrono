@@ -1,17 +1,12 @@
+
+
 if(Meteor.isClient)
 {
 	Session.set("selection", undefined);
 	
 	Template.dashboard.assets = function()
 	{
-		return [
-			{
-				ytid: "iJKU-w4pK1M"
-			},
-			{
-				ytid: "2aEsr_2Cfp4",
-			}
-		];
+		return Assets.find({}, {sort: {ytid: 1}});
 	}
 	
 	Template.dashboard.selection = function()
@@ -37,7 +32,8 @@ if(Meteor.isClient)
 		{
 			if(Session.get("selection") != undefined)
 			{
-				$("video").get(0).load();
+				var video = $("video").get(0);
+				if(video != undefined) {video.load();}
 			}
 		});
 	});

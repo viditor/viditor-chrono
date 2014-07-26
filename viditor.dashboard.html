@@ -16,9 +16,9 @@
 					<source src="http://viditor.us:8080/v1/youtube/{{ytid}}.webm" id="webm" type="video/webm; codecs=vp8,vorbis">
 					<source src="http://viditor.us:8080/v1/youtube/{{ytid}}.ogv" id="ogv" type="video/ogg; codecs=theora,vorbis">
 				</video>
-				<img id="abort-preview" src="/images/icons/close.png"/>
+				<img id="abort" src="/images/icons/close.png"/>
 			{{else}}
-				<div id="prompt-message">
+				<div id="prompt">
 					Select an asset to preview.
 				</div>
 			{{/with}}

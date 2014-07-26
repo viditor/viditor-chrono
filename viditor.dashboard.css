@@ -11,27 +11,40 @@
 	background-image: url("/images/linedpaper.png");
 }
 
-#dashboard   ul
+#dashboard > ul
 {
 	padding: 0px;
 	list-style-type: none;
 }
 
-#dashboard   li:not(:last-child)
+#dashboard > ul > li
+{
+	cursor: pointer;
+}
+
+#dashboard > ul > li:not(:last-child)
 {
 	margin: 0.5rem 0rem;
-	
-	cursor: pointer;
 }
 
 #dashboard > #previewer
 {
-	width: 640px;
-	height: 360px;
+	width: 100%;
+	height: 320px;
+	overflow: hidden;
 	position: relative;
 	
 	color: #FFF;
+	border-radius: 4px;
 	background-color: #000;
+}
+
+#dashboard > #previewer > video
+{
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	display: block;
 }
 
 #dashboard > #previewer > h2
@@ -51,15 +64,7 @@
 	text-decoration: underline;
 }
 
-#dashboard > #previewer > video
-{
-	width: 100%;
-	height: 100%;
-	margin: auto;
-	display: block;
-}
-
-#dashboard > #previewer > #abort-preview
+#dashboard > #previewer > #abort
 {
 	top: 0px;
 	right: 0px;
@@ -70,9 +75,9 @@
 	cursor: pointer;
 }
 
-#dashboard > #previewer > #prompt-message
+#dashboard > #previewer > #prompt
 {
-	line-height: 240px;
+	line-height: 320px;
 	text-align: center;
 }
 

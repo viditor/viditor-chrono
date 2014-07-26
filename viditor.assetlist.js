@@ -39,8 +39,23 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Assets.remove({});
-		Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video", length: 13.6});
+		/*Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video", length: 13.6});
 		Assets.insert({name: "ChildrenLaughing", handle: "children", type: "audio", length: 9});
-		Assets.insert({name: "InTheCarOnTheRoad", handle: "inthecar", type: "video", length: 36});
+		Assets.insert({name: "InTheCarOnTheRoad", handle: "inthecar", type: "video", length: 36});*/
+		
+		HTTP.get("http://viditor.us:8080/v1/youtube", function(error, response)
+		{
+			if(error)
+			{
+				console.log(error);
+			}
+			else
+			{
+				for(var index in response.data)
+				{
+					Assets.insert({ytid: response.data[index].ytid});
+				}
+			}
+		});
 	});
 }
