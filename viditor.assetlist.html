@@ -1,15 +1,11 @@
 <template name="assetlist">
 	<div id="assetlist">
-		<h2>Project Clips</h2>
-		<button class="button">Upload</button>
-		<p>Click and drag any clip to drop it in your timeline.</p>
 		{{#each assets}}
 			<div class="asset">
 				<div class="{{type}} type"></div>
 				<div class="thumbnail" style="background-image: url(videos/{{handle}}.jpg)"></div>
-				<div class="name">{{name}}</div>
+				<div class="name">{{ytid}}</div>
 			</div>
 		{{/each}}
-		<button id="assetlist-expand-collapse" class="assetlist-expand">Expand</button>
 	</div>
 </template>

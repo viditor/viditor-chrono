@@ -1,6 +1,1 @@
-@font-face
-{
-	format("truetype");
-	font-family: ubuntu-light;
-	src: url("ubuntu-light.ttf");
-}
+@font-face {font-family: ubuntu-light; src: url("ubuntu-light.ttf") format("truetype");}

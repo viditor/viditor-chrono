@@ -1,0 +1,72 @@
+#assetlist
+{
+	top: 68px;
+	right: 0px;
+	width: 320px;
+	bottom: 193px;
+	position: fixed;
+	
+	overflow-y: scroll;
+	
+	border-left: 1px dashed #0A9BDE;
+}
+
+#assetlist > .asset
+{
+	height: 2.5em;
+	margin: 0.5em;
+	
+	cursor: pointer;
+	overflow: hidden;
+	border-radius: 2px;
+	position: relative;
+	
+	background-color: #0A9BDE;
+}
+
+#assetlist > .asset > .type
+{
+	top: 0em;
+	left: 0em;
+	width: 2.5em;
+	height: 2.5em;
+	position: absolute;
+	
+	background-size: 1.5em;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#assetlist > .asset > .video.type
+{
+	background-image: url(images/icons/videofile.png);
+}
+
+#assetlist > .asset > .audio.type
+{
+	background-image: url(images/icons/audiofile.png);
+}
+
+#assetlist > .asset > .thumbnail
+{
+	top: 0em;
+	left: 2.5em;
+	width: 2.5em;
+	height: 2.5em;
+	position: absolute;
+	
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+#assetlist > .asset > .name
+{
+	top: 0em;
+	left: 5em;
+	right: 0em;
+	padding: 0.5em;
+	line-height: 1.5em;
+	position: absolute;
+	
+	color: #FFF;
+}

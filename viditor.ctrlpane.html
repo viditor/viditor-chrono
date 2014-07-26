@@ -1,24 +1,24 @@
 <template name="ctrlpane">
 	<div id="ctrlpane">
-		<a id="logo">Viditor</a>
-		<div class="title-menu drop-down-container">
-			<h1 id="title">
-				{{title}}
-			</h1>
-			<ul id="menulist" class="drop-down">
-				<li id="file" class="menu">Project</li>
-				<li id="insert" class="menu">Insert</li>
-				<li id="edit" class="menu">Edit</li>
-				<li id="view" class="menu">View</li>
-				<li id="share" class="menu">Share</li>
-			</ul>
-		</div>
-		<div id="help">
-			<button>?</button>
-		</div>
-		<div id="userlist">
-			<div class="user" style="background-image: URL(images/chattanooga.jpg);"></div>
-			<div id="new" class="button">+</div>
+		<a id="logo"></a>
+		<div id="outerpane">
+			<div id="innerpane">
+				<div id="title">
+					<h1>{{title}}</h1>
+				</div>
+				<div id="menulist">
+					<span id="file" class="menu">Project</span>
+					<span id="insert" class="menu">Insert</span>
+					<span id="edit" class="menu">Edit</span>
+					<span id="view" class="menu">View</span>
+					<span id="share" class="menu">Share</span>
+					<span id="help" class="menu">Help</span>
+				</div>
+				<div id="userlist">
+					<div id="new" class="user"></div>
+					<div class="user" style="background-image: URL(images/chattanooga.jpg); border-color: orange;"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
