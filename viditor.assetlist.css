@@ -70,3 +70,11 @@
 	
 	color: #FFF;
 }
+
+#assetlist > input.asset
+{
+	width: 100%;
+	border: none;
+	background-color: white;
+	box-sizing: border-box;
+}

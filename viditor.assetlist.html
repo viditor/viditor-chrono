@@ -3,9 +3,12 @@
 		{{#each assets}}
 			<div class="asset">
 				<div class="{{type}} type"></div>
-				<div class="thumbnail" style="background-image: url(videos/{{handle}}.jpg)"></div>
-				<div class="name">{{ytid}}</div>
+				<div class="thumbnail" style="background-image: url(http://viditor.us:8080/v1/youtube/{{handle}}.jpg)"></div>
+				<div class="name">{{name}}</div>
 			</div>
 		{{/each}}
+		<form id="ytdl">
+			<input type="text"/>
+		</form>
 	</div>
 </template>

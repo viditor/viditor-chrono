@@ -13,25 +13,41 @@ if(Meteor.isClient)
 		{
 			var _id = Instances.insert({asset: this._id, handle: this.handle, length: this.length, position: 0, endposition: this.length, track: 1, left_trim: 0, right_trim: 0});
 		},
-		"click .assetlist-expand": function()
+		"submit input": function()
 		{
-			var button = document.getElementById("assetlist-expand-collapse");
-			var al = document.getElementById("assetlist");
-			var video = document.getElementById("player");
-			button.className = "assetlist-collapse";
-			al.className = al.className + " expanded";
-			video.className = video.className + " unfocused";
-		},
-		"click .assetlist-collapse": function()
-		{
-			var button = document.getElementById("assetlist-expand-collapse");
-			var al = document.getElementById("assetlist");
-			var video = document.getElementById("player");
-			button.className = "assetlist-expand";
-			al.className = al.className.replace(" expanded", "");
-			video.className = video.className.replace(" unfocused", "");
+			console.log("okay");
 		}
 	}
+	
+	Meteor.startup(function()
+	{
+		$(document).ready(function()
+		{
+			$("form#ytdl").submit(function(event)
+			{
+				event.preventDefault();
+				
+				var value = $(this).find("input").val();
+				
+				HTTP.post("http://viditor.us:8080/v1/youtube/" + value, function(error, response)
+				{
+					if(error)
+					{
+						console.log(error);
+					}
+					else
+					{
+						Assets.insert({
+							handle: response.data.ytid,
+							length: response.data.length,
+							title: response.data.title,
+							type: "video"
+						});
+					}
+				});
+			});
+		});
+	});
 }
 
 if(Meteor.isServer)
@@ -39,9 +55,6 @@ if(Meteor.isServer)
 	Meteor.startup(function()
 	{
 		Assets.remove({});
-		/*Assets.insert({name: "SnowyFlag", handle: "snowing", type: "video", length: 13.6});
-		Assets.insert({name: "ChildrenLaughing", handle: "children", type: "audio", length: 9});
-		Assets.insert({name: "InTheCarOnTheRoad", handle: "inthecar", type: "video", length: 36});*/
 		
 		HTTP.get("http://viditor.us:8080/v1/youtube", function(error, response)
 		{
@@ -53,7 +66,12 @@ if(Meteor.isServer)
 			{
 				for(var index in response.data)
 				{
-					Assets.insert({ytid: response.data[index].ytid});
+					Assets.insert({
+						handle: response.data[index].ytid,
+						length: response.data[index].length,
+						title: response.data[index].title,
+						type: "video"
+					});
 				}
 			}
 		});
