@@ -1,6 +1,6 @@
-@import URL("fonts/ubuntu-light.css");
-@import URL("fonts/font-awesome.css");
-@import URL("fonts/open-sans.css");
+@import URL("/fonts/ubuntu-light.css");
+@import URL("/fonts/font-awesome.css");
+@import URL("/fonts/open-sans.css");
 
 *
 {

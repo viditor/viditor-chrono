@@ -1,0 +1,35 @@
+<template name="timeline">
+	<div id="timeline">
+		{{> ruler}}
+		{{> track "alpha"}}
+		{{> track "sigma"}}
+		{{> track "theta"}}
+		{{> cursors}}
+	</div>
+</template>
+
+<template name="ruler">
+	<div id="ruler"></div>
+</template>
+
+<template name="track">
+	<div class="track" id="{{this}}">
+		{{#each inst}}
+			{{> inst}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="inst">
+	<div class="inst" style="{{css_left}} {{css_background_image}} {{css_width}}"></div>
+</template>
+
+<template name="cursors">
+	{{#each cursor}}
+		{{> cursor}}
+	{{/each}}
+</template>
+
+<template name="cursor">
+	<div class="cursor" style="{{css_left}}"></div>
+</template>

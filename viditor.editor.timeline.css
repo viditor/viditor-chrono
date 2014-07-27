@@ -1,0 +1,57 @@
+#timeline
+{
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	position: fixed;
+}
+
+#timeline > #ruler
+{
+	height: 1.33rem;
+	padding-bottom: 0.25rem;
+	
+	background-color: #0A9BDE;
+	background-repeat: repeat-x;
+	background-image: URL("/images/ruler.png");
+}
+
+#timeline > .track
+{
+	height: 2.5rem;
+	padding: 0.25rem 0rem;
+	
+	background-color: rgba(10, 155, 222, 0.25);
+}
+
+#timeline > .track:not(:last-of-type)
+{
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #0A9BDE;
+}
+
+#timeline > .track > .inst
+{
+	height: inherit;
+	position: absolute;
+	
+	border-radius: 2px;
+	
+	overflow: hidden;
+	line-height: 2.5em;
+	background-color: pink;
+	background-size: auto 64px;
+}
+
+#timeline > .cursor
+{
+	top: 0px;
+	z-index: 1;
+	bottom: 0px;
+	position: absolute;
+	
+	border-left-width: 2px;
+	border-left-color: #111;
+	border-left-style: dashed;
+}

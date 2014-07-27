@@ -1,12 +1,16 @@
 #menubar
 {
+	left: 0rem;
+	right: 0rem;
 	height: 2rem;
 	padding: 0.5rem;
+	position: fixed;
 	
 	background-color: lightblue;
-	background-color: rgba(173, 216, 230, 0.5);
+	background-color: rgba(10, 155, 222, 0.25);
 }
-img
+
+#menubar > img
 {
 	height: 2rem;
 	vertical-align: bottom;
