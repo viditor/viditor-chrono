@@ -2,7 +2,6 @@ if(Meteor.isClient)
 {
 	Template.viditor.project = function()
 	{
-		//return Session.get("project");
-		return true;
+		return true; //Session.get("project");
 	}
 }

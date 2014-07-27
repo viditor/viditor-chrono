@@ -1,9 +1,8 @@
 @import URL("fonts/ubuntu-light.css");
-@import URL("fonts/fontawesome.css");
-@import URL("fonts/abel.css");
+@import URL("fonts/font-awesome.css");
+@import URL("fonts/open-sans.css");
 
 *
-
 {
 	margin: 0px;
 }
@@ -12,9 +11,10 @@ html
 {
 	color: #111;
 	font-size: 18px;
-	font-family: ubuntu-light, calibri, sans-serif;
+	font-family: open-sans, sans-serif;
 }
 
-
-html, body {height: 100%;}
-.view {min-height: 100%;}
+html, body, .view
+{
+	height: 100%;
+}
