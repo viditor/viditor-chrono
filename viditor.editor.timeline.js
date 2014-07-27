@@ -10,6 +10,8 @@ pixel2sec = function(pixel) {return pixel2tick(pixel) * SECONDS_PER_TICK;}
 
 if(Meteor.isClient)
 {
+	//Clips.insert({track: "alpha", color: "red", position: 5, length: 10, right_trim: 0, left_trim: 0});
+	
 	Template.track.clips = function()
 	{
 		return Clips.find({track: this.toString()});
@@ -29,18 +31,6 @@ if(Meteor.isClient)
 		var length = this.length - this.left_trim - this.right_trim;
 		var width = length * PIXELS_PER_TICK + SIZE_OF_TICKMARK + "px";
 		return "width: " + width + ";";
-	});
-
-	UI.registerHelper("css_background_image", function()
-	{
-		var background_image = "url(" + this.source + this.handle + ".jpg)";
-		return "background-image: " + background_image + ";";
-	});
-	
-	UI.registerHelper("css_left", function()
-	{
-		var left = this.position * PIXELS_PER_TICK + "px";
-		return "left: " + left + ";";
 	});
 	
 	Template.timeline.cursor = function()
