@@ -1,0 +1,13 @@
+<template name="assetlist">
+	<div id="assetlist">
+		{{#each assets}}
+			{{> asset}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="asset">
+	<div class="asset" style="{{thumbnail}}">
+		<div class="title">{{title}}</div>
+	</div>
+</template>

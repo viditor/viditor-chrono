@@ -1,0 +1,42 @@
+#assetlist
+{
+	top: 3rem;
+	left: 0rem;
+	width: 19rem;
+	bottom: 192px;
+	position: fixed;
+	overflow: hidden;
+	
+	border-right-width: 1px;
+	border-right-style: dashed;
+	border-right-color: #0A9BDE;
+}
+
+#assetlist > .asset
+{
+	float: left;
+	width: 8rem;
+	height: 6rem;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	position: relative;
+	
+	overflow: hidden;
+	border-radius: 4px;
+	
+	background-color: #EEE;
+}
+
+#assetlist > .asset > .title
+{
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	height: 1rem;
+	padding: 0.5rem;
+	line-height: 1em;
+	position: absolute;
+	white-space: nowrap;
+	
+	background-color: rgba(255, 255, 255, 0.5);
+}
