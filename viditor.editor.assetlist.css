@@ -1,30 +1,40 @@
-#assetlist
+#dashboard
 {
 	top: 3rem;
 	left: 0rem;
-	width: 19rem;
 	bottom: 192px;
 	position: fixed;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: scroll;
 	
 	border-right-width: 1px;
 	border-right-style: dashed;
 	border-right-color: #0A9BDE;
 }
 
+#assetlist
+{
+	width: 11rem;
+	padding-top: 1rem;
+}
+
 #assetlist > .asset
 {
 	float: left;
-	width: 8rem;
-	height: 6rem;
-	margin-top: 1rem;
+	width: 4rem;
+	height: 4rem;
 	margin-left: 1rem;
+	margin-bottom: 1rem;
 	position: relative;
 	
 	overflow: hidden;
-	border-radius: 4px;
 	
 	background-color: #EEE;
+}
+
+#assetlist > .asset:hover
+{
+	cursor: pointer;
 }
 
 #assetlist > .asset > .title
@@ -39,4 +49,10 @@
 	white-space: nowrap;
 	
 	background-color: rgba(255, 255, 255, 0.5);
+}
+
+#assetlist > #add.asset
+{
+	line-height: 4rem;
+	text-align: center;
 }

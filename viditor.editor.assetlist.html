@@ -1,8 +1,11 @@
 <template name="assetlist">
-	<div id="assetlist">
-		{{#each assets}}
-			{{> asset}}
-		{{/each}}
+	<div id="dashboard">
+		<div id="assetlist">
+			{{#each assets}}
+				{{> asset}}
+			{{/each}}
+			<div class="asset" id="add">add</div>
+		</div>
 	</div>
 </template>
 
