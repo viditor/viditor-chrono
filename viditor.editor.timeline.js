@@ -10,8 +10,20 @@ pixel2sec = function(pixel) {return pixel2tick(pixel) * SECONDS_PER_TICK;}
 
 if(Meteor.isClient)
 {
+	Template.timeline.events =
+	{
+		"click": function()
+		{
+			Session.set("selected", undefined);
+		}
+	}
+}
+
+if(Meteor.isClient)
+{
 	Template.track.clips = function()
 	{
-		return Clips.find({track: this.toString()});
+		var track = this.toString();
+		return Clips.find({track: track});
 	}
 }
