@@ -25,6 +25,12 @@ if(Meteor.isClient)
 	
 	Meteor.startup(function()
 	{
+		$(window).on("beforeunload", function()
+		{
+			var cursor_id = Session.get("cursor_id")
+			Cursors.remove(cursor_id);
+		});
+		
 		$(document).mousewheel(function(event)
 		{
 			if(event.deltaY > 0)
