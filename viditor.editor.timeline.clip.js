@@ -3,18 +3,53 @@ if(Meteor.isClient)
 	Template.clip.rendered = function()
 	{
 		var data = this.data;
-		var clip = this.find(".clip");
+		var dom = this.find(".clip");
 
-		$(clip).draggable({
-		
+		$(dom).draggable({
 			drag: function(event, element)
 			{
 				Session.set("selected", data._id);
-				var position = Math.floor(element.position.left / PIXELS_PER_TICK);
+				var position = pixel2tick(element.position.left);
 				Clips.update(data._id, {$set: {position: position}});
 			},
 			grid: [PIXELS_PER_TICK, 55]
-			
+		})
+		.resizable({
+			handles: "e, w",
+			grid: [PIXELS_PER_TICK, 0],
+			minWidth: PIXELS_PER_TICK,
+			maxWidth: (data.length) * PIXELS_PER_TICK,
+			stop: function(event, element)
+			{
+				var trim = pixel2sec((element.originalSize.width - element.size.width));
+				var position = pixel2tick(element.position.left);
+
+				var clip = Clips.findOne(data._id);
+				var right_trim = clip.right_trim;
+				var left_trim = clip.left_trim;
+				if(clip.position == position)
+				{
+					right_trim += trim;
+
+					if(right_trim < 0)
+					{
+						left_trim += right_trim;
+						right_trim = 0;
+					}
+				}
+				else
+				{
+					left_trim += trim;
+
+					if(left_trim < 0)
+					{
+						right_trim += left_trim;
+						left_trim = 0;
+					}
+				}
+
+				Clips.update(data._id, {$set: {right_trim: right_trim, left_trim: left_trim, position: position}})
+			}
 		});
 	}
 	
@@ -36,7 +71,7 @@ if(Meteor.isClient)
 	Template.clip.length = function()
 	{
 		var length = this.length - this.left_trim - this.right_trim;
-		var width = length * PIXELS_PER_TICK + SIZE_OF_TICKMARK + "px";
+		var width = length * PIXELS_PER_TICK + "px";
 		return "width: " + width + ";";
 	}
 	
@@ -63,8 +98,8 @@ if(Meteor.isClient)
 		{
 			if(event.keyCode == 46)
 			{
-				var clip = Session.get("selected");
-				Clips.remove(clip);
+				var clip_id = Session.get("selected");
+				Clips.remove(clip_id);
 				Session.set("selected", undefined);
 			}
 		});

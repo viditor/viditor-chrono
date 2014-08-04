@@ -23,7 +23,7 @@ if(Meteor.isClient)
 {
 	Template.track.clips = function()
 	{
-		var track = this.toString();
-		return Clips.find({track: track});
+		var track_id = this.toString();
+		return Clips.find({track: track_id});
 	}
 }
