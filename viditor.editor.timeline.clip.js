@@ -1,17 +1,19 @@
 if(Meteor.isClient)
 {
 	Session.setDefault("zoom", 1);
+	Session.set("zoom", 1);
 	
 	Template.clip.rendered = function()
 	{
 		var data = this.data;
 		var dom = this.find(".clip");
-
+		
 		$(dom).draggable({
-			drag: function(event, element)
+			stop: function(event, element)
 			{
 				Session.set("selected clip_id", data._id);
-				var position = pixel2tick(element.position.left);
+				var zoom = Session.get("zoom");
+				var position = pixel2tick(element.position.left) / zoom;
 				Clips.update(data._id, {$set: {position: position}});
 			},
 			grid: [PIXELS_PER_TICK, 55]
@@ -20,11 +22,13 @@ if(Meteor.isClient)
 			handles: "e, w",
 			grid: [PIXELS_PER_TICK, 0],
 			minWidth: PIXELS_PER_TICK,
-			maxWidth: (data.length) * PIXELS_PER_TICK,
+			maxWidth: (data.length) * PIXELS_PER_TICK * Session.get("zoom"),
 			stop: function(event, element)
 			{
-				var trim = pixel2sec((element.originalSize.width - element.size.width));
-				var position = pixel2tick(element.position.left);
+				var zoom = Session.get("zoom");
+				var widthdiff = element.originalSize.width - element.size.width;
+				var trim = pixel2sec(widthdiff) / zoom;
+				var position = pixel2tick(element.position.left) / zoom;
 
 				var clip = Clips.findOne(data._id);
 				var right_trim = clip.right_trim;
@@ -74,6 +78,8 @@ if(Meteor.isClient)
 	
 	Template.clip.length = function()
 	{
+		$("#" + this._id).resizable({maxWidth: this.length * PIXELS_PER_TICK * Session.get("zoom")});
+		
 		var length = sec2pixel(this.length - this.left_trim - this.right_trim);
 		var zoom = Session.get("zoom");
 		var width = (length * zoom) + "px";
