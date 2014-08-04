@@ -10,7 +10,7 @@ if(Meteor.isClient)
 		$(dom).draggable({
 			drag: function(event, element)
 			{
-				Session.set("selected", data._id);
+				Session.set("selected clip_id", data._id);
 				var position = pixel2tick(element.position.left);
 				Clips.update(data._id, {$set: {position: position}});
 			},
@@ -79,7 +79,7 @@ if(Meteor.isClient)
 	
 	Template.clip.outline = function()
 	{
-		if(Session.equals("selected", this._id))
+		if(Session.equals("selected clip_id", this._id))
 		{
 			return "outline: 1px solid yellow;";
 		}
@@ -90,7 +90,7 @@ if(Meteor.isClient)
 		"click": function(event)
 		{
 			event.stopPropagation();
-			Session.set("selected", this._id);
+			Session.set("selected clip_id", this._id);
 		}
 	}
 	
@@ -100,9 +100,9 @@ if(Meteor.isClient)
 		{
 			if(event.keyCode == 46)
 			{
-				var clip_id = Session.get("selected");
+				var clip_id = Session.get("selected clip_id");
 				Clips.remove(clip_id);
-				Session.set("selected", undefined);
+				Session.set("selected clip_id", undefined);
 			}
 		});
 	});

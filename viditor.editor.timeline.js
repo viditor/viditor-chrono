@@ -4,7 +4,7 @@ if(Meteor.isClient)
 	{
 		"click": function(event)
 		{
-			Session.set("selected", undefined);
+			Session.set("selected clip_id", undefined);
 			
 			var cursor_id = Session.get("cursor_id");
 			var position = pixel2tick(event.clientX);
