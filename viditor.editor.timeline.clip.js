@@ -56,4 +56,17 @@ if(Meteor.isClient)
 			Session.set("selected", this._id);
 		}
 	}
+	
+	Meteor.startup(function()
+	{
+		$(document).keydown(function(event)
+		{
+			if(event.keyCode == 46)
+			{
+				var clip = Session.get("selected");
+				Clips.remove(clip);
+				Session.set("selected", undefined);
+			}
+		});
+	});
 }
