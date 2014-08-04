@@ -66,14 +66,17 @@ if(Meteor.isClient)
 	
 	Template.clip.position = function()
 	{
-		var left = this.position * PIXELS_PER_TICK + "px";
+		var position = sec2pixel(this.position);
+		var zoom = Session.get("zoom");
+		var left = (position * zoom) + "px";
 		return "left: " + left + ";";
 	}
 	
 	Template.clip.length = function()
 	{
-		var length = this.length - this.left_trim - this.right_trim;
-		var width = length * PIXELS_PER_TICK + "px";
+		var length = sec2pixel(this.length - this.left_trim - this.right_trim);
+		var zoom = Session.get("zoom");
+		var width = (length * zoom) + "px";
 		return "width: " + width + ";";
 	}
 	

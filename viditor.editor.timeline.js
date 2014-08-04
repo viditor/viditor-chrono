@@ -35,11 +35,13 @@ if(Meteor.isClient)
 		{
 			if(event.deltaY > 0)
 			{
-				//console.log("zoom in");
+				var zoom = Session.get("zoom") + 1;
+				Session.set("zoom", Math.min(zoom, 9));
 			}
 			else if(event.deltaY < 0)
 			{
-				//console.log("zoom out");
+				var zoom = Session.get("zoom") - 1;
+				Session.set("zoom", Math.max(zoom, 1));
 			}
 		});
 	});
