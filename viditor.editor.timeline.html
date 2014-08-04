@@ -6,19 +6,3 @@
 		{{> track "theta"}}
 	</div>
 </template>
-
-<template name="ruler">
-	<div id="ruler"></div>
-</template>
-
-<template name="track">
-	<div class="track" id="{{this}}">
-		{{#each clips}}
-			{{> clip}}
-		{{/each}}
-	</div>
-</template>
-
-<template name="clip">
-	<div class="clip" style="{{outline}} {{image}} {{position}} {{length}}"></div>
-</template>

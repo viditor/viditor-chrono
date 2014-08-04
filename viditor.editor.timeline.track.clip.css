@@ -1,0 +1,12 @@
+#timeline > .track > .clip
+{
+	width: 2.5rem;
+	height: inherit;
+	overflow: hidden;
+	position: absolute;
+	
+	border-radius: 2px;
+	
+	background-color: pink;
+	background-size: auto 64px;
+}

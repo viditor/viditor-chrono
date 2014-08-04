@@ -1,0 +1,14 @@
+#timeline > .track
+{
+	height: 2.5rem;
+	padding: 0.25rem 0rem;
+	
+	background-color: rgba(10, 155, 222, 0.25);
+}
+
+#timeline > .track:not(:last-of-type)
+{
+	border-bottom-width: 1px;
+	border-bottom-style: dashed;
+	border-bottom-color: #0A9BDE;
+}
