@@ -1,5 +1,7 @@
 if(Meteor.isClient)
 {
+	Session.setDefault("zoom", 1);
+	
 	Template.clip.rendered = function()
 	{
 		var data = this.data;
