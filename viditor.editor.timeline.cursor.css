@@ -1,4 +1,4 @@
-#timeline > .cursor
+#timeline   .cursor
 {
 	top: 0px;
 	z-index: 1;
@@ -8,6 +8,4 @@
 	border-left-width: 2px;
 	border-left-color: #111;
 	border-left-style: dashed;
-	
-	border: none; /*debug*/
 }

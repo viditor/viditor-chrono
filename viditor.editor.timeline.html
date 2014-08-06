@@ -1,11 +1,13 @@
 <template name="timeline">
 	<div id="timeline">
-		{{> ruler}}
-		{{> track "alpha"}}
-		{{> track "sigma"}}
-		{{> track "theta"}}
-		{{#each cursors}}
-			{{> cursor}}
-		{{/each}}
+		<div style="min-width: 100%; {{width}}">
+			{{> ruler}}
+			{{> track "alpha"}}
+			{{> track "sigma"}}
+			{{> track "theta"}}
+			{{#each cursors}}
+				{{> cursor}}
+			{{/each}}
+		</div>
 	</div>
 </template>

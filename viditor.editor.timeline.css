@@ -4,4 +4,6 @@
 	right: 0rem;
 	bottom: 0rem;
 	position: fixed;
+	
+	overflow-x: scroll;
 }

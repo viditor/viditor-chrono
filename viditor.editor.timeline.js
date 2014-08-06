@@ -12,6 +12,15 @@ if(Meteor.isClient)
 		}
 	}
 	
+	Template.timeline.width = function()
+	{
+		Clips.find({});
+		console.log("!");
+		var width = $("#timeline").get(0).scrollWidth + "px";
+		return "width: " + width + ";";
+	}
+	
+	
 	Template.timeline.cursors = function()
 	{
 		return Cursors.find({/*project*/});
