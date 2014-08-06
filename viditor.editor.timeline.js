@@ -1,3 +1,5 @@
+timeline_width_dependency = new Deps.Dependency;
+
 if(Meteor.isClient)
 {
 	Template.timeline.events =
@@ -14,10 +16,19 @@ if(Meteor.isClient)
 	
 	Template.timeline.width = function()
 	{
-		Clips.find({});
-		console.log("!");
-		var width = $("#timeline").get(0).scrollWidth + "px";
-		return "width: " + width + ";";
+		var timeline = $("#timeline").get(0);
+		timeline_width_dependency.depend();
+		
+		if(timeline)
+		{
+			var scrollWidth = timeline.scrollWidth;
+			var clientWidth = timeline.clientWidth;
+			
+			$("#timeline > #container").css("width", "");
+			var width = scrollWidth /*+ (clientWidth / 2)*/ + "px";
+			console.log("width: " + width + ";");
+			return "width: " + width + ";";
+		}
 	}
 	
 	
