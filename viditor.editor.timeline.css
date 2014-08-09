@@ -7,3 +7,8 @@
 	
 	overflow-x: scroll;
 }
+
+#timeline > #container
+{
+	min-width: 100%;
+}

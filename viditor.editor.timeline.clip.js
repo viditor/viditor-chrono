@@ -9,19 +9,12 @@ if(Meteor.isClient)
 		var dom = this.find(".clip");
 		
 		$(dom).draggable({
-			drag: function(event, element)
-			{
-				//add code to check if width has changed.
-				
-				//..this won't work across browsers, will it? :<
-			},
 			stop: function(event, element)
 			{
 				Session.set("selected clip_id", data._id);
 				var zoom = Session.get("zoom");
 				var position = pixel2tick(element.position.left) / zoom;
 				Clips.update(data._id, {$set: {position: position}});
-				timeline_width_dependency.changed();
 			},
 			grid: [PIXELS_PER_TICK, 55]
 		})
@@ -62,9 +55,6 @@ if(Meteor.isClient)
 				}
 
 				Clips.update(data._id, {$set: {right_trim: right_trim, left_trim: left_trim, position: position}})
-				
-				//add code to check if width has changed.
-				timeline_width_dependency.changed();
 			}
 		});
 	}

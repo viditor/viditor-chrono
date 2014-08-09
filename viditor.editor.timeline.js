@@ -1,5 +1,3 @@
-timeline_width_dependency = new Deps.Dependency;
-
 if(Meteor.isClient)
 {
 	Template.timeline.events =
@@ -16,19 +14,9 @@ if(Meteor.isClient)
 	
 	Template.timeline.width = function()
 	{
-		var timeline = $("#timeline").get(0);
-		timeline_width_dependency.depend();
-		
-		if(timeline)
-		{
-			var scrollWidth = timeline.scrollWidth;
-			var clientWidth = timeline.clientWidth;
-			
-			$("#timeline > #container").css("width", "");
-			var width = scrollWidth /*+ (clientWidth / 2)*/ + "px";
-			console.log("width: " + width + ";");
-			return "width: " + width + ";";
-		}
+		var zoom = Session.get("zoom");
+		var width = 1280 * zoom + "px";
+		return "width: " + width + ";";
 	}
 	
 	
