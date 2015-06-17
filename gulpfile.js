@@ -126,7 +126,7 @@ gulp.task("server", function() {
         livereload: true,
         port: 1234
     })
-    opn("http://localhost:8080")
+    opn("http://localhost:" + 1234)
 })
 
 process.on("uncaughtException", function (error) {
