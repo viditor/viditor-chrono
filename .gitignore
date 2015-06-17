@@ -1,5 +1,9 @@
-.DS_Store
-.sass-cache/
 node_modules/
-public/stylesheets/
-viditor.main.css*
+
+build
+nw-apps
+gh-pages
+
+.DS_Store
+*.log
+._*

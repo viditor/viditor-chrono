@@ -1,9 +1,0 @@
-#timeline   #ruler
-{
-	height: 1.33rem;
-	padding-bottom: 0.25rem;
-	
-	background-color: #0A9BDE;
-	background-repeat: repeat-x;
-	background-image: URL("/images/ruler.png");
-}
