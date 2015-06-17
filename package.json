@@ -1,5 +1,5 @@
 {
-  "name": "viditor-chrono",
+  "name": "viditor",
   "version": "1.0.0",
   "contributors": [
     "Andrew McPherson",
@@ -7,10 +7,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/viditor/chrono"
+    "url": "https://github.com/viditor/viditor"
   },
   "dependencies": {
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "reqwest": "^1.1.5"
   },
   "devDependencies": {
     "aliasify": "~1.7.2",
